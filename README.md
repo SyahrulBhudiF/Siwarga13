@@ -302,9 +302,7 @@
 
 - If there are update change in your fork, always synced that, because you cannot push and crate pull request without
   that
-- When Checkout, Push or Pull, always check your git branch is related to your Role
+- When Checkout, Push or Pull, always check your git branch
 - Don't push to master with 'git push origin master' when add code change to GitHub
 - Always create Pull request like steps 8
-- if in Discord that connected with webhook had notify about pull request, you can join discussion and review your teams
-  code 
 
