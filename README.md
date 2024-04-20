@@ -2,7 +2,6 @@
 
 ---
 
-![Preview Image]()
 
 > The web-based Rukun Warga Administration application is an application to learn more about the activities, benefits,
 > and purposes as well as the importance of administation at RW. This application is made using Laravel version 10 and
@@ -35,10 +34,10 @@
 
 ---
 
-- M. Rifki Harto
-- Emir Abiyyu D
-- Dynasti Marcelina P
-- Syahrul Bhudi ferdiansyah
+- Dyinastie Marchelina Puspitawening
+- Emir Abiyyu Delanggra
+- Muhammad Rifky Harto Biantoro
+- Syahrul Bhudi Ferdiansyah
 
 ### **🕙 Installation:**
 
@@ -60,7 +59,7 @@
     git clone https://github.com/Your_Github_Address/Siwarga13
     ```
 
-   note: change "Your_Github_Address" with your actual address, like: Lukman289 or MuhammadKhairunnasNurdin
+   note: change "Your_Github_Address" with your actual address, like: SyahrulBhudiF or Rifki4w
 
 4. Enter path folder repository:
 
