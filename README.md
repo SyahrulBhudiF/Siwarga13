@@ -87,11 +87,11 @@
     php artisan key:generate
     ```
 
-8. Create new Database `db_pbl` (match the database name in the file `.env`) in phpmyadmin or terminal:
+8. Create new Database `Siwarga13` (match the database name in the file `.env`) in phpmyadmin or terminal:
 
     ```bash
     mysql -u root -p
-    create database db_pbl;
+    create database Siwarga13;
     exit;
     ```
 
@@ -117,7 +117,7 @@
     Click Start in Laragon UI
 
 12. Open browser and Access Localhost `http://localhost:8000` (for Laravel Server)
-    or `http://localhost/www/Laravel_PBL` (for Laragon Server)
+    or `http://localhost/www/Siwarga13` (for Laragon Server)
 
 #### note: for steps 2-11 or any of steps that using bash or command syntax, you can do those bash syntax in your terminal or IDE-integrated terminal ####
 
@@ -126,7 +126,7 @@
 ---
 
 1. Sync Your Fork repository:
-   You can click in middle top right in Your GitHub repository: Laravel_PBL
+   You can click in middle top right in Your GitHub repository: Siwarga13
 
 2. check your git status, specifically in branch:
 
@@ -141,6 +141,10 @@
    or
     ```bash
    git checkout backend
+   ```
+   or
+    ```bash
+   git checkout dev
    ```
    or
     ```bash
