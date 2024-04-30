@@ -8,7 +8,24 @@
     <title>Siwarga13</title>
     @vite('resources/css/app.css')
 </head>
-<body>
-<h1 class="font-semibold text-amber-400">TEST</h1>
+<body class="w-screen h-screen overflow-hidden flex">
+{{--SideBar--}}
+<aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
+    <nav class="flex flex-col h-full bg-Primary/20 gap-3 p-4">
+        {{--Header--}}
+        @include('layouts.sidebar')
+    </nav>
+</aside>
+<section
+    class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 border-l border-l-Neutral/30 w-full h-full">
+    {{--Header--}}
+    @include('layouts.header')
+    {{--Content--}}
+    <div class="flex flex-col gap-5 p-4 h-full">
+        <div class="h-[85%]">
+            @yield('content')
+        </div>
+    </div>
+</section>
 </body>
 </html>
