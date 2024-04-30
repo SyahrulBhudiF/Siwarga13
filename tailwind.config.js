@@ -18,6 +18,8 @@ export default {
                 "Neutral/80": "#6C6C6C",
                 "Neutral/90": "#4D4D4D",
                 "Neutral/100": "#1B1B1B",
+                "Primary/10": "#025864",
+                "Primary/20": "#f5f7f9",
             },
         },
     },

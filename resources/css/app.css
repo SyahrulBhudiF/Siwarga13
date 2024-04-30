@@ -8,3 +8,19 @@
     font-family: 'Inter', sans-serif;
     letter-spacing: -0.3px;
 }
+
+.activeSidebar {
+    @apply flex items-center p-3 gap-2 rounded-xl bg-Neutral/10;
+}
+
+.activeFontSidebar {
+    @apply font-medium text-sm text-Primary/10;
+}
+
+.defaultSidebar {
+    @apply flex items-center p-3 gap-2 rounded-xl;
+}
+
+.defaultFontSidebar {
+    @apply font-medium text-sm text-Neutral/70;
+}
