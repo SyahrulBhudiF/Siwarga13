@@ -12,7 +12,6 @@
 {{--SideBar--}}
 <aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
     <nav class="flex flex-col h-full bg-Primary/20 gap-3 p-4">
-        {{--Header--}}
         @include('layouts.sidebar')
     </nav>
 </aside>
@@ -21,7 +20,7 @@
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}
-    <div class="flex flex-col gap-5 p-4 h-full">
+    <div class="flex flex-col gap-5 py-6 px-5 h-full">
         <div class="h-[85%]">
             @yield('content')
         </div>

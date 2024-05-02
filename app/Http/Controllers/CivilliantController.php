@@ -13,7 +13,9 @@ class CivilliantController extends Controller
     {
         $data = [
             'title' => 'Kelola Data Warga',
-            'active' => 'warga'
+            'active' => 'warga',
+            'head' => 'List Data Warga RW 13',
+            'desc' => 'Berikut adalah data warga terdaftar di sistem RW 13.',
         ];
 
         return view('pages.civillian.index', ['data' => $data]);
@@ -24,7 +26,7 @@ class CivilliantController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.civillian.create');
     }
 
     /**
