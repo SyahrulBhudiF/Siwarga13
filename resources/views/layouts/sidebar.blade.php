@@ -1,7 +1,7 @@
 <div class="flex justify-between items-center p-3 bg-white rounded-xl">
     <div class="flex flex-col py-1 px-3">
         <p class="text-xs text-Primary/10 font-medium">Siwarga13</p>
-        <p class="text-base font-semibold">Admin RW</p>
+        <p class="text-base text-Neutral/100 font-semibold">Admin RW</p>
     </div>
     <img src="{{asset("svg/dot3.svg")}}" alt="svg" class="cursor-pointer w-[8%]">
 </div>
