@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +12,6 @@ return new class extends Migration
     {
         Schema::create('dokumentasi', function (Blueprint $table) {
             $table->integer('id_dokumentasi', true);
-            $table->integer('id_file')->nullable()->index('id_file');
             $table->string('judul', 50)->nullable();
             $table->text('content')->nullable();
         });

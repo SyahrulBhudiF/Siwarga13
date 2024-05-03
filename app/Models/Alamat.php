@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Alamat extends Model
 {
@@ -32,7 +33,7 @@ class Alamat extends Model
     /*
      *  Relationship to Warga
      * */
-    public function warga()
+    public function warga(): hasOne
     {
         return $this->hasOne(Warga::class, 'id_alamat', 'id_alamat');
     }

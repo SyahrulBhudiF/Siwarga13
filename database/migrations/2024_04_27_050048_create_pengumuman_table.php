@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->integer('id_pengumuman', true);
-            $table->integer('id_file')->nullable()->index('id_file');
             $table->string('judul', 50)->nullable();
             $table->text('content')->nullable();
             $table->enum('urgensi', ['Biasa', 'Segera', 'Penting'])->nullable();

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class File extends Model
 {
@@ -24,30 +25,30 @@ class File extends Model
     /**
      * Get all of the comments for the File
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function umkm()
+    public function umkm(): belongsTo
     {
-        return $this->hasMany(Umkm::class, 'id_file', 'id_file');
+        return $this->belongsTo(Umkm::class, 'id_file', 'id_file');
     }
 
     /**
      * Get all of the comments for the File
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function dokumentasi()
+    public function dokumentasi(): belongsTo
     {
-        return $this->hasMany(Dokumentasi::class, 'id_file', 'id_file');
+        return $this->belongsTo(Dokumentasi::class, 'id_file', 'id_file');
     }
 
     /**
      * Get all of the comments for the File
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function pengumuman()
+    public function pengumuman(): belongsTo
     {
-        return $this->hasMany(Pengumuman::class, 'id_file', 'id_file');
+        return $this->belongsTo(Pengumuman::class, 'id_file', 'id_file');
     }
 }

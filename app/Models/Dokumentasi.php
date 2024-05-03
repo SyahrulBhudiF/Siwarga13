@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Dokumentasi extends Model
 {
@@ -24,10 +25,10 @@ class Dokumentasi extends Model
     /**
      * Get the file that owns the Dokumentasi
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function file()
+    public function file(): hasMany
     {
-        return $this->belongsTo(file::class, 'id_file', 'id_file');
+        return $this->hasMany(file::class, 'id_file', 'id_file');
     }
 }
