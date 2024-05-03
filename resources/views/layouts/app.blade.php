@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -26,5 +26,6 @@
         </div>
     </div>
 </section>
+@stack('js')
 </body>
 </html>

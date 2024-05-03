@@ -24,3 +24,15 @@
 .defaultFontSidebar {
     @apply font-medium text-sm text-Neutral/70;
 }
+
+.filterButton {
+    @apply py-[0.625rem] px-5 rounded-[1.25rem] border border-Neutral/30 font-normal text-sm text-Neutral/70 transition ease-in-out duration-200;
+}
+
+.activeFilterButton {
+    @apply border-Primary/10 text-Primary/10;
+}
+
+.focusElement {
+    @apply focus:border-Primary/10 focus:text-Primary/10;
+}
