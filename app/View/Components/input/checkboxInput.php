@@ -11,15 +11,20 @@ class checkboxInput extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public string $id, $name, $value;
+
+    public function __construct($id, $name, $value)
     {
-        //
+        $this->id = $id;
+        $this->name = $name;
+        $this->value = $value;
     }
 
     /**
      * Get the view / contents that represent the component.
      */
-    public function render(): View|Closure|string
+    public
+    function render(): View|Closure|string
     {
         return view('components.input.checkbox-input');
     }

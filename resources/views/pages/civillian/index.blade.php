@@ -3,7 +3,7 @@
     <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
         <x-buttons.primary-button href="{{route('warga.create')}}">Tambah Data</x-buttons.primary-button>
     </x-etc.header-content>
-    <div class="flex mt-5 justify-between">
+    <div class="flex justify-between">
         <div class="flex items-center gap-2">
             <x-buttons.filter-button id="RW">RW 13 (Semua RT)</x-buttons.filter-button>
             <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
@@ -20,6 +20,7 @@
             <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
         </div>
     </div>
+    <x-table.data-table :headers="['No', 'NIK', 'KK', 'Nama', 'RT', 'Alamat', 'Aksi']"></x-table.data-table>
 @endsection
 @push('js')
     <script>

@@ -21,7 +21,7 @@
     @include('layouts.header')
     {{--Content--}}
     <div class="flex flex-col gap-5 py-6 px-5 h-full">
-        <div class="h-[85%]">
+        <div class="h-[85%] flex flex-col gap-5">
             @yield('content')
         </div>
     </div>

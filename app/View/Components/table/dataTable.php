@@ -1,23 +1,21 @@
 <?php
 
-namespace App\View\Components\input;
+namespace App\View\Components\table;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class radioInput extends Component
+class dataTable extends Component
 {
     /**
      * Create a new component instance.
      */
-    public string $name, $value, $id;
+    public $headers;
 
-    public function __construct($name, $value, $id)
+    public function __construct($headers)
     {
-        $this->name = $name;
-        $this->value = $value;
-        $this->id = $id;
+        $this->headers = $headers;
     }
 
     /**
@@ -25,6 +23,6 @@ class radioInput extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.input.radio-input');
+        return view('components.table.data-table');
     }
 }

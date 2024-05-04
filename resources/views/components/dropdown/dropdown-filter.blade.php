@@ -24,7 +24,7 @@
         </svg>
         {{$slot}}
         <span id="count"
-              class="hidden rounded-full bg-Primary/10 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease duration-200"></span>
+              class="hidden rounded-full bg-Primary/10 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
     </button>
     <form tabindex="0"
           class="dropdown-content z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
