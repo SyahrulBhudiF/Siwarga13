@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -14,13 +15,9 @@ return new class extends Migration {
             $table->integer('id_file', true);
             $table->string('path')->nullable();
             $table->enum('type', ['umkm', 'dokumentasi', 'pengumuman']);
-            $table->integer('umkm_id')->nullable();
-            $table->integer('dokumentasi_id')->nullable();
-            $table->integer('pengumuman_id')->nullable();
-
-            $table->foreign('umkm_id')->references('id_umkm')->on('umkm')->onDelete('cascade');
-            $table->foreign('dokumentasi_id')->references('id_dokumentasi')->on('dokumentasi')->onDelete('cascade');
-            $table->foreign('pengumuman_id')->references('id_pengumuman')->on('pengumuman')->onDelete('cascade');
+            $table->integer('umkm_id')->nullable()->index('file_umkm_id_foreign');
+            $table->integer('dokumentasi_id')->nullable()->index('file_dokumentasi_id_foreign');
+            $table->integer('pengumuman_id')->nullable()->index('file_pengumuman_id_foreign');
         });
     }
 
