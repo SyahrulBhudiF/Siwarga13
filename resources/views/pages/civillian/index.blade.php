@@ -16,7 +16,7 @@
             <x-buttons.filter-button :data="$data" id="RT 5">RT 005</x-buttons.filter-button>
         </div>
         <div class="flex gap-3 items-center">
-            <x-input.search-input name="search" placeholder="Cari nama"></x-input.search-input>
+            <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
             <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
         </div>
     </div>
