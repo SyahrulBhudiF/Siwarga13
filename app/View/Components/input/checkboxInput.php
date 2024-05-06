@@ -11,7 +11,8 @@ class checkboxInput extends Component
     /**
      * Create a new component instance.
      */
-    public string $id, $name, $value, $checked;
+    public string $id, $name, $value;
+    public bool $checked;
 
     public function __construct($id, $name, $value, $checked)
     {

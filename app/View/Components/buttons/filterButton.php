@@ -11,7 +11,8 @@ class filterButton extends Component
     /**
      * Create a new component instance.
      */
-    public string $id, $data;
+    public string $id;
+    public array $data;
 
     public function __construct($id, $data)
     {

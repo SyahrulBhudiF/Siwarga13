@@ -11,7 +11,8 @@ class radioInput extends Component
     /**
      * Create a new component instance.
      */
-    public string $name, $value, $id, $checked;
+    public string $name, $value, $id;
+    public bool $checked;
 
     public function __construct($name, $value, $id, $checked)
     {
