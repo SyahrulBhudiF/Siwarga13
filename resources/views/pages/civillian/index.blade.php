@@ -55,11 +55,11 @@
             // Get dropdown filter values
             let peranElement = document.querySelector('input[name="peran"]:checked');
             let genderElement = document.querySelector('input[name="gender"]:checked');
-            let statusElements = Array.from(document.querySelectorAll('input[name="status"]:checked'));
+            let statusElements = document.querySelectorAll('input[name="status[]"]:checked');
 
             let peran = peranElement ? peranElement.value : '';
             let gender = genderElement ? genderElement.value : '';
-            let status = statusElements.length > 0 ? statusElements.map(input => input.value) : [];
+            let status = statusElements.length > 0 ? [...statusElements].map(input => input.value) : [];
 
             // Add dropdown filter values to URL if they are not empty
             if (peran !== '') {
@@ -69,7 +69,7 @@
                 url += `&gender=${gender}`;
             }
             if (status.length > 0) {
-                url += `&status=${status.join(',')}`;
+                url += `&status[]=${status.join('&status[]=')}`;
             }
 
             window.location.href = url;
@@ -78,12 +78,13 @@
         document.addEventListener('click', (event) => {
             const dropdown = document.querySelector('.dropdown');
             const button = dropdown.querySelector('#filterInput');
-            const urlParams = new URLSearchParams(window.location.search);
-            const filters = ['peran', 'gender', 'status'];
+            const filters = [['peran'], ['gender'], ['status[]']];
             let activeFilters = 0;
             for (let filter of filters) {
-                if (urlParams.has(filter)) {
-                    activeFilters++;
+                let filterValues = urlParams.getAll(filter[0]);
+                if (filterValues.length > 0) {
+                    filter.push(...filterValues);
+                    activeFilters += filterValues.length;
                 }
             }
 
@@ -96,15 +97,16 @@
             }
         });
 
+        // count filter on
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
-
-            const filters = ['peran', 'gender', 'status'];
-
+            const filters = [['peran'], ['gender'], ['status[]']];
             let activeFilters = 0;
             for (let filter of filters) {
-                if (urlParams.has(filter)) {
-                    activeFilters++;
+                let filterValues = urlParams.getAll(filter[0]);
+                if (filterValues.length > 0) {
+                    filter.push(...filterValues);
+                    activeFilters += filterValues.length;
                 }
             }
 

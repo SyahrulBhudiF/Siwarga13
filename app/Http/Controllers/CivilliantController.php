@@ -53,9 +53,17 @@ class CivilliantController extends Controller
         }
 
         if ($request->has('status')) {
-            $query->whereHas('status', function ($query) use ($request) {
-                $query->where('status_hidup', $request->input('status'));
-            });
+            $status = $request->input('status');
+            if (is_array($status)) {
+                $query->whereHas('status', function ($query) use ($status) {
+                    $query->whereIn('status_hidup', $status);
+                });
+
+            } else {
+                $query->whereHas('status', function ($query) use ($status) {
+                    $query->where('status_hidup', $status);
+                });
+            }
         }
 
         return $query;

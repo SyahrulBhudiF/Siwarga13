@@ -28,7 +28,6 @@
     </button>
     <form tabindex="0" action="{{ route('warga.index') }}" method="GET"
           class="dropdown-content z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
-        @csrf
         <input type="hidden" name="rt" value="{{ request()->get('rt') }}">
         <div class="flex justify-between items-center">
             <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
@@ -66,16 +65,19 @@
         <div class="flex flex-col gap-2">
             <p class="text-Neutral/100 text-sm font-medium">Status Warga</p>
             <div class="groupInput">
-                <x-input.checkbox-input name="status" id="hidup" value="Hidup"
-                                        checked="{{ request()->get('status') == 'Hidup'}}">
+                @php
+                    $status = request()->input('status', []);
+                @endphp
+                <x-input.checkbox-input name="status[]" id="hidup" value="Hidup"
+                                        checked="{{ in_array('Hidup',$status)}}">
                     Hidup
                 </x-input.checkbox-input>
-                <x-input.checkbox-input name="status" id="meninggal" value="Meninggal"
-                                        checked="{{ request()->get('status') == 'Meninggal'}}">
+                <x-input.checkbox-input name="status[]" id="meninggal" value="Meninggal"
+                                        checked="{{ in_array('Meninggal',$status)}}">
                     Meninggal
                 </x-input.checkbox-input>
-                <x-input.checkbox-input name="status" id="pindah" value="Pindah"
-                                        checked="{{ request()->get('status') == 'Pindah'}}">
+                <x-input.checkbox-input name="status[]" id="pindah" value="Pindah"
+                                        checked="{{ in_array('Pindah',$status)}}">
                     Pindah
                 </x-input.checkbox-input>
             </div>
