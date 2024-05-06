@@ -1,6 +1,7 @@
-<label for="{{$id}}"
+<label for="searchInput"
        class="flex items-center gap-2 xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] w-fit rounded-[1.25rem] border border-Neutral/30 font-normal  focus-within:border-Primary/10 focus-within:text-Primary/10">
-    <input type="search" name="{{$name}}" id="{{$id}}" placeholder="{{$placeholder}}" class="outline-none bg-white">
+    <input type="search" onkeyup="searchFunction()" name="{{$name}}" id="searchInput" placeholder="{{$placeholder}}"
+           class="outline-none bg-white">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" class="">
         <path
             d="M9.58329 18.1251C4.87496 18.1251 1.04163 14.2917 1.04163 9.58342C1.04163 4.87508 4.87496 1.04175 9.58329 1.04175C14.2916 1.04175 18.125 4.87508 18.125 9.58342C18.125 14.2917 14.2916 18.1251 9.58329 18.1251ZM9.58329 2.29175C5.55829 2.29175 2.29163 5.56675 2.29163 9.58342C2.29163 13.6001 5.55829 16.8751 9.58329 16.8751C13.6083 16.8751 16.875 13.6001 16.875 9.58342C16.875 5.56675 13.6083 2.29175 9.58329 2.29175Z"

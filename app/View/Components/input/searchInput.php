@@ -11,13 +11,12 @@ class searchInput extends Component
     /**
      * Create a new component instance.
      */
-    public $name, $placeholder, $id;
+    public $name, $placeholder;
 
-    public function __construct($name, $placeholder, $id)
+    public function __construct($name, $placeholder)
     {
         $this->name = $name;
         $this->placeholder = $placeholder;
-        $this->id = $id;
     }
 
     /**

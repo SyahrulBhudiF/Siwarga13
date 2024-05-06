@@ -11,11 +11,12 @@ class dataTable extends Component
     /**
      * Create a new component instance.
      */
-    public $headers;
+    public $headers, $data;
 
-    public function __construct($headers)
+    public function __construct($headers, $data)
     {
         $this->headers = $headers;
+        $this->data = $data;
     }
 
     /**

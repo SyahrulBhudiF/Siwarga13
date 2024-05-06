@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Warga;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class CivilliantController extends Controller
@@ -9,16 +11,54 @@ class CivilliantController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = [
             'title' => 'Kelola Data Warga',
             'active' => 'warga',
             'head' => 'List Data Warga RW 13',
             'desc' => 'Berikut adalah data warga terdaftar di sistem RW 13.',
+            'rt' => 'RW'
         ];
 
-        return view('pages.civillian.index', ['data' => $data]);
+        $rt = $request->input('rt', null);
+        if ($rt !== null && $rt !== 'RW') {
+            $data['rt'] = $rt;
+        }
+
+        $warga = $this->getFilteredData($request, $rt)->paginate(6);
+        $warga->appends(request()->all());
+
+        return view('pages.civillian.index', ['data' => $data, 'warga' => $warga]);
+    }
+
+    private function getFilteredData(Request $request, $rt)
+    {
+        $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
+
+        if ($rt !== null && $rt !== 'RW') {
+            $query->whereHas('alamat', function ($query) use ($rt) {
+                $query->where('rt', $rt);
+            });
+        }
+
+        if ($request->has('peran')) {
+            $query->whereHas('status', function ($query) use ($request) {
+                $query->where('status_peran', $request->input('peran'));
+            });
+        }
+
+        if ($request->has('gender')) {
+            $query->where('jenis_kelamin', $request->input('gender'));
+        }
+
+        if ($request->has('status')) {
+            $query->whereHas('status', function ($query) use ($request) {
+                $query->where('status_hidup', $request->input('status'));
+            });
+        }
+
+        return $query;
     }
 
     /**

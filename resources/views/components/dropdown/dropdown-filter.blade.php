@@ -26,9 +26,10 @@
         <span id="count"
               class="hidden rounded-full bg-Primary/10 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
     </button>
-    <form tabindex="0"
+    <form tabindex="0" action="{{ route('warga.index') }}" method="GET"
           class="dropdown-content z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
         @csrf
+        <input type="hidden" name="rt" value="{{ request()->get('rt') }}">
         <div class="flex justify-between items-center">
             <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
             <span onclick="resetInput()"
@@ -37,10 +38,14 @@
         <div class="flex flex-col gap-2">
             <p class="text-Neutral/100 text-sm font-medium">Peran Keluarga</p>
             <div class="groupInput">
-                <x-input.radio-input name="peran" id="kepala" value="Kepala keluarga">
+                <x-input.radio-input name="peran" id="kepala"
+                                     value="Kepala keluarga"
+                                     checked="{{ request()->get('peran') == 'Kepala keluarga' }}">
                     Kepala Keluarga
                 </x-input.radio-input>
-                <x-input.radio-input name="peran" id="anggota" value="Anggota keluarga">
+                <x-input.radio-input name="peran" id="anggota"
+                                     value="Anggota keluarga"
+                                     checked="{{ request()->get('peran') == 'Anggota keluarga'}}">
                     Anggota Keluarga
                 </x-input.radio-input>
             </div>
@@ -48,10 +53,12 @@
         <div class="flex flex-col gap-2">
             <p class="text-Neutral/100 text-sm font-medium">Jenis Kelamin</p>
             <div class="groupInput">
-                <x-input.radio-input name="gender" id="laki" value="Laki-laki">
+                <x-input.radio-input name="gender" id="laki"
+                                     value="Laki-laki" checked="{{ request()->get('gender') == 'Laki-laki'}}">
                     Laki-laki
                 </x-input.radio-input>
-                <x-input.radio-input name="gender" id="perempuan" value="Perempuan">
+                <x-input.radio-input name="gender" id="perempuan"
+                                     value="Perempuan" checked="{{ request()->get('gender') == 'Perempuan'}}">
                     Perempuan
                 </x-input.radio-input>
             </div>
@@ -59,13 +66,16 @@
         <div class="flex flex-col gap-2">
             <p class="text-Neutral/100 text-sm font-medium">Status Warga</p>
             <div class="groupInput">
-                <x-input.checkbox-input name="hidup" id="hidup" value="Hidup">
+                <x-input.checkbox-input name="status" id="hidup" value="Hidup"
+                                        checked="{{ request()->get('status') == 'Hidup'}}">
                     Hidup
                 </x-input.checkbox-input>
-                <x-input.checkbox-input name="meninggal" id="meninggal" value="Meninggal">
+                <x-input.checkbox-input name="status" id="meninggal" value="Meninggal"
+                                        checked="{{ request()->get('status') == 'Meninggal'}}">
                     Meninggal
                 </x-input.checkbox-input>
-                <x-input.checkbox-input name="pindah" id="pindah" value="Pindah">
+                <x-input.checkbox-input name="status" id="pindah" value="Pindah"
+                                        checked="{{ request()->get('status') == 'Pindah'}}">
                     Pindah
                 </x-input.checkbox-input>
             </div>

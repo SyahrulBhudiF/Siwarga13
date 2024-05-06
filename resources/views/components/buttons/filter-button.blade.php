@@ -1,4 +1,4 @@
-<button id="{{$id}}" onclick="active(this)"
-        class="filterButton">
+<a id="{{$id}}" onclick="filterByRT('{{$id}}')"
+   class="filterButton cursor-pointer {{$data['rt'] == $id? 'activeFilterButton' : ''}}">
     {{$slot}}
-</button>
+</a>

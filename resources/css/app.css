@@ -64,3 +64,11 @@
 .activeSubmitButton {
     @apply cursor-pointer bg-Primary/10 text-white;
 }
+
+.firstBodyTable {
+    @apply px-8 border-b 2xl:py-6 lg:py-5 bg-white;
+}
+
+.bodyTable {
+    @apply px-4 2xl:py-6 lg:py-5 border-b bg-white;
+}
