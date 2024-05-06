@@ -74,7 +74,13 @@ class CivilliantController extends Controller
      */
     public function create()
     {
-        return view('pages.civillian.create');
+        $data = [
+            'title' => 'Kelola Data Warga',
+            'active' => 'warga',
+            'head' => 'Tambah Data Warga',
+        ];
+
+        return view('pages.civillian.create', ['data' => $data]);
     }
 
     /**
