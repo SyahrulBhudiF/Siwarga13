@@ -24,3 +24,51 @@
 .defaultFontSidebar {
     @apply font-medium text-sm text-Neutral/70;
 }
+
+.filterButton {
+    @apply xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] rounded-[1.25rem] border border-Neutral/30 font-normal text-Neutral/70 transition ease-in-out duration-200 cursor-pointer btn bg-white hover:border-Primary/10 hover:text-Primary/10 hover:bg-white;
+}
+
+.activeFilterButton {
+    @apply border-Primary/10 text-Primary/10;
+}
+
+.focusElement {
+    @apply border-Primary/10 text-Primary/10;
+}
+
+.radio:checked {
+    box-shadow: 0 0 0 2px var(--fallback-b1, oklch(var(--b1)/1)) inset,
+    0 0 0 3px var(--fallback-b1, oklch(var(--b1)/1)) inset;
+}
+
+.groupInput {
+    @apply flex justify-between items-center gap-3;
+}
+
+.checkbox:checked {
+    background-image: linear-gradient(-45deg, transparent 65%, var(--chkbg) 50%),
+    linear-gradient(45deg, transparent 75%, var(--chkbg) 70%),
+    linear-gradient(-45deg, var(--chkbg) 45%, transparent 10%),
+    linear-gradient(
+        45deg,
+        var(--chkbg) 30%,
+        var(--chkfg) 38%,
+        var(--chkfg) 40%,
+        transparent 20%
+    ),
+    linear-gradient(-45deg, var(--chkfg) 50%, var(--chkbg) 50.99%);
+    --chkbg: #025864;
+}
+
+.activeSubmitButton {
+    @apply cursor-pointer bg-Primary/10 text-white;
+}
+
+.firstBodyTable {
+    @apply px-8 border-b 2xl:py-6 lg:py-5 bg-white;
+}
+
+.bodyTable {
+    @apply px-4 2xl:py-6 lg:py-5 border-b bg-white;
+}

@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('file', function (Blueprint $table) {
             $table->integer('id_file', true);
             $table->string('path')->nullable();
+            $table->enum('type', ['umkm', 'dokumentasi', 'pengumuman']);
+            $table->integer('umkm_id')->nullable()->index('file_umkm_id_foreign');
+            $table->integer('dokumentasi_id')->nullable()->index('file_dokumentasi_id_foreign');
+            $table->integer('pengumuman_id')->nullable()->index('file_pengumuman_id_foreign');
         });
     }
 

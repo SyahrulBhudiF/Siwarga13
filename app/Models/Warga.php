@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Warga extends Model
 {
@@ -25,7 +26,7 @@ class Warga extends Model
     /*
      *  Relationship to Alamat
      * */
-    public function alamat()
+    public function alamat(): belongsTo
     {
         return $this->belongsTo(Alamat::class, 'id_alamat', 'id_alamat');
     }
@@ -33,7 +34,7 @@ class Warga extends Model
     /*
      *  Relationship to Status
      * */
-    public function status()
+    public function status(): belongsTo
     {
         return $this->belongsTo(Status::class, 'id_status', 'id_status');
     }

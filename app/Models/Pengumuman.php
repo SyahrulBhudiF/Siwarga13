@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pengumuman extends Model
 {
@@ -24,8 +25,8 @@ class Pengumuman extends Model
     /**
      * Get the file that owns the Pengumuman
      */
-    public function file()
+    public function file(): hasMany
     {
-        return $this->belongsTo(File::class, 'id_file', 'id_file');
+        return $this->hasMany(File::class, 'id_file', 'id_file');
     }
 }

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dokumentasi', function (Blueprint $table) {
-            $table->integer('id_dokumentasi', true);
-            $table->integer('id_file')->nullable()->index('id_file');
-            $table->string('judul', 50)->nullable();
+        Schema::create('umkm', function (Blueprint $table) {
+            $table->integer('id_umkm', true);
+            $table->integer('id_warga')->nullable()->index('id_warga');
+            $table->string('nama_umkm', 50)->nullable();
             $table->text('content')->nullable();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dokumentasi');
+        Schema::dropIfExists('umkm');
     }
 };

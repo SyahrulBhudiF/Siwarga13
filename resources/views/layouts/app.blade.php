@@ -1,10 +1,11 @@
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Siwarga13</title>
     @vite('resources/css/app.css')
 </head>
@@ -12,7 +13,6 @@
 {{--SideBar--}}
 <aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
     <nav class="flex flex-col h-full bg-Primary/20 gap-3 p-4">
-        {{--Header--}}
         @include('layouts.sidebar')
     </nav>
 </aside>
@@ -21,11 +21,12 @@
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}
-    <div class="flex flex-col gap-5 p-4 h-full">
-        <div class="h-[85%]">
+    <div class="flex flex-col gap-5 py-6 px-5 h-full">
+        <div class="h-[81vh] flex flex-col gap-5">
             @yield('content')
         </div>
     </div>
 </section>
+@stack('js')
 </body>
 </html>

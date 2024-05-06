@@ -27,4 +27,4 @@ function loadRoutes($dir)
     }
 }
 
-loadRoutes(__DIR__ . '/Handler');
+loadRoutes(__DIR__ . '/Handler/web');

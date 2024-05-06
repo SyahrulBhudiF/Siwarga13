@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pengumuman', function (Blueprint $table) {
-            $table->foreign(['id_file'], 'pengumuman_ibfk_1')->references(['id_file'])->on('file')->onUpdate('no action')->onDelete('no action');
+        Schema::table('umkm', function (Blueprint $table) {
+            $table->foreign(['id_warga'], 'umkm_ibfk_1')->references(['id_warga'])->on('warga')->onUpdate('no action')->onDelete('no action');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pengumuman', function (Blueprint $table) {
-            $table->dropForeign('pengumuman_ibfk_1');
+        Schema::table('umkm', function (Blueprint $table) {
+            $table->dropForeign('umkm_ibfk_1');
         });
     }
 };

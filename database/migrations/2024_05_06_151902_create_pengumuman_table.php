@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('dokumentasi', function (Blueprint $table) {
-            $table->foreign(['id_file'], 'dokumentasi_ibfk_1')->references(['id_file'])->on('file')->onUpdate('no action')->onDelete('no action');
+        Schema::create('pengumuman', function (Blueprint $table) {
+            $table->integer('id_pengumuman', true);
+            $table->string('judul', 50)->nullable();
+            $table->text('content')->nullable();
+            $table->enum('urgensi', ['Biasa', 'Segera', 'Penting'])->nullable();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('dokumentasi', function (Blueprint $table) {
-            $table->dropForeign('dokumentasi_ibfk_1');
-        });
+        Schema::dropIfExists('pengumuman');
     }
 };
