@@ -13,7 +13,7 @@
             <div class="flex gap-2 w-full items-center">
                 <x-input.text-input placeholder="Masukkan tempat lahir" id="tempat_lahir" value="">Tempat Lahir
                 </x-input.text-input>
-                <x-input.date-input placeholrder="dd/mm/yy" id="tanggal" value="">Tanggal Lahir
+                <x-input.date-input placeholder="dd/mm/yy" id="tanggal" value="">Tanggal Lahir
                 </x-input.date-input>
             </div>
             <div class="flex flex-col gap-2 w-full">
