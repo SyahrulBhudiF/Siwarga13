@@ -9,6 +9,26 @@
     letter-spacing: -0.3px;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-Neutral/30
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-Neutral/60 rounded-full transition ease-in-out duration-200
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-Neutral/70;
+}
+
 .activeSidebar {
     @apply flex items-center p-3 gap-2 rounded-xl bg-Neutral/10;
 }
@@ -26,7 +46,7 @@
 }
 
 .filterButton {
-    @apply xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] rounded-[1.25rem] border border-Neutral/30 font-normal text-Neutral/70 transition ease-in-out duration-200 cursor-pointer btn bg-white hover:border-Primary/10 hover:text-Primary/10 hover:bg-white;
+    @apply xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] rounded-[1.25rem] border border-Neutral/30 font-normal text-Neutral/70 cursor-pointer bg-white hover:border-Primary/10 hover:text-Primary/10 hover:bg-white;
 }
 
 .activeFilterButton {
@@ -71,4 +91,8 @@
 
 .bodyTable {
     @apply px-4 2xl:py-6 lg:py-5 border-b bg-white;
+}
+
+.buttonAnimation {
+    @apply transition ease-in-out duration-200 active:scale-95
 }

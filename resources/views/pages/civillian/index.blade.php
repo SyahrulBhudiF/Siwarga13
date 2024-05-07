@@ -76,6 +76,7 @@
         document.addEventListener('click', (event) => {
             const dropdown = document.querySelector('.dropdown');
             const button = dropdown.querySelector('#filterInput');
+            const urlParams = new URLSearchParams(window.location.search);
             const filters = [['peran'], ['gender'], ['status[]']];
             let activeFilters = 0;
             for (let filter of filters) {

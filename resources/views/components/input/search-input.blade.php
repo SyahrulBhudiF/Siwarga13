@@ -1,5 +1,5 @@
 <label for="searchInput"
-       class="flex items-center cursor-pointer gap-2 xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] w-fit rounded-[1.25rem] border border-Neutral/30 font-normal  focus-within:border-Primary/10 focus-within:text-Primary/10">
+       class="flex items-center buttonAnimation cursor-pointer gap-2 xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] w-fit rounded-[1.25rem] border border-Neutral/30 font-normal  focus-within:border-Primary/10 focus-within:text-Primary/10">
     <input type="search" onkeyup="searchFunction()" name="{{$name}}" id="searchInput" placeholder="{{$placeholder}}"
            class="outline-none bg-white">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
