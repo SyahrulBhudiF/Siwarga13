@@ -16,6 +16,7 @@
 
 - **[Backend Laravel _10.3.*_](https://laravel.com/docs/10.x/releases#laravel-10)**
 - **[Frontend TailwindCSS](https://tailwindcss.com/docs/installation)**
+- **[Frontend daisyUI](https://daisyui.com/docs/install/)**
 - **[Database Mysql _8.0._](https://dev.mysql.com/doc/refman/8.0/en/)**
 
 ### **Software Requirement:**
@@ -26,6 +27,7 @@
 - **[Github](https://github.com)**
 - **[Composer _2.6.6_](https://getcomposer.org/download/)**
 - **[NodeJS _20_](https://nodejs.org/en/download/current)**
+- **[PNPM _9_](https://pnpm.io/installation)**
 - **[PHP _8.1_](https://www.php.net/downloads.php)
   or [Laragon with bundling php 8.1](https://laragon.org/download/index.html)**
 - **[Postman](https://www.postman.com/downloads/) or [Thunderclient(VScode Extension)](https://www.thunderclient.com/)**
@@ -72,7 +74,7 @@
     ```bash
     composer install
     composer update
-    npm install
+    pnpm install
     ```
 
 6. Copy file `.env.example` to `.env`:
@@ -115,6 +117,11 @@
      ```
     b. Laragon Server:
     Click Start in Laragon UI
+
+    c. Run Tailwind
+    ```bash
+    pnpm run dev or pnpm dev
+    ```
 
 12. Open browser and Access Localhost `http://localhost:8000` (for Laravel Server)
     or `http://localhost/www/Siwarga13` (for Laragon Server)
