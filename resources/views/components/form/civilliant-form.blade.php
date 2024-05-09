@@ -23,7 +23,7 @@
                 Lahir
             </x-input.text-input>
             <x-input.date-input placeholder="dd/mm/yy" id="tanggal"
-                                value="{{is_object($warga) && isset($warga['tanggal']) ? $warga['tanggal'] : ''}}">
+                                value="{{is_object($warga) && isset($warga['tanggal']) ? date('Y-m-d', strtotime($warga['tanggal'])) : ''}}">
                 Tanggal
                 Lahir
             </x-input.date-input>
