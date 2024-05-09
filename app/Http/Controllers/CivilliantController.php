@@ -82,7 +82,7 @@ class CivilliantController extends Controller
             'head' => 'Tambah Data Warga',
         ];
 
-        return view('pages.civillian.create', ['data' => $data]);
+        return view('pages.civillian.create', compact('data'));
     }
 
     /**
@@ -98,7 +98,7 @@ class CivilliantController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -106,7 +106,12 @@ class CivilliantController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find(1);
+        $ttl = $warga['ttl'];
+        $ttl_parts = explode(',', $ttl);
+
+        $warga['tempat_lahir'] = trim($ttl_parts[0]);
+        $warga['tanggal'] = trim($ttl_parts[1]);
     }
 
     /**
