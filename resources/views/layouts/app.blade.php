@@ -9,15 +9,16 @@
     <title>Siwarga13</title>
     @vite('resources/css/app.css')
 </head>
-<body class="w-screen h-screen overflow-hidden flex">
+<body class="w-screen h-screen {{$data['menu'] == 'create' ? 'overflow-x-hidden' : 'overflow-hidden'}} flex">
 {{--SideBar--}}
 <aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
-    <nav class="flex flex-col h-full bg-Primary/20 gap-3 p-4">
+    <nav
+            class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed border-r border-r-Neutral/30">
         @include('layouts.sidebar')
     </nav>
 </aside>
 <section
-    class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 border-l border-l-Neutral/30 w-full h-full">
+        class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative">
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}

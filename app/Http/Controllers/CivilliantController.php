@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAlamatRequest;
+use App\Http\Requests\StoreCivilliantRequest;
+use App\Http\Requests\StoreStatusRequest;
+use App\Models\Alamat;
+use App\Models\Status;
 use App\Models\Warga;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CivilliantController extends Controller
@@ -16,6 +22,7 @@ class CivilliantController extends Controller
         $data = [
             'title' => 'Kelola Data Warga',
             'active' => 'warga',
+            'menu' => 'index',
             'head' => 'List Data Warga RW 13',
             'desc' => 'Berikut adalah data warga terdaftar di sistem RW 13.',
             'rt' => 'RW'
@@ -32,6 +39,9 @@ class CivilliantController extends Controller
         return view('pages.civillian.index', ['data' => $data, 'warga' => $warga]);
     }
 
+    /**
+     * Get filtered data based on request.
+     */
     private function getFilteredData(Request $request, $rt)
     {
         $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
@@ -77,18 +87,29 @@ class CivilliantController extends Controller
         $data = [
             'title' => 'Kelola Data Warga',
             'active' => 'warga',
+            'menu' => 'create',
             'head' => 'Tambah Data Warga',
         ];
 
-        return view('pages.civillian.create', ['data' => $data]);
+        return view('pages.civillian.create', compact('data'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, StoreAlamatRequest $requestAlamat): RedirectResponse
     {
-        //
+        try {
+            $requestCivil->merge([
+                'id_alamat' => Alamat::insertGetId($requestAlamat->all()),
+                'id_status' => Status::insertGetId($requestStatus->all())
+            ]);
+            Warga::insert($requestCivil->all());
+
+            return redirect()->intended(route('warga.index'))->with('success', 'Data berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan saat menambahkan data');
+        }
     }
 
     /**
@@ -96,7 +117,7 @@ class CivilliantController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -104,7 +125,12 @@ class CivilliantController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
+        $ttl = $warga['ttl'];
+        $ttl_parts = explode(',', $ttl);
+
+        $warga['tempat_lahir'] = trim($ttl_parts[0]);
+        $warga['tanggal'] = trim($ttl_parts[1]);
     }
 
     /**

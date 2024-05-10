@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @if(session('success') || session('error'))
+        <x-flash-message></x-flash-message>
+    @endif
     <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
         <x-buttons.primary-button href="{{route('warga.create')}}">Tambah Data</x-buttons.primary-button>
     </x-etc.header-content>
@@ -21,16 +24,16 @@
         </div>
     </div>
     <x-table.data-table :data="$warga"
-                        :headers="['No', 'NIK', 'KK', 'Nama', 'RT', 'Alamat', 'Aksi']">
+                        :headers="['No', 'Nama', 'NIK', 'KK', 'RT', 'Alamat', 'Aksi']">
         @php
             $no = ($warga->currentPage() - 1) * $warga->perPage() + 1;
         @endphp
         @foreach($warga as $dt)
             <x-table.table-row>
                 <td class="firstBodyTable">{{$no}}</td>
+                <td class="bodyTable">{{$dt->nama}}</td>
                 <td class="bodyTable">{{$dt->nik}}</td>
                 <td class="bodyTable">{{$dt->noKK}}</td>
-                <td class="bodyTable">{{$dt->nama}}</td>
                 <td class="bodyTable">{{$dt->alamat->rt}}</td>
                 <td class="bodyTable">{{$dt->alamat->alamat}}</td>
                 <td class="bodyTable">
@@ -76,6 +79,7 @@
         document.addEventListener('click', (event) => {
             const dropdown = document.querySelector('.dropdown');
             const button = dropdown.querySelector('#filterInput');
+            const urlParams = new URLSearchParams(window.location.search);
             const filters = [['peran'], ['gender'], ['status[]']];
             let activeFilters = 0;
             for (let filter of filters) {
@@ -94,6 +98,10 @@
                 });
             }
         });
+
+        setTimeout(function () {
+            document.getElementById('flash').style.display = 'none';
+        }, 2000);
 
         // count filter on
         window.onload = function () {
