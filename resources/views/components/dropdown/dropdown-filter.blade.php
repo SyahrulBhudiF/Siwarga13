@@ -39,12 +39,12 @@
             <div class="groupInput">
                 <x-input.radio-input name="peran" id="kepala"
                                      value="Kepala keluarga"
-                                     checked="{{ request()->get('peran') == 'Kepala keluarga' }}">
+                                     checked="{{ request()->get('peran') == 'Kepala keluarga' }}" fn="a">
                     Kepala Keluarga
                 </x-input.radio-input>
                 <x-input.radio-input name="peran" id="anggota"
                                      value="Anggota keluarga"
-                                     checked="{{ request()->get('peran') == 'Anggota keluarga'}}">
+                                     checked="{{ request()->get('peran') == 'Anggota keluarga'}}" fn="a">
                     Anggota Keluarga
                 </x-input.radio-input>
             </div>
@@ -53,11 +53,11 @@
             <p class="text-Neutral/100 text-sm font-medium">Jenis Kelamin</p>
             <div class="groupInput">
                 <x-input.radio-input name="gender" id="laki"
-                                     value="Laki-laki" checked="{{ request()->get('gender') == 'Laki-laki'}}">
+                                     value="Laki-laki" checked="{{ request()->get('gender') == 'Laki-laki'}}" fn="a">
                     Laki-laki
                 </x-input.radio-input>
                 <x-input.radio-input name="gender" id="perempuan"
-                                     value="Perempuan" checked="{{ request()->get('gender') == 'Perempuan'}}">
+                                     value="Perempuan" checked="{{ request()->get('gender') == 'Perempuan'}}" fn="a">
                     Perempuan
                 </x-input.radio-input>
             </div>

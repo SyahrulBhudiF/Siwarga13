@@ -4,3 +4,4 @@
            class="outline-none border border-Neutral/30 rounded-[1.25rem] px-4 py-2 focus:border-Primary/10 focus:text-Primary/10"
            id="{{$id}}" name="{{$id}}" placeholder="{{$placeholder}}" value="{{$value}}">
 </label>
+

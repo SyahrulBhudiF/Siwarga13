@@ -18,7 +18,7 @@
     </nav>
 </aside>
 <section
-        class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full">
+        class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative">
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}

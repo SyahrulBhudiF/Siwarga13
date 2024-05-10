@@ -37,18 +37,26 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            const form = document.querySelector('form');
-            const inputs = Array.from(form.querySelectorAll('input, select'));
-            const submitButton = form.querySelector('button[type="submit"]');
+            const inputs = document.querySelectorAll('input, select');
+            const submitButton = document.querySelector('button[type="submit"]');
 
             function checkInputs() {
-                const allFilled = inputs.every(input => input.value.trim() !== '');
-                submitButton.disabled = !allFilled;
+                let allFilled = true;
+
+                inputs.forEach(input => {
+                    if (input.type !== 'radio' && !input.value.trim()) {
+                        allFilled = false;
+                    } else if (input.type === 'radio' && !document.querySelector(`input[name="${input.name}"]:checked`)) {
+                        allFilled = false;
+                    }
+                });
 
                 if (allFilled) {
-                    submitButton.classList.remove('cursor-not-allowed', 'pointer-events-none');
+                    submitButton.removeAttribute('disabled');
+                    submitButton.classList.remove('bg-Neutral/30', 'pointer-events-none');
                 } else {
-                    submitButton.classList.add('cursor-not-allowed', 'pointer-events-none');
+                    submitButton.setAttribute('disabled', 'disabled');
+                    submitButton.classList.add('bg-Neutral/30', 'pointer-events-none');
                 }
             }
 
@@ -56,7 +64,7 @@
                 input.addEventListener('input', checkInputs);
             });
 
-            // Cek input saat halaman dimuat
+            // Check inputs initially
             checkInputs();
         });
     </script>
