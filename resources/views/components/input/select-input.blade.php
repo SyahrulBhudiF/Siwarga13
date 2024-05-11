@@ -1,5 +1,6 @@
 <div class="dropdown dropdown-bottom flex flex-col gap-2 w-full">
-    <label class="flex flex-col gap-2 w-full group" for="{{$id}}" onclick="toggleDropdown('content-{{$id}}')">
+    <label class="flex flex-col gap-2 w-full group" for="{{$id}}"
+           @if(Route::currentRouteName() != 'warga.show') onclick="toggleDropdown('content-{{$id}}')" @endif>
         <span class="text-Neutral/100 text-sm font-medium">{{$slot}}</span>
         <label for="{{$id}}" class="flex items-center w-full relative">
             <input type="text" id="{{$id}}" name="{{$id}}" value="{{$value}}"
@@ -22,17 +23,19 @@
             </svg>
         </label>
     </label>
-    <ul tabindex="0" id="content-{{$id}}"
-        class="dropdown-content z-[1] menu px-3 py-4 mt-2 shadow rounded-[1.25rem] flex flex-col w-full bg-white border border-Neutral/30 gap-4">
-        @foreach($options as $option)
-            <li class="cursor-pointer hover:bg-Neutral/20 hover:text-Primary/10 py-2 px-3 rounded-[1.25rem] transition ease-in-out duration-200"
-                onclick="selectOption(this, '{{$id}}')">
-                {{ $option }}
-            </li>
-            @if (!$loop->last)
-                <hr class="border-t border-Neutral/30">
-            @endif
-        @endforeach
-    </ul>
+    @if(Route::currentRouteName() != 'warga.show')
+        <ul tabindex="0" id="content-{{$id}}"
+            class="dropdown-content z-[1] menu px-3 py-4 mt-2 shadow rounded-[1.25rem] flex flex-col w-full bg-white border border-Neutral/30 gap-4">
+            @foreach($options as $option)
+                <li class="cursor-pointer hover:bg-Neutral/20 hover:text-Primary/10 py-2 px-3 rounded-[1.25rem] transition ease-in-out duration-200"
+                    onclick="selectOption(this, '{{$id}}')">
+                    {{ $option }}
+                </li>
+                @if (!$loop->last)
+                    <hr class="border-t border-Neutral/30">
+                @endif
+            @endforeach
+        </ul>
+    @endif
 </div>
 
