@@ -9,7 +9,7 @@
     <title>Siwarga13</title>
     @vite('resources/css/app.css')
 </head>
-<body class="w-screen h-screen {{$data['menu'] == 'create' ? 'overflow-x-hidden' : 'overflow-hidden'}} flex">
+<body class="w-screen h-screen {{$data['menu'] != 'index' ? 'overflow-x-hidden' : 'overflow-hidden'}} flex">
 {{--SideBar--}}
 <aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
     <nav

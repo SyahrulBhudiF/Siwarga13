@@ -94,6 +94,17 @@ class CivilliantController extends Controller
         return view('pages.civillian.create', compact('data'));
     }
 
+    private function convertTTL($warga)
+    {
+        $ttl = $warga['ttl'];
+        $ttl_parts = explode(',', $ttl);
+
+        $warga['tempat_lahir'] = trim($ttl_parts[0]);
+        $warga['tanggal'] = trim($ttl_parts[1]);
+
+        return $warga;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -117,7 +128,17 @@ class CivilliantController extends Controller
      */
     public function show(string $id)
     {
-        return view('pages.civillian.detail');
+        $data = [
+            'title' => 'Kelola Data Warga',
+            'active' => 'warga',
+            'menu' => 'show',
+            'head' => 'Detail Warga',
+        ];
+
+        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
+        $warga = $this->convertTTL($warga);
+
+        return view('pages.civillian.detail', compact('data', 'warga'));
     }
 
     /**
@@ -126,11 +147,7 @@ class CivilliantController extends Controller
     public function edit(string $id)
     {
         $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
-        $ttl = $warga['ttl'];
-        $ttl_parts = explode(',', $ttl);
-
-        $warga['tempat_lahir'] = trim($ttl_parts[0]);
-        $warga['tanggal'] = trim($ttl_parts[1]);
+        $warga = $this->convertTTL($warga);
     }
 
     /**
