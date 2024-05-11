@@ -146,8 +146,17 @@ class CivilliantController extends Controller
      */
     public function edit(string $id)
     {
+        $data = [
+            'title' => 'Kelola Data Warga',
+            'active' => 'warga',
+            'menu' => 'edit',
+            'head' => 'Ubah Data Warga',
+        ];
+
         $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
         $warga = $this->convertTTL($warga);
+
+        return view('pages.civillian.edit', compact('data', 'warga'));
     }
 
     /**

@@ -1,6 +1,9 @@
 <div class="flex justify-center w-full mt-4">
     <form method="post" action="{{$action}}" class="flex flex-col gap-5 items-center w-[50%] mb-[10vh]">
         @csrf
+        @if(is_object($warga))
+            @method('PUT')
+        @endif
         <div class="w-full">
             <x-input.text-input placeholder="Masukkan nomor NIK" id="nik"
                                 value="{{ old('nik', is_object($warga) && isset($warga['nik']) ? $warga['nik'] : '')}}">
