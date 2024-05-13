@@ -37,7 +37,7 @@
                 <td class="bodyTable">{{$dt->alamat->rt}}</td>
                 <td class="bodyTable">{{$dt->alamat->alamat}}</td>
                 <td class="bodyTable">
-                    <a href="warga/{{$dt->id}}"
+                    <a href="{{ route('warga.show', $dt->id_warga) }}"
                        class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium xl:text-base lg:text-xs py-3 px-4 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
                 </td>
             </x-table.table-row>

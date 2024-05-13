@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAlamatRequest;
-use App\Http\Requests\StoreCivilliantRequest;
-use App\Http\Requests\StoreStatusRequest;
+use App\Http\Requests\alamat\StoreAlamatRequest;
+use App\Http\Requests\alamat\UpdateAlamatRequest;
+use App\Http\Requests\civilliant\StoreCivilliantRequest;
+use App\Http\Requests\civilliant\UpdateCivilliantRequest;
+use App\Http\Requests\status\StoreStatusRequest;
+use App\Http\Requests\status\UpdateStatusRequest;
 use App\Models\Alamat;
 use App\Models\Status;
 use App\Models\Warga;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -37,46 +39,6 @@ class CivilliantController extends Controller
         $warga->appends(request()->all());
 
         return view('pages.civillian.index', ['data' => $data, 'warga' => $warga]);
-    }
-
-    /**
-     * Get filtered data based on request.
-     */
-    private function getFilteredData(Request $request, $rt)
-    {
-        $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
-
-        if ($rt !== null && $rt !== 'RW') {
-            $query->whereHas('alamat', function ($query) use ($rt) {
-                $query->where('rt', $rt);
-            });
-        }
-
-        if ($request->has('peran')) {
-            $query->whereHas('status', function ($query) use ($request) {
-                $query->where('status_peran', $request->input('peran'));
-            });
-        }
-
-        if ($request->has('gender')) {
-            $query->where('jenis_kelamin', $request->input('gender'));
-        }
-
-        if ($request->has('status')) {
-            $status = $request->input('status');
-            if (is_array($status)) {
-                $query->whereHas('status', function ($query) use ($status) {
-                    $query->whereIn('status_hidup', $status);
-                });
-
-            } else {
-                $query->whereHas('status', function ($query) use ($status) {
-                    $query->where('status_hidup', $status);
-                });
-            }
-        }
-
-        return $query;
     }
 
     /**
@@ -117,7 +79,17 @@ class CivilliantController extends Controller
      */
     public function show(string $id)
     {
+        $data = [
+            'title' => 'Kelola Data Warga',
+            'active' => 'warga',
+            'menu' => 'show',
+            'head' => 'Detail Warga',
+        ];
 
+        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
+        $warga = $this->convertTTL($warga);
+
+        return view('pages.civillian.detail', compact('data', 'warga'));
     }
 
     /**
@@ -125,27 +97,107 @@ class CivilliantController extends Controller
      */
     public function edit(string $id)
     {
-        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
-        $ttl = $warga['ttl'];
-        $ttl_parts = explode(',', $ttl);
+        $data = [
+            'title' => 'Kelola Data Warga',
+            'active' => 'warga',
+            'menu' => 'edit',
+            'head' => 'Ubah Data Warga',
+        ];
 
-        $warga['tempat_lahir'] = trim($ttl_parts[0]);
-        $warga['tanggal'] = trim($ttl_parts[1]);
+        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
+        $warga = $this->convertTTL($warga);
+
+        return view('pages.civillian.edit', compact('data', 'warga'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCivilliantRequest $civilliantRequest, UpdateAlamatRequest $alamatRequest, UpdateStatusRequest $statusRequest, string $id): RedirectResponse
     {
-        //
+        try {
+            $updated = false;
+
+            if ($civilliantRequest->all() !== []) {
+                Warga::find($id)->update($civilliantRequest->all());
+                $updated = true;
+            }
+
+            if ($alamatRequest->all() !== []) {
+                Alamat::find(Warga::find($id)->id_alamat)->update($alamatRequest->all());
+                $updated = true;
+            }
+
+            if ($statusRequest->all() !== []) {
+                Status::find(Warga::find($id)->id_status)->update($statusRequest->all());
+                $updated = true;
+            }
+
+            if (!$updated) {
+                return redirect()->intended(route('warga.show', ['warga' => $id]))
+                    ->with('error', 'Tidak ada Data yang diubah!');
+            }
+
+            return redirect()->intended(route('warga.show', ['warga' => $id]))
+                ->with('success', 'Data berhasil diubah!');
+
+        } catch (\Exception $e) {
+            return redirect()->intended(route('warga.show', ['warga' => $id]))
+                ->with('error', 'Terjadi kesalahan saat mengubah data');
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Convert TTL to tempat_lahir and tanggal.
      */
-    public function destroy(string $id)
+    private function convertTTL($warga)
     {
-        //
+        $ttl = $warga['ttl'];
+        $ttl_parts = explode(',', $ttl);
+
+        $warga['tempat_lahir'] = trim($ttl_parts[0]);
+        $warga['tanggal'] = trim($ttl_parts[1]);
+
+        return $warga;
+    }
+
+    /**
+     * Get filtered data based on request.
+     */
+    private function getFilteredData(Request $request, $rt)
+    {
+        $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
+
+        if ($rt !== null && $rt !== 'RW') {
+            $query->whereHas('alamat', function ($query) use ($rt) {
+                $query->where('rt', $rt);
+            });
+        }
+
+        if ($request->has('peran')) {
+            $query->whereHas('status', function ($query) use ($request) {
+                $query->where('status_peran', $request->input('peran'));
+            });
+        }
+
+        if ($request->has('gender')) {
+            $query->where('jenis_kelamin', $request->input('gender'));
+        }
+
+        if ($request->has('status')) {
+            $status = $request->input('status');
+            if (is_array($status)) {
+                $query->whereHas('status', function ($query) use ($status) {
+                    $query->whereIn('status_hidup', $status);
+                });
+
+            } else {
+                $query->whereHas('status', function ($query) use ($status) {
+                    $query->where('status_hidup', $status);
+                });
+            }
+        }
+
+        return $query;
     }
 }

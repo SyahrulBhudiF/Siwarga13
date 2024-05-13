@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Alamat extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
 
     /**
      * The table associated with the model.
@@ -33,9 +35,9 @@ class Alamat extends Model
     /*
      *  Relationship to Warga
      * */
-    public function warga(): hasMany
+    public function warga(): hasOne
     {
-        return $this->hasMany(Warga::class, 'id_alamat', 'id_alamat');
+        return $this->hasOne(Warga::class, 'id_alamat', 'id_alamat');
     }
 
 }
