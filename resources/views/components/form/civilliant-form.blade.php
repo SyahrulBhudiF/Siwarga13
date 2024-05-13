@@ -3,6 +3,9 @@
         @csrf
         @if(is_object($warga))
             @method('PUT')
+            <input type="hidden" name="civilliant" value="{{$warga}}">
+            <input type="hidden" name="status_warga" value="{{$warga->status}}">
+            <input type="hidden" name="alamat_warga" value="{{$warga->alamat}}">
         @endif
         <div class="w-full">
             <x-input.text-input placeholder="Masukkan nomor NIK" id="nik"

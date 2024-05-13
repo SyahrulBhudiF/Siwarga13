@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @if(session('success') || session('error'))
+        <x-flash-message></x-flash-message>
+    @endif
     <x-etc.sub-menu head="{{$data['head']}}"></x-etc.sub-menu>
     <div class="w-full h-full mt-4 flex flex-col items-center justify-center">
         <div class="flex justify-center gap-10 w-[70%] h-full">

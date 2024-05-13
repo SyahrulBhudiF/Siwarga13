@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\status;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class StoreStatusRequest extends FormRequest
+class UpdateStatusRequest extends FormRequest
 {
 
     protected $noKK;
@@ -25,14 +25,17 @@ class StoreStatusRequest extends FormRequest
         return true;
     }
 
-    protected function prepareForValidation(): void
+    protected function prepareForValidation()
     {
+        $oldData = json_decode(html_entity_decode($this->input('status_warga')), true);
+
         $this->request->replace($this->only([
             'status_peran',
             'status_hidup',
             'status_nikah',
-//            'noKK'
         ]));
+
+        $this->request->replace($this->only(array_keys(array_diff_assoc($this->request->all(), $oldData))));
     }
 
     /**
@@ -45,18 +48,15 @@ class StoreStatusRequest extends FormRequest
         return [
             'status_peran' => [
                 'bail',
-                'required',
                 Rule::in(['Kepala keluarga', 'Anggota keluarga']),
                 'one_head_per_family:' . $this->noKK,
             ],
             'status_hidup' => [
                 'bail',
-                'required',
                 Rule::in(['Hidup', 'Meninggal', 'Pindah'])
             ],
             'status_nikah' => [
                 'bail',
-                'required',
                 Rule::in(['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'])
             ],
         ];
