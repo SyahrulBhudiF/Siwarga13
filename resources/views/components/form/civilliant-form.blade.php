@@ -95,16 +95,20 @@
             <small class="text-[#FF0A0A] text-sm font-medium mt-2">{{$message}}</small>
             @enderror
         </div>
-        <div class="w-full">
-            <x-input.select-input id="rt" :options="['RT 1', 'RT 2', 'RT 3', 'RT 4', 'RT 5']"
-                                  placeholder="Pilih RT sesuai KTP"
-                                  value="{{old('rt',is_object($warga) && isset($warga->alamat) ? $warga->alamat->rt : '')}}">
-                RT
-            </x-input.select-input>
-            @error('rt')
-            <small class="text-[#FF0A0A] text-sm font-medium mt-2">{{$message}}</small>
-            @enderror
-        </div>
+        @if (Auth::user()->role == 'RW')
+            <div class="w-full">
+                <x-input.select-input id="rt" :options="['RT 1', 'RT 2', 'RT 3', 'RT 4', 'RT 5']"
+                                      placeholder="Pilih RT sesuai KTP"
+                                      value="{{old('rt',is_object($warga) && isset($warga->alamat) ? $warga->alamat->rt : '')}}">
+                    RT
+                </x-input.select-input>
+                @error('rt')
+                <small class="text-[#FF0A0A] text-sm font-medium mt-2">{{$message}}</small>
+                @enderror
+            </div>
+        @else
+            <input type="hidden" name="rt" value="{{Auth::user()->role}}">
+        @endif
         <div class="w-full">
             <x-input.select-input id="agama" :options="['Islam','Kristen','Katolik','Hindu','Buddha','Khonghucu']"
                                   placeholder="Pilih Agama"

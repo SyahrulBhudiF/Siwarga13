@@ -10,10 +10,10 @@
 
         // When an option is selected, the value of the input is set to the selected option and the dropdown is hidden
         function selectOption(e, id) {
-            let input = document.getElementById(id);
+            const input = document.getElementById(id);
             input.value = e.textContent.trim();
-            let dropdownContent = e.closest('#content-' + id);
-            let drop = document.getElementById('drop');
+            const dropdownContent = e.closest('#content-' + id);
+            const drop = document.getElementById('drop');
             drop.classList.toggle('rotate-180');
             if (dropdownContent) {
                 dropdownContent.classList.toggle('hidden');
@@ -27,8 +27,8 @@
             if (!toggleCount[id]) {
                 toggleCount[id] = 0;
             }
-            let dropdownContent = document.getElementById(id);
-            let drop = document.getElementById('drop');
+            const dropdownContent = document.getElementById(id);
+            const drop = document.getElementById('drop');
             drop.classList.toggle('rotate-180');
             if (dropdownContent && toggleCount[id] % 2 === 1) {
                 dropdownContent.classList.toggle('hidden');

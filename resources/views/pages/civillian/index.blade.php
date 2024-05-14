@@ -7,17 +7,19 @@
         <x-buttons.primary-button href="{{route('warga.create')}}">Tambah Data</x-buttons.primary-button>
     </x-etc.header-content>
     <div class="flex justify-between">
-        <div class="flex items-center gap-2">
-            <x-buttons.filter-button :data="$data" id="RW">RW 13 (Semua RT)</x-buttons.filter-button>
-            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
-                <path d="M1 0V24" stroke="#E3E3E3"/>
-            </svg>
-            <x-buttons.filter-button :data="$data" id="RT 1">RT 001</x-buttons.filter-button>
-            <x-buttons.filter-button :data="$data" id="RT 2">RT 002</x-buttons.filter-button>
-            <x-buttons.filter-button :data="$data" id="RT 3">RT 003</x-buttons.filter-button>
-            <x-buttons.filter-button :data="$data" id="RT 4">RT 004</x-buttons.filter-button>
-            <x-buttons.filter-button :data="$data" id="RT 5">RT 005</x-buttons.filter-button>
-        </div>
+        @if (Auth::user()->role == 'RW')
+            <div class="flex items-center gap-2">
+                <x-buttons.filter-button :data="$data" id="RW">RW 13 (Semua RT)</x-buttons.filter-button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
+                    <path d="M1 0V24" stroke="#E3E3E3"/>
+                </svg>
+                <x-buttons.filter-button :data="$data" id="RT 1">RT 001</x-buttons.filter-button>
+                <x-buttons.filter-button :data="$data" id="RT 2">RT 002</x-buttons.filter-button>
+                <x-buttons.filter-button :data="$data" id="RT 3">RT 003</x-buttons.filter-button>
+                <x-buttons.filter-button :data="$data" id="RT 4">RT 004</x-buttons.filter-button>
+                <x-buttons.filter-button :data="$data" id="RT 5">RT 005</x-buttons.filter-button>
+            </div>
+        @endif
         <div class="flex gap-3 items-center">
             <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
             <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
@@ -76,6 +78,7 @@
             window.location.href = url;
         }
 
+        // Focus filter when have filter
         document.addEventListener('click', (event) => {
             const dropdown = document.querySelector('.dropdown');
             const button = dropdown.querySelector('#filterInput');
@@ -98,10 +101,6 @@
                 });
             }
         });
-
-        setTimeout(function () {
-            document.getElementById('flash').style.display = 'none';
-        }, 2000);
 
         // count filter on
         window.onload = function () {

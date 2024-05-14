@@ -13,6 +13,7 @@ use App\Models\Status;
 use App\Models\Warga;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CivilliantController extends Controller
 {
@@ -21,12 +22,17 @@ class CivilliantController extends Controller
      */
     public function index(Request $request)
     {
+        $userRole = Auth::user()->role;
+
+        $head = $userRole == 'RW' ? 'List Data Warga RW 13' : 'List Data Warga ' . $userRole;
+        $desc = 'Berikut adalah data warga terdaftar di sistem ' . ($userRole == 'RW' ? 'RW 13' : $userRole) . '.';
+
         $data = [
             'title' => 'Kelola Data Warga',
             'active' => 'warga',
             'menu' => 'index',
-            'head' => 'List Data Warga RW 13',
-            'desc' => 'Berikut adalah data warga terdaftar di sistem RW 13.',
+            'head' => $head,
+            'desc' => $desc,
             'rt' => 'RW'
         ];
 
@@ -166,7 +172,15 @@ class CivilliantController extends Controller
      */
     private function getFilteredData(Request $request, $rt)
     {
-        $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
+        if (Auth::user()->role == 'RW') {
+            $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
+        } else {
+            $query = Warga::with('alamat', 'status')
+                ->whereHas('alamat', function ($query) {
+                    $query->where('rt', Auth::user()->role);
+                })
+                ->orderBy('noKK', 'asc');
+        }
 
         if ($rt !== null && $rt !== 'RW') {
             $query->whereHas('alamat', function ($query) use ($rt) {
