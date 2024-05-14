@@ -13,20 +13,20 @@
 {{--SideBar--}}
 <aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
     <nav
-            class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed border-r border-r-Neutral/30">
+        class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed border-r border-r-Neutral/30">
         @include('layouts.sidebar')
     </nav>
 </aside>
 <section
-        class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative">
+    class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative">
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}
-    <div class="flex flex-col gap-5 py-6 px-5 h-full">
+    <main class="flex flex-col gap-5 py-6 px-5 h-full">
         <div class="h-[81vh] flex flex-col gap-5">
             @yield('content')
         </div>
-    </div>
+    </main>
 </section>
 @stack('js')
 </body>
