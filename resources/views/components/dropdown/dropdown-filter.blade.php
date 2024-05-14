@@ -1,4 +1,4 @@
-<div class="dropdown dropdown-end">
+<div class="dropdown {{Auth::user()->role == 'RW'? 'dropdown-end' : ''}}">
     <button onclick="activeFilter(this)" id="filterInput"
             class="buttonAnimation bg-white hover:bg-white hover:border-Primary/10 group ease-in-out duration-200 flex gap-2 font-normal items-center rounded-[1.25rem] text-Neutral/100 border border-Neutral/30 xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem]">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"

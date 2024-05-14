@@ -9,14 +9,18 @@
     <title>Login</title>
 </head>
 <body class="w-screen h-screen overflow-hidden flex justify-center items-center bg-[#F5F7F9]">
+@if(session('success') || session('error'))
+    <x-flash-message></x-flash-message>
+@endif
 <main
-    class="w-[28%] bg-white p-10 flex flex-col items-center justify-center gap-8 border border-Neutral/30 rounded-[1.25rem] shadow">
+    class="2xl:w-[28%] lg:w-[37%] bg-white p-10 flex flex-col items-center justify-center gap-8 border border-Neutral/30 rounded-[1.25rem] shadow">
     <header class="flex flex-col gap-8 w-full">
         <p class="text-Primary/10 font-medium text-xl">Siwarga13</p>
         <p class="text-Neutral/100 text-4xl font-medium">Selamat Datang!</p>
     </header>
-    <form action="" method="post" class="w-full flex flex-col gap-3">
-        <x-input.text-input label="Email" id="email" value="" placeholder="Masukkan username anda">Username
+    <form action="{{route('login.auth')}}" method="post" class="w-full flex flex-col gap-3">
+        @csrf
+        <x-input.text-input label="username" id="username" value="" placeholder="Masukkan username anda">Username
         </x-input.text-input>
         <label class="flex flex-col gap-2 w-full" for="">
             <span class="text-Neutral/100 text-sm font-medium">Password</span>
