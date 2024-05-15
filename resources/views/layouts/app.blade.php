@@ -13,12 +13,12 @@
 {{--SideBar--}}
 <aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
     <nav
-        class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed border-r border-r-Neutral/30">
+            class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed border-r border-r-Neutral/30">
         @include('layouts.sidebar')
     </nav>
 </aside>
 <section
-    class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative">
+        class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative">
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}
@@ -29,5 +29,22 @@
     </main>
 </section>
 @stack('js')
+<script>
+    // Function to toggle the visibility of the dropdown
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.toggle("hidden");
+    }
+
+    // Event listener to close the dropdown when clicking outside of it
+    window.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("dropdownMenu");
+        const button = document.getElementById("dropdownButton");
+
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add("hidden");
+        }
+    });
+</script>
 </body>
 </html>

@@ -187,20 +187,3 @@
         <p class="defaultFontSidebar">Kontak Operator</p>
     </a>
 </div>
-<script>
-    // Function to toggle the visibility of the dropdown
-    function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.classList.toggle("hidden");
-    }
-
-    // Event listener to close the dropdown when clicking outside of it
-    window.addEventListener("click", function (event) {
-        const dropdown = document.getElementById("dropdownMenu");
-        const button = document.getElementById("dropdownButton");
-
-        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.classList.add("hidden");
-        }
-    });
-</script>
