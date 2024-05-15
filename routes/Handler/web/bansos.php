@@ -1,4 +1,4 @@
 <?php
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['auth', 'role:RW']);
+Route::middleware(['auth', 'role:RW'])->prefix('bansos')->group(function () {
+    Route::get('/', [\App\Http\Controllers\BansosController::class, 'index'])->name('bansos.index');
+});
