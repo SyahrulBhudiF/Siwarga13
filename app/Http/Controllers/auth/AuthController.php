@@ -21,6 +21,7 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
+
         return redirect('/login')->with('success', 'Login Berhasil!');
     }
 

@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rank_mabacs');
+        Schema::dropIfExists('rank_mabac');
     }
 };
