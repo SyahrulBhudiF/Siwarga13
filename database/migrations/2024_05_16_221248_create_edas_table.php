@@ -4,17 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('alamat', function (Blueprint $table) {
-            $table->integer('id_alamat', true);
-            $table->string('alamat', 50)->nullable();
-            $table->enum('rt', ['RT 1', 'RT 2', 'RT 3', 'RT 4', 'RT 5'])->nullable();
+        Schema::create('edas', function (Blueprint $table) {
+            $table->id('id_edas');
+            $table->integer('step_number');
+            $table->text('description');
+            $table->json('result');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alamat');
+        Schema::dropIfExists('edas');
     }
 };

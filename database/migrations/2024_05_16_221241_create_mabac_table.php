@@ -10,10 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('dokumentasi', function (Blueprint $table) {
-            $table->id('id_dokumentasi');
-            $table->string('judul', 50)->nullable();
-            $table->text('content')->nullable();
+        Schema::create('mabac', function (Blueprint $table) {
+            $table->id('id_mabac');
+            $table->integer('step_number');
+            $table->text('description');
+            $table->json('result');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('dokumentasi');
+        Schema::dropIfExists('mabacs');
     }
 };

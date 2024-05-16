@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('dokumentasi', function (Blueprint $table) {
-            $table->id('id_dokumentasi');
-            $table->string('judul', 50)->nullable();
-            $table->text('content')->nullable();
+        Schema::create('rank_mabac', function (Blueprint $table) {
+            $table->id('id_rankMabac');
+            $table->foreignId('id_keluarga')->constrained('keluarga', 'id_keluarga')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->float('score')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('dokumentasi');
+        Schema::dropIfExists('rank_mabacs');
     }
 };

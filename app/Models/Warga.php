@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Warga extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
     /**
      * The table associated with the model.
@@ -39,6 +40,14 @@ class Warga extends Model
     public function status(): belongsTo
     {
         return $this->belongsTo(Status::class, 'id_status', 'id_status');
+    }
+
+    /*
+     *  Relationship to Keluarga
+     * */
+    public function keluarga(): HasOne
+    {
+        return $this->hasOne(Keluarga::class, 'id_warga', 'id_warga');
     }
 
 }
