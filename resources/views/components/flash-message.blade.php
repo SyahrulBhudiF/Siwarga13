@@ -24,7 +24,7 @@
         const flashMessage = document.getElementById('flash');
 
         setTimeout(function () {
-            flashMessage.style.display = 'none';
-        }, 2000); // 2000 milidetik = 2 detik
+            flashMessage.remove();
+        }, 2000);
     }
 </script>

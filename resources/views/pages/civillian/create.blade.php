@@ -36,6 +36,7 @@
             toggleCount[id]++;
         }
 
+
         document.addEventListener('DOMContentLoaded', function () {
             const inputs = document.querySelectorAll('input, select');
             const submitButton = document.querySelector('button[type="submit"]');

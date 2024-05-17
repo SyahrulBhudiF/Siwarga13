@@ -9,6 +9,7 @@ use App\Http\Requests\civilliant\UpdateCivilliantRequest;
 use App\Http\Requests\status\StoreStatusRequest;
 use App\Http\Requests\status\UpdateStatusRequest;
 use App\Models\Alamat;
+use App\Models\Keluarga;
 use App\Models\Status;
 use App\Models\Warga;
 use Illuminate\Http\RedirectResponse;
@@ -67,23 +68,69 @@ class CivilliantController extends Controller
      */
     public function store(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, StoreAlamatRequest $requestAlamat): RedirectResponse
     {
-        try {
-            $requestCivil->merge([
-                'id_alamat' => Alamat::insertGetId($requestAlamat->all()),
-                'id_status' => Status::insertGetId($requestStatus->all())
-            ]);
-            Warga::insert($requestCivil->all());
+        $statusId = $this->createStatus($requestStatus);
+        $alamatId = $this->createAlamat($requestAlamat);
 
-            return redirect()->intended(route('warga.index'))->with('success', 'Data berhasil ditambahkan!');
+        $requestCivil->merge([
+            'id_status' => $statusId,
+            'id_alamat' => $alamatId,
+        ]);
+
+        $wargaId = Warga::insertGetId($requestCivil->all());
+
+        if ($requestStatus->input('status_hidup') != 'Meninggal') {
+            $this->updateOrCreateKeluarga($requestCivil, $wargaId);
+        }
+
+        return redirect()->intended(route('warga.index'))->with('success', 'Data berhasil ditambahkan!');
+    }
+
+    private function createStatus(StoreStatusRequest $requestStatus)
+    {
+        try {
+            return Status::insertGetId($requestStatus->all());
         } catch (\Exception $e) {
-            return back()->with('error', 'Terjadi kesalahan saat menambahkan data');
+            return back()->with('error', 'Terjadi kesalahan saat menambahkan status');
+        }
+    }
+
+    private function createAlamat(StoreAlamatRequest $requestAlamat)
+    {
+        try {
+            return Alamat::insertGetId($requestAlamat->all());
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan saat menambahkan alamat');
+        }
+    }
+
+    private function updateOrCreateKeluarga(StoreCivilliantRequest $requestCivil, $wargaId)
+    {
+        if ($requestCivil->input('status_peran') == 'Kepala keluarga') {
+            Keluarga::insert([
+                'noKK' => $requestCivil->input('noKK'),
+                'id_warga' => $wargaId,
+                'total_pendapatan' => $requestCivil->input('pendapatan'),
+                'tanggungan' => 1,
+                'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? 0 : 1,
+            ]);
+        } else {
+            $kk = Keluarga::where('noKK', $requestCivil->input('noKK'))->first();
+
+            if ($kk) {
+                $kk->update([
+                    'total_pendapatan' => $kk->total_pendapatan + $requestCivil->input('pendapatan'),
+                    'tanggungan' => $kk->tanggungan + 1,
+                    'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? $kk->jumlah_pekerja : $kk->jumlah_pekerja + 1,
+                ]);
+            }
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public
+    function show(string $id)
     {
         $data = [
             'title' => 'Kelola Data Warga',
@@ -101,7 +148,8 @@ class CivilliantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public
+    function edit(string $id)
     {
         $data = [
             'title' => 'Kelola Data Warga',
@@ -119,24 +167,45 @@ class CivilliantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCivilliantRequest $civilliantRequest, UpdateAlamatRequest $alamatRequest, UpdateStatusRequest $statusRequest, string $id): RedirectResponse
+    public
+    function update(UpdateCivilliantRequest $civilliantRequest, UpdateAlamatRequest $alamatRequest, UpdateStatusRequest $statusRequest, string $id): RedirectResponse
     {
         try {
+            $warga = Warga::find($id);
+            $alamat = Alamat::find(optional($warga)->id_alamat);
+            $status = Status::find(optional($warga)->id_status);
+
+            $pendapatanAwal = optional($warga)->pendapatan;
+
             $updated = false;
 
             if ($civilliantRequest->all() !== []) {
-                Warga::find($id)->update($civilliantRequest->all());
+                tap($warga)->update($civilliantRequest->all());
                 $updated = true;
             }
 
             if ($alamatRequest->all() !== []) {
-                Alamat::find(Warga::find($id)->id_alamat)->update($alamatRequest->all());
+                tap($alamat)->update($alamatRequest->all());
                 $updated = true;
             }
 
             if ($statusRequest->all() !== []) {
-                Status::find(Warga::find($id)->id_status)->update($statusRequest->all());
+                tap($status)->update($statusRequest->all());
                 $updated = true;
+            }
+
+            $pendapatanBaru = optional($warga)->pendapatan;
+
+            if ($pendapatanAwal != $pendapatanBaru) {
+                $kk = Keluarga::where('noKK', optional($warga)->noKK)->first();
+
+                if ($kk) {
+                    $selisihPendapatan = $pendapatanBaru - $pendapatanAwal;
+
+                    $kk->update([
+                        'total_pendapatan' => $kk->total_pendapatan + $selisihPendapatan,
+                    ]);
+                }
             }
 
             if (!$updated) {
@@ -156,7 +225,8 @@ class CivilliantController extends Controller
     /**
      * Convert TTL to tempat_lahir and tanggal.
      */
-    private function convertTTL($warga)
+    private
+    function convertTTL($warga)
     {
         $ttl = $warga['ttl'];
         $ttl_parts = explode(',', $ttl);
@@ -170,7 +240,8 @@ class CivilliantController extends Controller
     /**
      * Get filtered data based on request.
      */
-    private function getFilteredData(Request $request, $rt)
+    private
+    function getFilteredData(Request $request, $rt)
     {
         if (Auth::user()->role == 'RW') {
             $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');

@@ -1,6 +1,5 @@
 <div class="dropdown dropdown-bottom flex flex-col gap-2 w-full">
-    <label class="flex flex-col gap-2 w-full group" for="{{$id}}"
-           @if(Route::currentRouteName() != 'warga.show') onclick="toggleDropdown('content-{{$id}}')" @endif>
+    <label class="flex flex-col gap-2 w-full group" for="{{$id}}" onclick="toggleDropdown('content-{{$id}}')">
         <span class="text-Neutral/100 text-sm font-medium">{{$slot}}</span>
         <label for="{{$id}}" class="flex items-center w-full relative">
             <input type="text" id="{{$id}}" name="{{$id}}" value="{{$value}}"
