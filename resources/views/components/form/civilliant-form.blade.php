@@ -175,7 +175,7 @@
         </div>
         <div class="flex justify-end w-full">
             <button type="submit"
-                    class="bg-Primary/10 w-fit text-white font-semibold rounded-[1.25rem] px-7 py-3 hover:brightness-90 buttonAnimation">
+                    class="bg-Neutral/30 w-fit text-white font-semibold rounded-[1.25rem] px-7 py-3 hover:brightness-90 buttonAnimation">
                 Simpan
             </button>
         </div>

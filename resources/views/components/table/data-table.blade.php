@@ -19,7 +19,7 @@
 
         </tr>
         </thead>
-        @if($data->isEmpty())
+        @if($dt->isEmpty())
             <tr>
                 <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60" id="loading">
                     Data tidak ditemukan
@@ -33,10 +33,10 @@
     </table>
     <div class="flex justify-between items-center" id="pagin">
         <div class="flex items-center list-none gap-2">
-            {{ $data->links() }}
+            {{ $dt->links() }}
         </div>
         <div class="text-sm text-Neutral/70 font-normal">
-            Menampilkan {{$data->count()}} dari {{$data->total()}} data
+            Menampilkan {{$dt->count()}} dari {{$dt->total()}} data
         </div>
     </div>
 </div>
