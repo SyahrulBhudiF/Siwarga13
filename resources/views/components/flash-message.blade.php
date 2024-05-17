@@ -20,11 +20,11 @@
     </div>
 @endif
 <script>
-    window.onload = function () {
+    window.addEventListener('load', function () {
         const flashMessage = document.getElementById('flash');
 
         setTimeout(function () {
             flashMessage.remove();
         }, 2000);
-    }
+    });
 </script>
