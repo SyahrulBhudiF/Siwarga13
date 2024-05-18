@@ -181,9 +181,9 @@
             row.innerHTML = `
 <x-table.table-row>
         <td class="firstBodyTable">${item.id_warga}</td>
+        <td class="bodyTable">${item.nama}</td>
         <td class="bodyTable">${item.nik}</td>
         <td class="bodyTable">${item.noKK}</td>
-        <td class="bodyTable">${item.nama}</td>
         <td class="bodyTable">${item.alamat.rt}</td>
         <td class="bodyTable">${item.alamat.alamat}</td>
         <td class="bodyTable">
