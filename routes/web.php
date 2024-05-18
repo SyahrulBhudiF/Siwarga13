@@ -15,5 +15,9 @@ require_once app_path('Helpers/RouteHelper.php');
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 
 loadRoutes(__DIR__ . '/Handler/web');

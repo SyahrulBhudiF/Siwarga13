@@ -15,13 +15,9 @@ class KeluargaTableSeeder extends Seeder
     {
         $data = [
             ['id_warga' => '1', 'noKK' => '3507000000001000', 'jumlah_pekerja' => '2', 'total_pendapatan' => '5000000.00', 'tanggungan' => '3'],
-
             ['id_warga' => '5', 'noKK' => '3507000000002000', 'jumlah_pekerja' => '1', 'total_pendapatan' => '3000000.00', 'tanggungan' => '2'],
-
             ['id_warga' => '8', 'noKK' => '3507000000003000', 'jumlah_pekerja' => '3', 'total_pendapatan' => '6500000.00', 'tanggungan' => '4'],
-
             ['id_warga' => '13', 'noKK' => '3507000000004000', 'jumlah_pekerja' => '1', 'total_pendapatan' => '2500000.00', 'tanggungan' => '3'],
-
             ['id_warga' => '18', 'noKK' => '3507000000005000', 'jumlah_pekerja' => '2', 'total_pendapatan' => '4200000.00', 'tanggungan' => '5'],
         ];
 
