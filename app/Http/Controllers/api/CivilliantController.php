@@ -20,15 +20,11 @@ class CivilliantController extends Controller
             });
         }
 
-        if (preg_match('/^\d/', $search)) {
-            $warga = $query
-                ->where('noKK', 'like', "%{$search}%")
-                ->paginate(6);
-        } else {
-            $warga = $query
-                ->where('nama', 'like', "%{$search}%")
-                ->paginate(6);
-        }
+        $field = preg_match('/^\d/', $search) ? 'noKK' : 'nama';
+
+        $warga = $query
+            ->where($field, 'like', "%{$search}%")
+            ->paginate(6);
 
         if ($warga->isEmpty()) {
             return response()->json(['error' => 'No results found'], 404);

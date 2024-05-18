@@ -15,6 +15,7 @@ use App\Models\Warga;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CivilliantController extends Controller
 {
@@ -74,6 +75,8 @@ class CivilliantController extends Controller
     public function store(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, StoreAlamatRequest $requestAlamat): RedirectResponse
     {
         try {
+            DB::beginTransaction();
+
             $requestCivil->merge([
                 'id_alamat' => Alamat::insertGetId($requestAlamat->all()),
                 'id_status' => Status::insertGetId($requestStatus->all())
@@ -85,9 +88,12 @@ class CivilliantController extends Controller
                 $this->updateOrCreateKeluarga($requestCivil, $requestStatus, $wargaId);
             }
 
+            DB::commit();
+
             return redirect()->intended(route('warga.index'))->with('success', 'Data berhasil ditambahkan!');
 
         } catch (\Exception $e) {
+            DB::rollback();
             return back()->with('error', 'Terjadi kesalahan saat menambahkan data');
         }
     }
@@ -172,9 +178,16 @@ class CivilliantController extends Controller
     public function update(UpdateCivilliantRequest $civilliantRequest, UpdateAlamatRequest $alamatRequest, UpdateStatusRequest $statusRequest, string $id): RedirectResponse
     {
         try {
+            DB::beginTransaction();
+
             $warga = Warga::find($id);
+            $warga->lockForUpdate();
+
             $alamat = Alamat::find(optional($warga)->id_alamat);
+            $alamat->lockForUpdate();
+
             $status = Status::find(optional($warga)->id_status);
+            $status->lockForUpdate();
 
             $pendapatanAwal = optional($warga)->pendapatan;
 
@@ -186,6 +199,8 @@ class CivilliantController extends Controller
 
             $this->updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk);
 
+            DB::commit();
+
             if (!$updated) {
                 return redirect()->intended(route('warga.show', ['warga' => $id]))
                     ->with('error', 'Tidak ada Data yang diubah!');
@@ -195,6 +210,7 @@ class CivilliantController extends Controller
                 ->with('success', 'Data berhasil diubah!');
 
         } catch (\Exception $e) {
+            DB::rollback();
             return redirect()->intended(route('warga.show', ['warga' => $id]))
                 ->with('error', 'Terjadi kesalahan saat mengubah data');
         }
@@ -216,8 +232,6 @@ class CivilliantController extends Controller
 
         if ($civilliantRequest->all() !== []) {
             tap($warga)->update($civilliantRequest->all());
-
-
             $updated = true;
         }
 
@@ -283,7 +297,6 @@ class CivilliantController extends Controller
 
     /**
      * @param $warga
-     * @return mixed
      * convert TTL
      */
     private function convertTTL($warga)

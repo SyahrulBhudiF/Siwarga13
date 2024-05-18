@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             WargaTableSeeder::class,
             KeluargaTableSeeder::class,
             UserTableSeeder::class,
+            RankMabacTableSeeder::class,
+            RankEdasTableSeeder::class,
         ]);
     }
 }
