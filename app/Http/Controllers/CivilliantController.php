@@ -12,10 +12,13 @@ use App\Models\Alamat;
 use App\Models\Keluarga;
 use App\Models\Status;
 use App\Models\Warga;
+use App\Services\CivilliantService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+require_once(app_path() . '/Helpers/convertTTL.php');
 
 class CivilliantController extends Controller
 {
@@ -44,7 +47,7 @@ class CivilliantController extends Controller
             $data['rt'] = $rt;
         }
 
-        $warga = $this->getFilteredData($request, $rt)->paginate(6);
+        $warga = CivilliantService::getFilteredData($request, $rt)->paginate(6);
         $warga->appends(request()->all());
 
         return view('pages.civillian.index', ['data' => $data, 'warga' => $warga]);
@@ -85,7 +88,7 @@ class CivilliantController extends Controller
             $wargaId = Warga::insertGetId($requestCivil->all());
 
             if ($requestStatus->input('status_hidup') != 'Meninggal') {
-                $this->updateOrCreateKeluarga($requestCivil, $requestStatus, $wargaId);
+                CivilliantService::updateOrCreateKeluarga($requestCivil, $requestStatus, $wargaId);
             }
 
             DB::commit();
@@ -95,36 +98,6 @@ class CivilliantController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'Terjadi kesalahan saat menambahkan data');
-        }
-    }
-
-    /**
-     * @param StoreCivilliantRequest $requestCivil
-     * @param StoreStatusRequest $requestStatus
-     * @param $wargaId
-     * store keluarga data
-     */
-    private function updateOrCreateKeluarga(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, $wargaId)
-    {
-        if ($requestStatus->input('status_peran') == 'Kepala keluarga') {
-            Keluarga::insert([
-                'noKK' => $requestCivil->input('noKK'),
-                'id_warga' => $wargaId,
-                'total_pendapatan' => $requestCivil->input('pendapatan'),
-                'tanggungan' => 1,
-                'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? 0 : 1,
-            ]);
-
-        } else {
-            $kk = Keluarga::where('noKK', $requestCivil->input('noKK'))->first();
-
-            if ($kk) {
-                $kk->update([
-                    'total_pendapatan' => $kk->total_pendapatan + $requestCivil->input('pendapatan'),
-                    'tanggungan' => $kk->tanggungan + 1,
-                    'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? $kk->jumlah_pekerja : $kk->jumlah_pekerja + 1,
-                ]);
-            }
         }
     }
 
@@ -142,7 +115,7 @@ class CivilliantController extends Controller
         ];
 
         $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
-        $warga = $this->convertTTL($warga);
+        $warga = convertTTL($warga);
 
         return view('pages.civillian.detail', compact('data', 'warga'));
     }
@@ -162,7 +135,7 @@ class CivilliantController extends Controller
         ];
 
         $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
-        $warga = $this->convertTTL($warga);
+        $warga = convertTTL($warga);
 
         return view('pages.civillian.edit', compact('data', 'warga'));
     }
@@ -191,15 +164,21 @@ class CivilliantController extends Controller
 
             $pendapatanAwal = optional($warga)->pendapatan;
 
-            $updated = $this->updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status);
+            $updated = CivilliantService::updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status);
 
             $pendapatanBaru = optional($warga)->pendapatan;
 
             $kk = Keluarga::where('noKK', optional($warga)->noKK)->first();
 
-            $this->updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk);
+            CivilliantService::updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk);
 
             DB::commit();
+
+            if (session()->get('last_route') == 'bansos.edit') {
+                session()->forget('last_route');
+                return redirect()->intended(route('bansos.index'))
+                    ->with('success', 'Data berhasil diubah!');
+            }
 
             if (!$updated) {
                 return redirect()->intended(route('warga.show', ['warga' => $id]))
@@ -211,155 +190,15 @@ class CivilliantController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
+
+            if (session()->get('last_route') == 'bansos.edit') {
+                session()->forget('last_route');
+                return redirect()->intended(route('bansos.index'))
+                    ->with('error', 'Terjadi kesalahan saat mengubah data');
+            }
+
             return redirect()->intended(route('warga.show', ['warga' => $id]))
                 ->with('error', 'Terjadi kesalahan saat mengubah data');
         }
-    }
-
-    /**
-     * @param $civilliantRequest
-     * @param $alamatRequest
-     * @param $statusRequest
-     * @param $warga
-     * @param $alamat
-     * @param $status
-     * @return bool
-     * update entities
-     */
-    private function updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status)
-    {
-        $updated = false;
-
-        if ($civilliantRequest->all() !== []) {
-            tap($warga)->update($civilliantRequest->all());
-            $updated = true;
-        }
-
-        if ($alamatRequest->all() !== []) {
-            tap($alamat)->update($alamatRequest->all());
-            $updated = true;
-        }
-
-        if ($statusRequest->all() !== []) {
-            tap($status)->update($statusRequest->all());
-
-            if ($statusRequest->input('status_hidup') == 'Meninggal') {
-                $warga->update([
-                    'pendapatan' => 0,
-                ]);
-            }
-
-            if ($statusRequest->input('status_hidup') == 'Meninggal' && $status->status_peran == 'Kepala keluarga') {
-                $status->update([
-                    'status_peran' => 'Anggota keluarga',
-                ]);
-            }
-
-            $updated = true;
-        }
-
-        return $updated;
-    }
-
-    /**
-     * @param $statusRequest
-     * @param $pendapatanAwal
-     * @param $pendapatanBaru
-     * @param $kk
-     * @return void
-     * update keluarga
-     */
-    private function updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk)
-    {
-        if ($statusRequest->input('status_hidup') == 'Meninggal') {
-
-            if ($pendapatanAwal > 0) {
-                $kk->update([
-                    'total_pendapatan' => $kk->total_pendapatan - $pendapatanAwal,
-                    'tanggungan' => $kk->tanggungan - 1,
-                    'jumlah_pekerja' => $kk->jumlah_pekerja - 1,
-                ]);
-
-            } else {
-                $kk->update([
-                    'tanggungan' => $kk->tanggungan - 1,
-                ]);
-            }
-
-        } else if ($pendapatanAwal != $pendapatanBaru) {
-            $selisihPendapatan = $pendapatanBaru - $pendapatanAwal;
-
-            $kk->update([
-                'total_pendapatan' => $kk->total_pendapatan + $selisihPendapatan,
-            ]);
-        }
-    }
-
-    /**
-     * @param $warga
-     * convert TTL
-     */
-    private function convertTTL($warga)
-    {
-        $ttl = $warga['ttl'];
-        $ttl_parts = explode(',', $ttl);
-
-        $warga['tempat_lahir'] = trim($ttl_parts[0]);
-        $warga['tanggal'] = trim($ttl_parts[1]);
-
-        return $warga;
-    }
-
-    /**
-     * @param Request $request
-     * @param $rt
-     * @return \Illuminate\Database\Eloquent\Builder
-     * get filtered data
-     */
-    private function getFilteredData(Request $request, $rt)
-    {
-        if (Auth::user()->role == 'RW') {
-            $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
-
-        } else {
-            $query = Warga::with('alamat', 'status')
-                ->whereHas('alamat', function ($query) {
-                    $query->where('rt', Auth::user()->role);
-                })
-                ->orderBy('noKK', 'asc');
-        }
-
-        if ($rt !== null && $rt !== 'RW') {
-            $query->whereHas('alamat', function ($query) use ($rt) {
-                $query->where('rt', $rt);
-            });
-        }
-
-        if ($request->has('peran')) {
-            $query->whereHas('status', function ($query) use ($request) {
-                $query->where('status_peran', $request->input('peran'));
-            });
-        }
-
-        if ($request->has('gender')) {
-            $query->where('jenis_kelamin', $request->input('gender'));
-        }
-
-        if ($request->has('status')) {
-            $status = $request->input('status');
-
-            if (is_array($status)) {
-                $query->whereHas('status', function ($query) use ($status) {
-                    $query->whereIn('status_hidup', $status);
-                });
-
-            } else {
-                $query->whereHas('status', function ($query) use ($status) {
-                    $query->where('status_hidup', $status);
-                });
-            }
-        }
-
-        return $query;
     }
 }

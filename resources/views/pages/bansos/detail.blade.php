@@ -16,7 +16,7 @@
                     class="fill-black group-hover:fill-Primary/10" fill-opacity="0.2"/>
         </svg>
     </a>
-    <p class="font-medium xl:text-xl lg:text-sm text-Neutral/100 mt-6">List Keluarga Penerima</p>
+    <p class="font-medium xl:text-xl lg:text-sm text-Neutral/100 mt-4">List Keluarga Penerima</p>
     <x-table.data-table :dt="$warga"
                         :headers="['Nama', 'NIK', 'RT', 'Pendapatan', 'Pekerjaan', 'Aksi']">
         @foreach($warga as $dt)

@@ -7,6 +7,9 @@ use App\Models\RankEdas;
 use App\Models\RankMabac;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+require_once(app_path() . '/Helpers/convertTTL.php');
 
 class BansosController extends Controller
 {
@@ -38,9 +41,26 @@ class BansosController extends Controller
             ->where('noKK', Keluarga::where('id_keluarga', $id)
                 ->first()
                 ->noKK)
+            ->orderBy('nik', 'asc')
             ->get();
-//        dd($warga->toArray());
 
         return view('pages.bansos.detail', compact('data', 'warga'));
+    }
+
+    public function edit(string $id)
+    {
+        $data = [
+            'title' => 'Bansos',
+            'active' => 'bansos',
+            'menu' => 'edit',
+            'head' => 'Ubah Data Warga',
+        ];
+
+        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
+        $warga = convertTTL($warga);
+
+        session()->put('last_route', Route::currentRouteName());
+
+        return view('pages.bansos.edit', compact('data', 'warga'));
     }
 }

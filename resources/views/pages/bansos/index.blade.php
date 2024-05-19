@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @if(session('success') || session('error'))
+        <x-flash-message></x-flash-message>
+    @endif
     <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
         <a id="checkStep" href="/bansos/check/edas"
            class="link group buttonAnimation flex items-center gap-2 no-underline xl:text-sm lg:text-xs">
