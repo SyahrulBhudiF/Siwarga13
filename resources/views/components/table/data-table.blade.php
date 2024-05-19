@@ -31,12 +31,14 @@
             </tbody>
         @endif
     </table>
-    <div class="flex justify-between items-center" id="pagin">
-        <div class="flex items-center list-none gap-2">
-            {{ $dt->links() }}
+    @if(Route::currentRouteName() !== 'bansos.show')
+        <div class="flex justify-between items-center" id="pagin">
+            <div class="flex items-center list-none gap-2">
+                {{ $dt->links() }}
+            </div>
+            <div class="text-sm text-Neutral/70 font-normal">
+                Menampilkan {{$dt->count()}} dari {{$dt->total()}} data
+            </div>
         </div>
-        <div class="text-sm text-Neutral/70 font-normal">
-            Menampilkan {{$dt->count()}} dari {{$dt->total()}} data
-        </div>
-    </div>
+    @endif
 </div>

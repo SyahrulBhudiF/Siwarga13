@@ -1,7 +1,7 @@
 <label class="flex flex-col gap-2 w-full" for="{{$id}}">
-    <span class="text-Neutral/100 text-sm font-medium">{{$slot}}</span>
+    <span class="text-Neutral/100 xl:text-base lg:text-xs  font-medium">{{$slot}}</span>
     <input type="text"
-           class="outline-none border border-Neutral/30 rounded-[1.25rem] px-4 py-2 focus:border-Primary/10 focus:text-Primary/10"
+           class="outline-none border border-Neutral/30 xl:text-base lg:text-xs  rounded-[1.25rem] px-4 py-2 focus:border-Primary/10 focus:text-Primary/10"
            id="{{$id}}" name="{{$id}}" placeholder="{{$placeholder}}" value="{{$value}}" onblur="validateDate(this)"
            @if(Route::currentRouteName() == 'warga.show') readonly @endif>
     <small id="{{$id}}-error" class="text-red-500"></small>

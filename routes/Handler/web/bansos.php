@@ -1,4 +1,4 @@
 <?php
-Route::middleware(['auth', 'role:RW'])->prefix('bansos')->group(function () {
-    Route::get('/', [\App\Http\Controllers\BansosController::class, 'index']);
+Route::middleware(['auth', 'role:RW'])->group(function () {
+    Route::resource('/bansos', \App\Http\Controllers\BansosController::class)->except(['create', 'destroy']);
 });

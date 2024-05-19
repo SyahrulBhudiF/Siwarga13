@@ -1,6 +1,6 @@
-<div class="dropdown dropdown-bottom flex flex-col gap-2 w-full">
+<div class="dropdown dropdown-bottom flex flex-col gap-2 w-full xl:text-base lg:text-xs ">
     <label class="flex flex-col gap-2 w-full group" for="{{$id}}" onclick="toggleDropdown('content-{{$id}}')">
-        <span class="text-Neutral/100 text-sm font-medium">{{$slot}}</span>
+        <span class="text-Neutral/100 font-medium">{{$slot}}</span>
         <label for="{{$id}}" class="flex items-center w-full relative">
             <input type="text" id="{{$id}}" name="{{$id}}" value="{{$value}}"
                    placeholder="{{$placeholder}}" readonly

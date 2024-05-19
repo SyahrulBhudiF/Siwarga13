@@ -2,7 +2,7 @@
 @section('content')
     <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
         <a id="checkStep" href="/bansos/check/edas"
-           class="link group buttonAnimation flex items-center gap-2 no-underline text-sm">
+           class="link group buttonAnimation flex items-center gap-2 no-underline xl:text-sm lg:text-xs">
             Check Step
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  class="rotate-180">
@@ -22,7 +22,7 @@
         </a>
     </x-etc.header-content>
     <div class="flex items-center justify-between w-full">
-        <div class="flex gap-3 items-center">
+        <div class="flex gap-1 items-center">
             <button id="buttonEdas" class="filterButton activeFilterButton" onclick="changeSPK(this)">
                 Edas
             </button>
@@ -33,7 +33,7 @@
         <div class="flex items-center gap-3">
             <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
             <a id="refresh" href="/bansos/edas"
-               class="py-3 buttonAnimation hover:bg-Primary/10 hover:brightness-[.90] xl:px-7 lg:px-5 active:brightness-[.80] transition ease-in-out duration-300 bg-Primary/10 rounded-[6.25rem] text-center text-white xl:text-base lg:text-sm font-medium">
+               class="xl:py-3 lg:py-2 xl:text-sm lg:text-xs buttonAnimation hover:bg-Primary/10 hover:brightness-[.90] xl:px-7 lg:px-5 active:brightness-[.80] transition ease-in-out duration-300 bg-Primary/10 rounded-[6.25rem] text-center text-white font-medium">
                 <div class="flex gap-2 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path

@@ -27,7 +27,7 @@
               class="hidden rounded-full bg-Primary/10 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
     </button>
     <form tabindex="0" action="{{ route('warga.index') }}" method="GET"
-          class="dropdown-content z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
+          class="dropdown-content z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[38vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
         <input type="hidden" name="rt" value="{{ request()->get('rt') }}">
         <div class="flex justify-between items-center">
             <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>

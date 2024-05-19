@@ -11,7 +11,7 @@
 </head>
 <body class="w-screen h-screen {{$data['menu'] != 'index' ? 'overflow-x-hidden' : 'overflow-hidden'}} flex">
 {{--SideBar--}}
-<aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden h-full">
+<aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden-sidebar xl:block hidden h-full">
     <nav
         class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed border-r border-r-Neutral/30">
         @include('layouts.sidebar')
@@ -23,7 +23,7 @@
     @include('layouts.header')
     {{--Content--}}
     <main class="flex flex-col gap-5 py-6 px-5 h-full">
-        <div class="h-[81vh] flex flex-col gap-5">
+        <div class="h-[81vh] max-xl:h-[77vh] flex flex-col gap-5">
             @yield('content')
         </div>
     </main>

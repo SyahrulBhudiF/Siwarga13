@@ -13,7 +13,7 @@
             <td class="bodyTable">{{$dt->keluarga->tanggungan}}</td>
             <td class="bodyTable">{{$dt->score}}</td>
             <td class="bodyTable">
-                <a href="{{ route('warga.show', $dt->keluarga->id_keluarga) }}"
+                <a href="{{ route('bansos.show', $dt->keluarga->id_keluarga) }}"
                    class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium xl:text-base lg:text-xs py-3 px-4 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
             </td>
         </x-table.table-row>

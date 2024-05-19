@@ -1,7 +1,7 @@
 <div class="flex justify-between items-center p-3 bg-white rounded-xl">
     <div class="flex flex-col py-1 px-3">
         <p class="text-xs text-Primary/10 font-medium">Siwarga13</p>
-        <p class="text-base text-Neutral/100 font-semibold">{{Auth::user()->name}}</p>
+        <p class="xl:text-base lg:text-sm text-Neutral/100 font-semibold">{{Auth::user()->name}}</p>
     </div>
     <div class="relative inline-block text-left">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none"
