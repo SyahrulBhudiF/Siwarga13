@@ -34,7 +34,7 @@
 }
 
 .activeFontSidebar {
-    @apply font-medium text-sm text-Primary/10;
+    @apply font-medium xl:text-sm lg:text-xs text-Primary/10;
 }
 
 .defaultSidebar {
@@ -42,11 +42,11 @@
 }
 
 .defaultFontSidebar {
-    @apply font-medium text-sm text-Neutral/70;
+    @apply font-medium xl:text-sm lg:text-xs text-Neutral/70;
 }
 
 .filterButton {
-    @apply xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] rounded-[1.25rem] border border-Neutral/30 font-normal text-Neutral/70 cursor-pointer bg-white hover:border-Primary/10 hover:text-Primary/10 hover:bg-white;
+    @apply xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-[0.6rem] xl:py-[0.625rem] rounded-[1.25rem] border border-Neutral/30 font-normal text-Neutral/70 cursor-pointer bg-white hover:border-Primary/10 hover:text-Primary/10 hover:bg-white;
 }
 
 .activeFilterButton {
@@ -90,9 +90,62 @@
 }
 
 .bodyTable {
-    @apply px-4 2xl:py-6 lg:py-5 border-b bg-white;
+    @apply xl:px-4 lg:px-2 2xl:py-6 xl:py-5 lg:py-2 border-b bg-white xl:text-sm text-xs;
 }
 
 .buttonAnimation {
     @apply transition ease-in-out duration-200 active:scale-95
+}
+
+.fade-in {
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+    -ms-animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

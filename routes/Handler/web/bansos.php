@@ -1,4 +1,4 @@
 <?php
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['auth', 'role:RW']);
+Route::middleware(['auth', 'role:RW'])->group(function () {
+    Route::resource('/bansos', \App\Http\Controllers\BansosController::class)->except(['create', 'destroy']);
+});

@@ -4,20 +4,36 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('file', function (Blueprint $table) {
-            $table->integer('id_file', true);
+            $table->id('id_file', true);
             $table->string('path')->nullable();
             $table->enum('type', ['umkm', 'dokumentasi', 'pengumuman']);
-            $table->integer('umkm_id')->nullable()->index('file_umkm_id_foreign');
-            $table->integer('dokumentasi_id')->nullable()->index('file_dokumentasi_id_foreign');
-            $table->integer('pengumuman_id')->nullable()->index('file_pengumuman_id_foreign');
+            $table->unsignedBigInteger('id_umkm')->nullable()->index();
+            $table->unsignedBigInteger('id_dokumentasi')->nullable()->index();
+            $table->unsignedBigInteger('id_pengumuman')->nullable()->index();
+            $table->timestamps();
+
+            $table->foreign('id_umkm')
+                ->references('id_umkm')
+                ->on('umkm')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreign('id_dokumentasi')
+                ->references('id_dokumentasi')
+                ->on('dokumentasi')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreign('id_pengumuman')
+                ->references('id_pengumuman')
+                ->on('pengumuman')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

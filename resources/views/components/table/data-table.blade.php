@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-between w-full h-full overflow-hidden">
+<div class="flex flex-col justify-between w-full h-full overflow-hidden fade-in">
     <table class="table-auto w-full xl:text-sm lg:text-xs font-medium" id="dataTable">
         <thead class="bg-[#F5F7F9]">
         <tr class="text-Neutral/70">
@@ -19,7 +19,7 @@
 
         </tr>
         </thead>
-        @if($data->isEmpty())
+        @if($dt->isEmpty())
             <tr>
                 <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60" id="loading">
                     Data tidak ditemukan
@@ -31,12 +31,14 @@
             </tbody>
         @endif
     </table>
-    <div class="flex justify-between items-center" id="pagin">
-        <div class="flex items-center list-none gap-2">
-            {{ $data->links() }}
+    @if(Route::currentRouteName() !== 'bansos.show')
+        <div class="flex justify-between items-center" id="pagin">
+            <div class="flex items-center list-none gap-2">
+                {{ $dt->links() }}
+            </div>
+            <div class="text-sm text-Neutral/70 font-normal">
+                Menampilkan {{$dt->count()}} dari {{$dt->total()}} data
+            </div>
         </div>
-        <div class="text-sm text-Neutral/70 font-normal">
-            Menampilkan {{$data->count()}} dari {{$data->total()}} data
-        </div>
-    </div>
+    @endif
 </div>

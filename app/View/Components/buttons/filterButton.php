@@ -12,12 +12,12 @@ class filterButton extends Component
      * Create a new component instance.
      */
     public string $id;
-    public array $data;
+    public array $dt;
 
-    public function __construct($id, $data)
+    public function __construct($id, $dt)
     {
         $this->id = $id;
-        $this->data = $data;
+        $this->dt = $dt;
     }
 
     /**

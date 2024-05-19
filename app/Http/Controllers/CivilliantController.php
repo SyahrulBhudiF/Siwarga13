@@ -9,15 +9,21 @@ use App\Http\Requests\civilliant\UpdateCivilliantRequest;
 use App\Http\Requests\status\StoreStatusRequest;
 use App\Http\Requests\status\UpdateStatusRequest;
 use App\Models\Alamat;
+use App\Models\Keluarga;
 use App\Models\Status;
 use App\Models\Warga;
+use App\Services\CivilliantService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+require_once(app_path() . '/Helpers/convertTTL.php');
 
 class CivilliantController extends Controller
 {
     /**
+     * @param Request $request
      * Display a listing of the resource.
      */
     public function index(Request $request)
@@ -41,7 +47,7 @@ class CivilliantController extends Controller
             $data['rt'] = $rt;
         }
 
-        $warga = $this->getFilteredData($request, $rt)->paginate(6);
+        $warga = CivilliantService::getFilteredData($request, $rt)->paginate(6);
         $warga->appends(request()->all());
 
         return view('pages.civillian.index', ['data' => $data, 'warga' => $warga]);
@@ -63,25 +69,41 @@ class CivilliantController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param StoreCivilliantRequest $requestCivil
+     * @param StoreStatusRequest $requestStatus
+     * @param StoreAlamatRequest $requestAlamat
+     * @return RedirectResponse
+     * Store a new data.
      */
     public function store(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, StoreAlamatRequest $requestAlamat): RedirectResponse
     {
         try {
+            DB::beginTransaction();
+
             $requestCivil->merge([
                 'id_alamat' => Alamat::insertGetId($requestAlamat->all()),
                 'id_status' => Status::insertGetId($requestStatus->all())
             ]);
-            Warga::insert($requestCivil->all());
+
+            $wargaId = Warga::insertGetId($requestCivil->all());
+
+            if ($requestStatus->input('status_hidup') != 'Meninggal') {
+                CivilliantService::updateOrCreateKeluarga($requestCivil, $requestStatus, $wargaId);
+            }
+
+            DB::commit();
 
             return redirect()->intended(route('warga.index'))->with('success', 'Data berhasil ditambahkan!');
+
         } catch (\Exception $e) {
+            DB::rollback();
             return back()->with('error', 'Terjadi kesalahan saat menambahkan data');
         }
     }
 
     /**
-     * Display the specified resource.
+     * @param string $id
+     * Display the specified data.
      */
     public function show(string $id)
     {
@@ -93,15 +115,17 @@ class CivilliantController extends Controller
         ];
 
         $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
-        $warga = $this->convertTTL($warga);
+        $warga = convertTTL($warga);
 
         return view('pages.civillian.detail', compact('data', 'warga'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param string $id
+     * Show the form for editing the specified data.
      */
-    public function edit(string $id)
+    public
+    function edit(string $id)
     {
         $data = [
             'title' => 'Kelola Data Warga',
@@ -111,32 +135,49 @@ class CivilliantController extends Controller
         ];
 
         $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
-        $warga = $this->convertTTL($warga);
+        $warga = convertTTL($warga);
 
         return view('pages.civillian.edit', compact('data', 'warga'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param UpdateCivilliantRequest $civilliantRequest
+     * @param UpdateAlamatRequest $alamatRequest
+     * @param UpdateStatusRequest $statusRequest
+     * @param string $id
+     * @return RedirectResponse
+     * Update the specified data in storage.
      */
     public function update(UpdateCivilliantRequest $civilliantRequest, UpdateAlamatRequest $alamatRequest, UpdateStatusRequest $statusRequest, string $id): RedirectResponse
     {
         try {
-            $updated = false;
+            DB::beginTransaction();
 
-            if ($civilliantRequest->all() !== []) {
-                Warga::find($id)->update($civilliantRequest->all());
-                $updated = true;
-            }
+            $warga = Warga::find($id);
+            $warga->lockForUpdate();
 
-            if ($alamatRequest->all() !== []) {
-                Alamat::find(Warga::find($id)->id_alamat)->update($alamatRequest->all());
-                $updated = true;
-            }
+            $alamat = Alamat::find(optional($warga)->id_alamat);
+            $alamat->lockForUpdate();
 
-            if ($statusRequest->all() !== []) {
-                Status::find(Warga::find($id)->id_status)->update($statusRequest->all());
-                $updated = true;
+            $status = Status::find(optional($warga)->id_status);
+            $status->lockForUpdate();
+
+            $pendapatanAwal = optional($warga)->pendapatan;
+
+            $updated = CivilliantService::updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status);
+
+            $pendapatanBaru = optional($warga)->pendapatan;
+
+            $kk = Keluarga::where('noKK', optional($warga)->noKK)->first();
+
+            CivilliantService::updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk);
+
+            DB::commit();
+
+            if (session()->get('last_route') == 'bansos.edit') {
+                session()->forget('last_route');
+                return redirect()->intended(route('bansos.index'))
+                    ->with('success', 'Data berhasil diubah!');
             }
 
             if (!$updated) {
@@ -148,70 +189,16 @@ class CivilliantController extends Controller
                 ->with('success', 'Data berhasil diubah!');
 
         } catch (\Exception $e) {
+            DB::rollback();
+
+            if (session()->get('last_route') == 'bansos.edit') {
+                session()->forget('last_route');
+                return redirect()->intended(route('bansos.index'))
+                    ->with('error', 'Terjadi kesalahan saat mengubah data');
+            }
+
             return redirect()->intended(route('warga.show', ['warga' => $id]))
                 ->with('error', 'Terjadi kesalahan saat mengubah data');
         }
-    }
-
-    /**
-     * Convert TTL to tempat_lahir and tanggal.
-     */
-    private function convertTTL($warga)
-    {
-        $ttl = $warga['ttl'];
-        $ttl_parts = explode(',', $ttl);
-
-        $warga['tempat_lahir'] = trim($ttl_parts[0]);
-        $warga['tanggal'] = trim($ttl_parts[1]);
-
-        return $warga;
-    }
-
-    /**
-     * Get filtered data based on request.
-     */
-    private function getFilteredData(Request $request, $rt)
-    {
-        if (Auth::user()->role == 'RW') {
-            $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');
-        } else {
-            $query = Warga::with('alamat', 'status')
-                ->whereHas('alamat', function ($query) {
-                    $query->where('rt', Auth::user()->role);
-                })
-                ->orderBy('noKK', 'asc');
-        }
-
-        if ($rt !== null && $rt !== 'RW') {
-            $query->whereHas('alamat', function ($query) use ($rt) {
-                $query->where('rt', $rt);
-            });
-        }
-
-        if ($request->has('peran')) {
-            $query->whereHas('status', function ($query) use ($request) {
-                $query->where('status_peran', $request->input('peran'));
-            });
-        }
-
-        if ($request->has('gender')) {
-            $query->where('jenis_kelamin', $request->input('gender'));
-        }
-
-        if ($request->has('status')) {
-            $status = $request->input('status');
-            if (is_array($status)) {
-                $query->whereHas('status', function ($query) use ($status) {
-                    $query->whereIn('status_hidup', $status);
-                });
-
-            } else {
-                $query->whereHas('status', function ($query) use ($status) {
-                    $query->where('status_hidup', $status);
-                });
-            }
-        }
-
-        return $query;
     }
 }

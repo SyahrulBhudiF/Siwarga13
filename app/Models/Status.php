@@ -10,7 +10,7 @@ class Status extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
     protected $table = 'status';
     protected $primaryKey = 'id_status';

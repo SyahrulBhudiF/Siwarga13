@@ -1,5 +1,5 @@
 <div class="flex justify-center w-full mt-4">
-    <form method="post" action="{{$action}}" class="flex flex-col gap-5 items-center w-[50%] mb-[10vh]">
+    <form method="post" action="{{$action}}" class="flex flex-col gap-5 items-center xl:w-[50%] lg:w-[60%] mb-[10vh]">
         @csrf
         @if(is_object($warga))
             @method('PUT')
@@ -44,7 +44,7 @@
             <small class="text-[#FF0A0A] text-sm font-medium mt-2">{{$message}}</small>
             @enderror
         </div>
-        <div class="flex gap-2 w-full items-start">
+        <div class="flex gap-2 w-full  items-start">
             <div class="w-full">
                 <x-input.text-input placeholder="Masukkan tempat lahir" id="tempat_lahir"
                                     value="{{old('tempat_lahir', is_object($warga) && isset($warga['tempat_lahir']) ? $warga['tempat_lahir'] : '')}}">
@@ -175,7 +175,7 @@
         </div>
         <div class="flex justify-end w-full">
             <button type="submit"
-                    class="bg-Primary/10 w-fit text-white font-semibold rounded-[1.25rem] px-7 py-3 hover:brightness-90 buttonAnimation">
+                    class="bg-Neutral/30 w-fit text-white font-semibold rounded-[1.25rem] px-7 py-3 hover:brightness-90 buttonAnimation">
                 Simpan
             </button>
         </div>

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+require_once app_path('Helpers/RouteHelper.php');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,19 +14,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-function loadRoutes($dir)
-{
-    if (!is_dir($dir)) return;
 
-    $files = scandir($dir);
-    foreach ($files as $file) {
-        if ($file == '.' || $file == '..') continue;
+Route::get('/', function () {
+    return view('welcome');
+});
 
-        $filePath = $dir . '/' . $file;
-        if (is_file($filePath) && pathinfo($filePath)['extension'] === 'php')
-            require_once $filePath;
-        else if (is_dir($filePath)) loadRoutes($filePath);
-    }
-}
 
 loadRoutes(__DIR__ . '/Handler/web');

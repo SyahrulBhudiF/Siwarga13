@@ -10,7 +10,7 @@ class File extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
     /**
      * The table associated with the model.

@@ -71,7 +71,9 @@
                 </x-input.text-input>
             </div>
         </div>
-        <div class="flex justify-end items-center w-[70%] h-full">
+    </div>
+    <div class="flex justify-center items-center w-full h-full">
+        <div class="flex w-[70%] my-5 justify-end">
             <x-buttons.primary-button id="edit" href="{{ route('warga.edit', $warga['id_warga']) }}">Ubah
             </x-buttons.primary-button>
         </div>

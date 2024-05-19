@@ -1,1 +1,4 @@
-OK
+<script>
+    window.location = '/login'
+</script>
+
