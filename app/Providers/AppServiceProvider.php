@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Warga;
+use App\Services\CivilliantService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(CivilliantService::class, function () {
+            return new CivilliantService();
+        });
     }
 
     /**

@@ -17,7 +17,7 @@ class CivilliantService
      * @param $wargaId
      * store keluarga data
      */
-    public static function updateOrCreateKeluarga(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, $wargaId)
+    public function updateOrCreateKeluarga(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, $wargaId)
     {
         if ($requestStatus->input('status_peran') == 'Kepala keluarga') {
             Keluarga::insert([
@@ -51,7 +51,7 @@ class CivilliantService
      * @return bool
      * update entities
      */
-    public static function updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status)
+    public function updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status)
     {
         $updated = false;
 
@@ -95,7 +95,7 @@ class CivilliantService
      * @return void
      * update keluarga
      */
-    public static function updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk)
+    public function updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk)
     {
         if ($statusRequest->input('status_hidup') == 'Meninggal') {
 
@@ -128,7 +128,7 @@ class CivilliantService
      * @return \Illuminate\Database\Eloquent\Builder
      * get filtered data
      */
-    public static function getFilteredData(Request $request, $rt)
+    public function getFilteredData(Request $request, $rt)
     {
         if (Auth::user()->role == 'RW') {
             $query = Warga::with('alamat', 'status')->orderBy('noKK', 'asc');

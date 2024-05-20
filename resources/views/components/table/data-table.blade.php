@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-between w-full h-full overflow-hidden fade-in">
+<div class="flex flex-col justify-between w-full h-full overflow-hidden fade-in xl:overflow-hidden lg:overflow-x-auto">
     <table class="table-auto w-full xl:text-sm lg:text-xs font-medium" id="dataTable">
         <thead class="bg-[#F5F7F9]">
         <tr class="text-Neutral/70">

@@ -22,6 +22,13 @@ require_once(app_path() . '/Helpers/convertTTL.php');
 
 class CivilliantController extends Controller
 {
+    private CivilliantService $civilliantService;
+
+    public function __construct(CivilliantService $civilliantService)
+    {
+        $this->civilliantService = $civilliantService;
+    }
+
     /**
      * @param Request $request
      * Display a listing of the resource.
@@ -47,7 +54,7 @@ class CivilliantController extends Controller
             $data['rt'] = $rt;
         }
 
-        $warga = CivilliantService::getFilteredData($request, $rt)->paginate(6);
+        $warga = $this->civilliantService->getFilteredData($request, $rt)->paginate(6);
         $warga->appends(request()->all());
 
         return view('pages.civillian.index', ['data' => $data, 'warga' => $warga]);
@@ -88,7 +95,7 @@ class CivilliantController extends Controller
             $wargaId = Warga::insertGetId($requestCivil->all());
 
             if ($requestStatus->input('status_hidup') != 'Meninggal') {
-                CivilliantService::updateOrCreateKeluarga($requestCivil, $requestStatus, $wargaId);
+                $this->civilliantService->updateOrCreateKeluarga($requestCivil, $requestStatus, $wargaId);
             }
 
             DB::commit();
@@ -164,13 +171,13 @@ class CivilliantController extends Controller
 
             $pendapatanAwal = optional($warga)->pendapatan;
 
-            $updated = CivilliantService::updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status);
+            $updated = $this->civilliantService->updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status);
 
             $pendapatanBaru = optional($warga)->pendapatan;
 
             $kk = Keluarga::where('noKK', optional($warga)->noKK)->first();
 
-            CivilliantService::updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk);
+            $this->civilliantService->updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk);
 
             DB::commit();
 
