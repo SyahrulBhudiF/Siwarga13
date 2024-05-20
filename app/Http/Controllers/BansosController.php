@@ -6,13 +6,25 @@ use App\Models\Keluarga;
 use App\Models\RankEdas;
 use App\Models\RankMabac;
 use App\Models\Warga;
+use App\Services\EdasService;
+use App\Services\MabacService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 require_once(app_path() . '/Helpers/convertTTL.php');
+require_once(app_path() . '/Helpers/decisionMatrix.php');
 
 class BansosController extends Controller
 {
+    private EdasService $edasService;
+    private MabacService $mabacService;
+
+    public function __construct(EdasService $edasService, MabacService $mabacService)
+    {
+        $this->edasService = $edasService;
+        $this->mabacService = $mabacService;
+    }
+
     public function index()
     {
         $data = [
@@ -62,5 +74,21 @@ class BansosController extends Controller
         session()->put('last_route', Route::currentRouteName());
 
         return view('pages.bansos.edit', compact('data', 'warga'));
+    }
+
+    public function edas()
+    {
+        $data = Keluarga::all();
+//        dd($data->toArray());
+        $decisionMatrix = decisionMatrix($data);
+        dd($decisionMatrix);
+    }
+
+    public function mabac()
+    {
+        $data = Keluarga::all();
+//        dd($data->toArray());
+        $decisionMatrix = decisionMatrix($data);
+        dd($decisionMatrix);
     }
 }

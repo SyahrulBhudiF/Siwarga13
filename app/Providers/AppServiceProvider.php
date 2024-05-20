@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\Warga;
 use App\Services\CivilliantService;
+use App\Services\EdasService;
+use App\Services\MabacService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -15,9 +17,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(CivilliantService::class, function () {
-            return new CivilliantService();
-        });
+        $services = [
+            CivilliantService::class,
+            EdasService::class,
+            MabacService::class,
+        ];
+
+        foreach ($services as $service) {
+            $this->app->singleton($service, function () use ($service) {
+                return new $service();
+            });
+        }
     }
 
     /**
