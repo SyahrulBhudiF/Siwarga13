@@ -11,6 +11,7 @@ use App\Services\EdasService;
 use App\Services\MabacService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 require_once(app_path() . '/Helpers/convertTTL.php');
@@ -80,37 +81,47 @@ class BansosController extends Controller
 
     public function edas(): RedirectResponse
     {
+        $data = Keluarga::all();
+
         try {
-            Edas::truncate();
+            DB::transaction(function () use ($data) {
+                Edas::truncate();
+                RankEdas::truncate();
 
-            $data = Keluarga::all();
-            $decisionMatrix = decisionMatrix($data);
-            $average = $this->edasService->average($decisionMatrix);
-            $pda = $this->edasService->calc($decisionMatrix, $average, true);
-            $nda = $this->edasService->calc($decisionMatrix, $average, false);
-            $sp = $this->edasService->SPSN($pda);
-            $sn = $this->edasService->SPSN($nda);
-            $nsn = $this->edasService->NSPNSN($sn, false);
-            $nsp = $this->edasService->NSPNSN($sp, true);
-            $as = $this->edasService->AS($nsp, $nsn);
+                $decisionMatrix = decisionMatrix($data);
+                $average = $this->edasService->average($decisionMatrix);
+                $pda = $this->edasService->calc($decisionMatrix, $average, true);
+                $nda = $this->edasService->calc($decisionMatrix, $average, false);
+                $sp = $this->edasService->SPSN($pda);
+                $sn = $this->edasService->SPSN($nda);
+                $nsn = $this->edasService->NSPNSN($sn, false);
+                $nsp = $this->edasService->NSPNSN($sp, true);
+                $as = $this->edasService->AS($nsp, $nsn);
 
-            Edas::insert([
-                'decision_matrix' => json_encode($decisionMatrix),
-                'average' => json_encode($average),
-                'pda' => json_encode($pda),
-                'nda' => json_encode($nda),
-                'sp' => json_encode($sp),
-                'sn' => json_encode($sn),
-                'nsn' => json_encode($nsn),
-                'nsp' => json_encode($nsp),
-            ]);
+                Edas::insert([
+                    'decision_matrix' => json_encode($decisionMatrix),
+                    'average' => json_encode($average),
+                    'pda' => json_encode($pda),
+                    'nda' => json_encode($nda),
+                    'sp' => json_encode($sp),
+                    'sn' => json_encode($sn),
+                    'nsn' => json_encode($nsn),
+                    'nsp' => json_encode($nsp),
+                ]);
+
+                foreach ($as as $key => $value) {
+                    RankEdas::create([
+                        'id_keluarga' => $data[$key]->id_keluarga,
+                        'score' => $value,
+                    ]);
+                }
+            });
 
             return redirect('/bansos')->with('success', 'Data untuk EDAS berhasil dihitung.');
 
         } catch (\Exception $e) {
             return redirect('/bansos')->with('error', 'Data untuk EDAS gagal dihitung.');
         }
-
     }
 
     public function mabac()
