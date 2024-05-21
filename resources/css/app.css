@@ -46,7 +46,7 @@
 }
 
 .filterButton {
-    @apply xl:px-[1vw] xl:text-sm lg:px-[0.8vw] lg:py-[0.5rem] lg:text-[0.6rem] xl:py-[0.625rem] rounded-[1.25rem] border border-Neutral/30 font-normal text-Neutral/70 cursor-pointer bg-white hover:border-Primary/10 hover:text-Primary/10 hover:bg-white;
+    @apply xl:px-[1vw] xl:text-sm lg:px-[0.9vw] lg:text-[0.6rem] lg:py-[0.625rem] rounded-[1.25rem] border border-Neutral/30 font-normal text-Neutral/70 cursor-pointer bg-white hover:border-Primary/10 hover:text-Primary/10 hover:bg-white;
 }
 
 .activeFilterButton {

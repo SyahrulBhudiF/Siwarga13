@@ -28,6 +28,9 @@ class BansosController extends Controller
         $this->mabacService = $mabacService;
     }
 
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $data = [
@@ -44,6 +47,9 @@ class BansosController extends Controller
         return view('pages.bansos.index', compact('data', 'edas', 'mabac'));
     }
 
+    /**
+     * Show the same noKK civilliant.
+     */
     public function show(string $id)
     {
         $data = [
@@ -62,6 +68,9 @@ class BansosController extends Controller
         return view('pages.bansos.detail', compact('data', 'warga'));
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(string $id)
     {
         $data = [
@@ -79,6 +88,9 @@ class BansosController extends Controller
         return view('pages.bansos.edit', compact('data', 'warga'));
     }
 
+    /**
+     * Implement Edas Method.
+     */
     public function edas(): RedirectResponse
     {
         $data = Keluarga::all();
@@ -124,6 +136,9 @@ class BansosController extends Controller
         }
     }
 
+    /**
+     * Implement Mabac Method.
+     */
     public function mabac()
     {
         $data = Keluarga::all();

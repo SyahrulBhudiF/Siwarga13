@@ -23,7 +23,7 @@
     @include('layouts.header')
     {{--Content--}}
     <main class="flex flex-col py-6 px-5 h-full">
-        <div class="h-[81vh] max-xl:h-[77vh] flex flex-col 2xl:gap-5 xl:gap-2 lg:gap-4">
+        <div class="h-[81vh] max-xl:h-[77vh] flex flex-col 2xl:gap-5 xl:gap-2 lg:gap-4 overflow-y-auto">
             @yield('content')
         </div>
     </main>
