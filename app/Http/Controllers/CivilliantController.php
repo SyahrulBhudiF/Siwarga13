@@ -101,7 +101,6 @@ class CivilliantController extends Controller
             DB::commit();
 
             return redirect()->intended(route('warga.index'))->with('success', 'Data berhasil ditambahkan!');
-
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'Terjadi kesalahan saat menambahkan data');
@@ -194,7 +193,6 @@ class CivilliantController extends Controller
 
             return redirect()->intended(route('warga.show', ['warga' => $id]))
                 ->with('success', 'Data berhasil diubah!');
-
         } catch (\Exception $e) {
             DB::rollback();
 

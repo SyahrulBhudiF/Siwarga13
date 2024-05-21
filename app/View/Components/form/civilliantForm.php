@@ -12,7 +12,7 @@ class civilliantForm extends Component
      * Create a new component instance.
      */
     public string $action;
-    public object $warga;
+    public object|string $warga;
 
     public function __construct($warga, $action)
     {

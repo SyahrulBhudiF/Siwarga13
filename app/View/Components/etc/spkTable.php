@@ -11,10 +11,12 @@ class spkTable extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $dataSpk;
+    public function __construct($dataSpk)
     {
-        //
+        $this->dataSpk = $dataSpk;
     }
+
 
     /**
      * Get the view / contents that represent the component.
