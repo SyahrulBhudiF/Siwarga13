@@ -17,17 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $services = [
-            CivilliantService::class,
-            EdasService::class,
-            MabacService::class,
-        ];
-
-        foreach ($services as $service) {
-            $this->app->singleton($service, function () use ($service) {
-                return new $service();
-            });
-        }
+        $this->app->singleton(CivilliantService::class, function () {
+            return new CivilliantService();
+        });
     }
 
     /**
