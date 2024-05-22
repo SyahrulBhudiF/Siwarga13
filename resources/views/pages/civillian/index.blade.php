@@ -218,7 +218,6 @@
                     addRowToTable(item);
                 });
 
-
             } catch (error) {
                 const table = document.getElementById('dataTable');
 
