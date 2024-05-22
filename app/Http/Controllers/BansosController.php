@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Edas;
 use App\Models\Keluarga;
+use App\Models\Mabac;
 use App\Models\RankEdas;
 use App\Models\RankMabac;
 use App\Models\Warga;
@@ -125,20 +126,52 @@ class BansosController extends Controller
                 ]);
             }
 
-            return redirect('/bansos')->with('success', 'Data untuk EDAS berhasil dihitung.');
+            return redirect('/bansos')->with('success', 'Data EDAS berhasil dihitung.');
         } catch (\Exception $e) {
-            return redirect('/bansos')->with('error', 'Data untuk EDAS gagal dihitung.');
+            return redirect('/bansos')->with('error', 'Data EDAS gagal dihitung.');
         }
     }
 
     /**
      * Implement Mabac Method.
      */
-    public function mabac()
+    public function mabac(): RedirectResponse
     {
         $data = Keluarga::all();
-        //        dd($data->toArray());
-        $decisionMatrix = decisionMatrix($data);
-        dd($decisionMatrix);
+
+//        try {
+            Mabac::truncate();
+            RankMabac::truncate();
+
+            $decisionMatrix = decisionMatrix($data);
+            $min = $this->mabacService->minMax($decisionMatrix, 'min');
+            $max = $this->mabacService->minMax($decisionMatrix, 'max');
+            $normalizedX = $this->mabacService->normalized($decisionMatrix, $min, $max);
+            $weightV = $this->mabacService->weightV($normalizedX);
+            $limitsG = $this->mabacService->limitsG($weightV);
+            $distanceQ = $this->mabacService->distanceQ($weightV, $limitsG);
+            $rankS = $this->mabacService->rankS($distanceQ);
+
+            Mabac::insert([
+                'decision_matrix' => json_encode($decisionMatrix),
+                'min' => json_encode($min),
+                'max' => json_encode($max),
+                'normalizedX' => json_encode($normalizedX),
+                'weightV' => json_encode($weightV),
+                'limitsG' => json_encode($limitsG),
+                'distanceQ' => json_encode($distanceQ),
+            ]);
+
+            foreach ($rankS as $key => $value) {
+                RankMabac::create([
+                    'id_keluarga' => $data[$key]->id_keluarga,
+                    'score' => $value,
+                ]);
+            }
+
+            return redirect('/bansos')->with('success', 'Data MABAC berhasil dihitung.');
+//        } catch (\Exception $e) {
+//            return redirect('/bansos')->with('error', 'Data MABAC gagal dihitung.');
+//        }
     }
 }
