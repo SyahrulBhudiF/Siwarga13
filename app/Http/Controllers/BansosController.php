@@ -139,7 +139,7 @@ class BansosController extends Controller
     {
         $data = Keluarga::all();
 
-//        try {
+        try {
             Mabac::truncate();
             RankMabac::truncate();
 
@@ -170,8 +170,8 @@ class BansosController extends Controller
             }
 
             return redirect('/bansos')->with('success', 'Data MABAC berhasil dihitung.');
-//        } catch (\Exception $e) {
-//            return redirect('/bansos')->with('error', 'Data MABAC gagal dihitung.');
-//        }
+        } catch (\Exception $e) {
+            return redirect('/bansos')->with('error', 'Data MABAC gagal dihitung.');
+        }
     }
 }
