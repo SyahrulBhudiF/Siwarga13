@@ -12,9 +12,14 @@ return new class extends Migration {
     {
         Schema::create('edas', function (Blueprint $table) {
             $table->id('id_edas');
-            $table->integer('step_number');
-            $table->text('description');
-            $table->json('result');
+            $table->json('decision_matrix');
+            $table->json('average');
+            $table->json('pda');
+            $table->json('nda');
+            $table->json('sp');
+            $table->json('sn');
+            $table->json('nsn');
+            $table->json('nsp');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Web untuk Administrasi dan dokumentasi kegiatan warga RW13">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Siwarga13</title>
     @vite('resources/css/app.css')
@@ -22,8 +23,8 @@
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}
-    <main class="flex flex-col gap-5 py-6 px-5 h-full">
-        <div class="h-[81vh] max-xl:h-[77vh] flex flex-col gap-5">
+    <main class="flex flex-col py-6 px-5 h-full">
+        <div class="h-[81vh] max-xl:h-[77vh]  flex flex-col 2xl:gap-5 xl:gap-2 lg:gap-4">
             @yield('content')
         </div>
     </main>

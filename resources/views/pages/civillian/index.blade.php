@@ -40,7 +40,7 @@
                 <td class="bodyTable">{{$dt->alamat->alamat}}</td>
                 <td class="bodyTable">
                     <a href="{{ route('warga.show', $dt->id_warga) }}"
-                       class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium xl:text-base lg:text-xs py-3 px-4 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
+                       class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium 2xl:text-base xl:text-sm lg:text-xs 2xl:py-3 xl:py-2 2xl:px-4 xl:px-3 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
                 </td>
             </x-table.table-row>
             @php
@@ -217,7 +217,6 @@
                 responseData[0].data.forEach(item => {
                     addRowToTable(item);
                 });
-
 
             } catch (error) {
                 const table = document.getElementById('dataTable');

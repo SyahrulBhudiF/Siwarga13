@@ -35,7 +35,7 @@
         </div>
         <div class="flex items-center gap-3">
             <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
-            <a id="refresh" href="/bansos/edas"
+            <a id="refresh" href="/bansos/calculate/edas"
                class="xl:py-3 lg:py-2 xl:text-sm lg:text-xs buttonAnimation hover:bg-Primary/10 hover:brightness-[.90] xl:px-7 lg:px-5 active:brightness-[.80] transition ease-in-out duration-300 bg-Primary/10 rounded-[6.25rem] text-center text-white font-medium">
                 <div class="flex gap-2 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -71,7 +71,7 @@
                 <x-etc.spk-table :dataSpk="$mabac"></x-etc.spk-table>
             `;
 
-                refresh.setAttribute('href', '/bansos/mabac');
+                refresh.setAttribute('href', '/bansos/calculate/mabac');
                 checkStep.setAttribute('href', '/bansos/check/mabac')
                 edas.classList.remove('activeFilterButton');
                 mabac.classList.add('activeFilterButton');
@@ -83,7 +83,7 @@
                 node.innerHTML = `
                 <x-etc.spk-table :dataSpk="$edas"></x-etc.spk-table>
             `;
-                refresh.setAttribute('href', '/bansos/edas');
+                refresh.setAttribute('href', '/bansos/calculate/edas');
                 checkStep.setAttribute('href', '/bansos/check/edas')
                 edas.classList.add('activeFilterButton');
                 mabac.classList.remove('activeFilterButton');

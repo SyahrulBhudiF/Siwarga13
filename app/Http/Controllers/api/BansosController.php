@@ -11,21 +11,27 @@ class BansosController extends Controller
 {
     public function search(Request $request)
     {
-        $search = $request->input('search', '');
-        $active = $request->input('active', 'edas');
+        try {
 
-        $query = $active == 'edas' ? RankEdas::with('keluarga.warga') : RankMabac::with('keluarga.warga');
+            $search = $request->input('search', '');
+            $active = $request->input('active', 'edas');
 
-        $field = preg_match('/^\d/', $search) ? 'noKK' : 'nama';
+            $query = $active == 'edas' ? RankEdas::with('keluarga.warga') : RankMabac::with('keluarga.warga');
 
-        $results = $query->whereHas('keluarga.warga', function ($query) use ($search, $field) {
-            $query->where($field, 'like', '%' . $search . '%');
-        })->get();
+            $field = preg_match('/^\d/', $search) ? 'noKK' : 'nama';
 
-        if ($results->isEmpty()) {
-            return response()->json(['error' => 'No results found'], 404);
+            $results = $query->whereHas('keluarga.warga', function ($query) use ($search, $field) {
+                $query->where($field, 'like', '%' . $search . '%');
+            })->get();
+
+            if ($results->isEmpty()) {
+                return response()->json(['error' => 'No results found'], 404);
+            }
+
+            return response()->json([$results], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'No results found'], 500);
         }
-
-        return response()->json([$results], 200);
     }
 }

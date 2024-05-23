@@ -12,9 +12,13 @@ return new class extends Migration {
     {
         Schema::create('mabac', function (Blueprint $table) {
             $table->id('id_mabac');
-            $table->integer('step_number');
-            $table->text('description');
-            $table->json('result');
+            $table->json('decision_matrix');
+            $table->json('min');
+            $table->json('max');
+            $table->json('normalizedX');
+            $table->json('weightV');
+            $table->json('limitsG');
+            $table->json('distanceQ');
             $table->timestamps();
         });
     }
