@@ -203,4 +203,20 @@ class BansosController extends Controller
 
         return view('pages.bansos.edas', compact('data', 'keluarga', 'matrix', 'average', 'pda', 'nda', 'sp', 'sn', 'nsn', 'nsp', 'rankEdas'));
     }
+
+    /**
+     * Check step MABAC Method.
+     */
+    public function checkMabac()
+    {
+        $data = [
+            'title' => 'Bansos',
+            'active' => 'bansos',
+            'menu' => 'create',
+            'head' => 'Checkstep Mabac',
+            'desc' => 'Berikut adalah step perhitungan dari metode MABAC.',
+        ];
+
+        return view('pages.bansos.mabac', compact('data'));
+    }
 }
