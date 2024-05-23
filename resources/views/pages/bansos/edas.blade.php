@@ -47,7 +47,7 @@
 
         <div class="flex flex-col gap-4">
             <p class="text-Neutral/100 font-normal text-base">Matrix Keputusan (X)</p>
-            <p class="text-Neutral/70 font-normal text-sm -mt-3">Desc : Pada matriks keputusan (X), baris menunjukkan
+            <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Pada matriks keputusan (X), baris menunjukkan
                 alternatif dan kolom menunjukkan kriteria. Matriks
                 keputusan menunjukkan kinerja dari masing-masing alternatif terhadap berbagai kriteria.</p>
             <x-table.data-table :dt="$matrix"
@@ -67,7 +67,7 @@
 
         <div class="flex flex-col gap-4">
             <p class="text-Neutral/100 font-normal text-base">Nilai Solusi Rata-rata (AV)</p>
-            <p class="text-Neutral/70 font-normal text-sm -mt-3">Desc : Menentukan solusi rata-rata (AV) sesuai dengan
+            <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Menentukan solusi rata-rata (AV) sesuai dengan
                 kriteria yang ditentukan dengan menggunakan persamaan berikut:</p>
             <img src="{{asset('svg/G1.svg')}}" alt="rumus" class="w-1/5">
             <x-table.data-table :dt="$average"
@@ -86,14 +86,14 @@
         <div class="flex flex-col gap-4">
             <p class="text-Neutral/100 font-normal text-base">Menentukan jarak positif (PDA) dan jarak negatif (NDA)
             </p>
-            <p class="text-Neutral/70 font-normal text-sm -mt-3">Desc : Menghitung jarak positif dari matriks rata-rata
+            <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Menghitung jarak positif dari matriks rata-rata
                 (PDA) dan jarak negatif dari matriks rata-rata (NDA) sesuai jenis kriteria (benefit dan cost) dengan
                 menggunakan persamaan berikut.</p>
-            <p class="text-Neutral/70 font-normal text-sm -mt-3">
+            <p class="text-Neutral/90 font-normal text-sm -mt-3">
                 Untuk kriteria ke-j yang merupakan kriteria bertipe “Benefit” maka berlaku :
             </p>
             <img src="{{asset('svg/G2.svg')}}" alt="rumus" class="w-1/5">
-            <p class="text-Neutral/70 font-normal text-sm -mt-3">
+            <p class="text-Neutral/90 font-normal text-sm -mt-3">
                 Untuk kriteria ke-j yang merupakan kriteria bertipe “Cost” maka berlaku :</p>
             <img src="{{asset('svg/G3.svg')}}" alt="rumus" class="w-1/5">
             <p class="text-Neutral/100 font-bold text-sm">PDA</p>
@@ -199,7 +199,7 @@
         <div class="flex flex-col gap-4">
             <p class="text-Neutral/100 font-normal text-base">Menghitung nilai skor penilaian (AS) dan melakukan
                 Ranking</p>
-            <p class="text-Neutral/70 font-normal text-sm -mt-3">Desc : Setelah nilai normalisasi NSP dan NSN
+            <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Setelah nilai normalisasi NSP dan NSN
                 diperoleh, maka dihitung nilai penilaian atau Appraisal Score (AS) sebagai berikut:
             </p>
             <img src="{{asset('svg/G6.svg')}}" class="w-1/4">
