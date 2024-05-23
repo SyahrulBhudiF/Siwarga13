@@ -1,8 +1,8 @@
 <div
-    class="flex flex-col justify-between w-full h-full overflow-hidden 2xl:p-0 lg:px-2 fade-in xl:overflow-y-auto lg:overflow-x-auto">
+    class="flex flex-col justify-between w-full {{$dt instanceof \Illuminate\Pagination\LengthAwarePaginator?'h-full': ''}} overflow-hidden 2xl:p-0 lg:px-2 fade-in xl:overflow-y-auto lg:overflow-x-auto">
     <table class="table-auto w-full xl:text-sm lg:text-xs font-medium" id="dataTable">
-        <thead class="bg-[#F5F7F9]">
-        <tr class="text-Neutral/70">
+        <thead class="bg-[#F5F7F9] w-full">
+        <tr class="text-Neutral/70 w-full">
 
             @foreach ($headers as $index => $header)
                 @if ($index == 0)
@@ -16,19 +16,26 @@
 
         </tr>
         </thead>
-        @if ($dt->isEmpty())
-            <tr>
-                <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60" id="loading">
-                    Data tidak ditemukan
-                </td>
-            </tr>
+        @if(!is_array($dt))
+            @if ($dt->isEmpty())
+                <tr>
+                    <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60" id="loading">
+                        Data tidak ditemukan
+                    </td>
+                </tr>
+            @else
+                <tbody class="transition ease-in-out duration-200" id="bodyTable">
+                {{ $slot }}
+                </tbody>
+            @endif
+
         @else
             <tbody class="transition ease-in-out duration-200" id="bodyTable">
             {{ $slot }}
             </tbody>
         @endif
     </table>
-    @if (Route::currentRouteName() !== 'bansos.show')
+    @if ($dt instanceof \Illuminate\Pagination\LengthAwarePaginator)
         <div class="flex justify-between 2xl:my-4 xl:my-4 items-center" id="pagin">
             <div class="flex items-center list-none gap-2">
                 {{ $dt->links() }}

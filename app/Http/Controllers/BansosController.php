@@ -174,4 +174,33 @@ class BansosController extends Controller
             return redirect('/bansos')->with('error', 'Data MABAC gagal dihitung.');
         }
     }
+
+    /**
+     * Check step EDAS Method.
+     */
+    public function checkEdas()
+    {
+        $data = [
+            'title' => 'Bansos',
+            'active' => 'bansos',
+            'menu' => 'create',
+            'head' => 'Checkstep Edas',
+            'desc' => 'Berikut adalah step perhitungan dari metode EDAS.',
+        ];
+
+        $keluarga = Keluarga::with('warga')->get();
+        $rankEdas = RankEdas::with('keluarga')->orderBy('score', 'desc')->get();
+        $edas = Edas::all();
+
+        $matrix = json_decode($edas[0]['decision_matrix']);
+        $average = json_decode($edas[0]['average'], true);
+        $pda = json_decode($edas[0]['pda'], true);
+        $nda = json_decode($edas[0]['nda'], true);
+        $sp = json_decode($edas[0]['sp'], true);
+        $sn = json_decode($edas[0]['sn'], true);
+        $nsn = json_decode($edas[0]['nsn'], true);
+        $nsp = json_decode($edas[0]['nsp'], true);
+
+        return view('pages.bansos.edas', compact('data', 'keluarga', 'matrix', 'average', 'pda', 'nda', 'sp', 'sn', 'nsn', 'nsp', 'rankEdas'));
+    }
 }
