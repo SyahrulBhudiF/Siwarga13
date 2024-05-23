@@ -217,6 +217,18 @@ class BansosController extends Controller
             'desc' => 'Berikut adalah step perhitungan dari metode MABAC.',
         ];
 
-        return view('pages.bansos.mabac', compact('data'));
+        $keluarga = Keluarga::with('warga')->get();
+        $mabac = Mabac::all();
+        $rankMabac = RankMabac::with('keluarga')->orderBy('score', 'desc')->get();
+
+        $matrix = json_decode($mabac[0]['decision_matrix']);
+        $min = json_decode($mabac[0]['min'], true);
+        $max = json_decode($mabac[0]['max'], true);
+        $normalizedX = json_decode($mabac[0]['normalizedX'], true);
+        $weightV = json_decode($mabac[0]['weightV'], true);
+        $limitsG = json_decode($mabac[0]['limitsG'], true);
+        $distanceQ = json_decode($mabac[0]['distanceQ'], true);
+
+        return view('pages.bansos.mabac', compact('data', 'keluarga', 'matrix', 'rankMabac', 'min', 'max', 'normalizedX', 'weightV', 'limitsG', 'distanceQ'));
     }
 }
