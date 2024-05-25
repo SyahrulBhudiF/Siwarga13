@@ -5,12 +5,36 @@ namespace App\Services;
 use App\Http\Requests\civilliant\StoreCivilliantRequest;
 use App\Http\Requests\status\StoreStatusRequest;
 use App\Models\Keluarga;
+use App\Models\Status;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CivilliantService
 {
+    /**
+     * @param StoreCivilliantRequest $requestCivil
+     * @param StoreStatusRequest $requestStatus
+     * @return bool
+     * Check if noKK is exist
+     */
+    public function checkKepalaKeluarga($requestStatus, $requestCivil)
+    {
+        if ($requestStatus->input('status_peran') == 'Anggota keluarga') {
+            $kepalaKeluarga = Status::where('status_peran', 'Kepala keluarga')
+                ->whereHas('warga', function ($query) use ($requestCivil) {
+                    $query->where('noKK', $requestCivil->input('noKK'));
+                })->first();
+
+            if (!$kepalaKeluarga) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @param StoreCivilliantRequest $requestCivil
      * @param StoreStatusRequest $requestStatus
@@ -53,37 +77,43 @@ class CivilliantService
      */
     public function updateEntities($civilliantRequest, $alamatRequest, $statusRequest, $warga, $alamat, $status)
     {
-        $updated = false;
+        try {
+            DB::beginTransaction();
+            $updated = false;
 
-        if ($civilliantRequest->all() !== []) {
-            tap($warga)->update($civilliantRequest->all());
-            $updated = true;
-        }
-
-        if ($alamatRequest->all() !== []) {
-            tap($alamat)->update($alamatRequest->all());
-            $updated = true;
-        }
-
-        if ($statusRequest->all() !== []) {
-            tap($status)->update($statusRequest->all());
-
-            if ($statusRequest->input('status_hidup') == 'Meninggal') {
-                $warga->update([
-                    'pendapatan' => 0,
-                ]);
+            if ($civilliantRequest->all() !== []) {
+                tap($warga)->update($civilliantRequest->all());
+                $updated = true;
             }
 
-            if ($statusRequest->input('status_hidup') == 'Meninggal' && $status->status_peran == 'Kepala keluarga') {
-                $status->update([
-                    'status_peran' => 'Anggota keluarga',
-                ]);
+            if ($alamatRequest->all() !== []) {
+                tap($alamat)->update($alamatRequest->all());
+                $updated = true;
             }
 
-            $updated = true;
-        }
+            if ($statusRequest->all() !== []) {
+                tap($status)->update($statusRequest->all());
 
-        return $updated;
+                if ($statusRequest->input('status_hidup') == 'Meninggal') {
+                    $warga->update([
+                        'pendapatan' => 0,
+                    ]);
+                }
+
+                if ($statusRequest->input('status_hidup') == 'Meninggal' && $status->status_peran == 'Kepala keluarga') {
+                    $status->update([
+                        'status_peran' => 'Anggota keluarga',
+                    ]);
+                }
+
+                $updated = true;
+            }
+
+            DB::commit();
+            return $updated;
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
     }
 
 
@@ -97,27 +127,34 @@ class CivilliantService
      */
     public function updateKeluarga($statusRequest, $pendapatanAwal, $pendapatanBaru, $kk)
     {
-        if ($statusRequest->input('status_hidup') == 'Meninggal') {
+        try {
+            DB::beginTransaction();
+            if ($statusRequest->input('status_hidup') == 'Meninggal' && $kk) {
 
-            if ($pendapatanAwal > 0) {
-                $kk->update([
-                    'total_pendapatan' => $kk->total_pendapatan - $pendapatanAwal,
-                    'tanggungan' => $kk->tanggungan - 1,
-                    'jumlah_pekerja' => $kk->jumlah_pekerja - 1,
-                ]);
+                if ($pendapatanAwal > 0) {
+                    $kk->update([
+                        'total_pendapatan' => $kk->total_pendapatan - $pendapatanAwal,
+                        'tanggungan' => $kk->tanggungan - 1,
+                        'jumlah_pekerja' => $kk->jumlah_pekerja - 1,
+                    ]);
 
-            } else {
+                } else {
+                    $kk->update([
+                        'tanggungan' => $kk->tanggungan - 1,
+                    ]);
+                }
+
+            } else if ($pendapatanAwal != $pendapatanBaru && $kk) {
+                $selisihPendapatan = $pendapatanBaru - $pendapatanAwal;
+
                 $kk->update([
-                    'tanggungan' => $kk->tanggungan - 1,
+                    'total_pendapatan' => $kk->total_pendapatan + $selisihPendapatan,
                 ]);
             }
 
-        } else if ($pendapatanAwal != $pendapatanBaru) {
-            $selisihPendapatan = $pendapatanBaru - $pendapatanAwal;
-
-            $kk->update([
-                'total_pendapatan' => $kk->total_pendapatan + $selisihPendapatan,
-            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
         }
     }
 

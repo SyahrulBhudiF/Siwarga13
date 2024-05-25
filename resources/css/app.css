@@ -11,22 +11,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    @apply bg-Neutral/30
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    @apply bg-Neutral/60 rounded-full transition ease-in-out duration-200
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    @apply bg-Neutral/70;
+    width: 0 !important;
 }
 
 .activeSidebar {

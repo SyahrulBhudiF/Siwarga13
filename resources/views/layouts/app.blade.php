@@ -10,7 +10,7 @@
     <title>Siwarga13</title>
     @vite('resources/css/app.css')
 </head>
-<body class="w-screen h-screen {{$data['menu'] != 'index' ? 'overflow-x-hidden' : 'overflow-hidden'}} flex">
+<body class="w-screen h-screen overflow-x-hidden flex">
 {{--SideBar--}}
 <aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden-sidebar xl:block hidden h-full">
     <nav
@@ -23,8 +23,8 @@
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}
-    <main class="flex flex-col py-6 px-5 h-full">
-        <div class="h-[81vh] max-xl:h-[77vh]  flex flex-col 2xl:gap-5 xl:gap-2 lg:gap-4">
+    <main class="flex flex-col pt-6 px-5">
+        <div class="flex flex-col 2xl:gap-5 xl:gap-2 lg:gap-4">
             @yield('content')
         </div>
     </main>

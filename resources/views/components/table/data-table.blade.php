@@ -1,5 +1,5 @@
 <div
-    class="flex flex-col justify-between w-full {{$dt instanceof \Illuminate\Pagination\LengthAwarePaginator?'h-full': ''}} overflow-hidden 2xl:p-0 lg:px-2 fade-in xl:overflow-y-auto lg:overflow-x-auto">
+    class="flex flex-col w-full {{$dt instanceof \Illuminate\Pagination\LengthAwarePaginator?'h-full': ''}} overflow-y-hidden 2xl:p-0 lg:px-2 fade-in overflow-x-auto">
     <table class="table-auto w-full xl:text-sm lg:text-xs font-medium" id="dataTable">
         <thead class="bg-[#F5F7F9] w-full">
         <tr class="text-Neutral/70 w-full">
@@ -36,7 +36,7 @@
         @endif
     </table>
     @if ($dt instanceof \Illuminate\Pagination\LengthAwarePaginator)
-        <div class="flex justify-between 2xl:my-4 xl:my-4 items-center" id="pagin">
+        <div class="flex justify-between mt-4 items-center" id="pagin">
             <div class="flex items-center list-none gap-2">
                 {{ $dt->links() }}
             </div>
