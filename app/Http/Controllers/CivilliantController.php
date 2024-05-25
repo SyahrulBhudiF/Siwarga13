@@ -68,7 +68,6 @@ class CivilliantController extends Controller
         $data = [
             'title' => 'Kelola Data Warga',
             'active' => 'warga',
-            'menu' => 'create',
             'head' => 'Tambah Data Warga',
         ];
 
@@ -121,7 +120,6 @@ class CivilliantController extends Controller
         $data = [
             'title' => 'Kelola Data Warga',
             'active' => 'warga',
-            'menu' => 'show',
             'head' => 'Detail Warga',
         ];
 
@@ -141,7 +139,6 @@ class CivilliantController extends Controller
         $data = [
             'title' => 'Kelola Data Warga',
             'active' => 'warga',
-            'menu' => 'edit',
             'head' => 'Ubah Data Warga',
         ];
 

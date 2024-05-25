@@ -98,7 +98,7 @@
         </div>
         <div class="flex flex-col gap-3">
             <p class="text-xs font-normal text-Neutral/80">Manajemen Konten Website</p>
-            <a class="{{$data['active']== 'pengumuman'? 'activeSidebar' : 'defaultSidebar'}}" href="">
+            <a class="{{$data['active']== 'pengumuman'? 'activeSidebar' : 'defaultSidebar'}}" href="/pengumuman">
                 <img src="{{asset("svg/side.svg")}}"
                      class="absolute left-0 {{$data['active']== 'pengumuman'? 'block' : 'hidden'}}" alt="side">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

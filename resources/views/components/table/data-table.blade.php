@@ -24,7 +24,7 @@
                     </td>
                 </tr>
             @else
-                <tbody class="transition ease-in-out duration-200" id="bodyTable">
+                <tbody class="transition ease-in-out duration-200 w-full" id="bodyTable">
                 {{ $slot }}
                 </tbody>
             @endif

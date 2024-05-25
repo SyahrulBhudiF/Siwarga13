@@ -35,7 +35,6 @@ class BansosController extends Controller
         $data = [
             'title' => 'Bansos',
             'active' => 'bansos',
-            'menu' => 'index',
             'head' => 'List Bantuan Sosial RW 13',
             'desc' => 'Berikut adalah data warga yang berhak menerima bansos.',
         ];
@@ -54,7 +53,6 @@ class BansosController extends Controller
         $data = [
             'title' => 'Bansos',
             'active' => 'bansos',
-            'menu' => 'index',
         ];
 
         $warga = Warga::with('alamat')
@@ -75,7 +73,6 @@ class BansosController extends Controller
         $data = [
             'title' => 'Bansos',
             'active' => 'bansos',
-            'menu' => 'edit',
             'head' => 'Ubah Data Warga',
         ];
 
@@ -183,7 +180,6 @@ class BansosController extends Controller
         $data = [
             'title' => 'Bansos',
             'active' => 'bansos',
-            'menu' => 'create',
             'head' => 'Checkstep Edas',
             'desc' => 'Berikut adalah step perhitungan dari metode EDAS.',
         ];
@@ -212,7 +208,6 @@ class BansosController extends Controller
         $data = [
             'title' => 'Bansos',
             'active' => 'bansos',
-            'menu' => 'create',
             'head' => 'Checkstep Mabac',
             'desc' => 'Berikut adalah step perhitungan dari metode MABAC.',
         ];

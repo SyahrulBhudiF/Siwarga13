@@ -1,21 +1,21 @@
 <?php
 
-namespace App\View\Components\etc;
+namespace App\View\Components\input;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class subMenu extends Component
+class textareaInput extends Component
 {
     /**
      * Create a new component instance.
      */
-    public string $head;
+    public $id, $value;
 
-    public function __construct($head)
+    public function __construct()
     {
-        $this->head = $head;
+        //
     }
 
     /**
@@ -23,6 +23,6 @@ class subMenu extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.etc.sub-menu');
+        return view('components.input.textarea-input');
     }
 }
