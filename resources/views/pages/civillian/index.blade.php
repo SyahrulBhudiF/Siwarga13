@@ -3,51 +3,53 @@
     @if(session('success') || session('error'))
         <x-flash-message></x-flash-message>
     @endif
-    <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
-        <x-buttons.primary-button href="{{route('warga.create')}}">Tambah Data</x-buttons.primary-button>
-    </x-etc.header-content>
-    <div class="flex justify-between">
-        @if (Auth::user()->role == 'RW')
-            <div class="flex items-center gap-2">
-                <x-buttons.filter-button :dt="$data" id="RW">RW 13 (Semua RT)</x-buttons.filter-button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
-                    <path d="M1 0V24" stroke="#E3E3E3"/>
-                </svg>
-                <x-buttons.filter-button :dt="$data" id="RT 1">RT 001</x-buttons.filter-button>
-                <x-buttons.filter-button :dt="$data" id="RT 2">RT 002</x-buttons.filter-button>
-                <x-buttons.filter-button :dt="$data" id="RT 3">RT 003</x-buttons.filter-button>
-                <x-buttons.filter-button :dt="$data" id="RT 4">RT 004</x-buttons.filter-button>
-                <x-buttons.filter-button :dt="$data" id="RT 5">RT 005</x-buttons.filter-button>
+    <div class="flex flex-col gap-4 justify-center w-full pb-4">
+        <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
+            <x-buttons.primary-button href="{{route('warga.create')}}">Tambah Data</x-buttons.primary-button>
+        </x-etc.header-content>
+        <div class="flex justify-between">
+            @if (Auth::user()->role == 'RW')
+                <div class="flex items-center gap-2">
+                    <x-buttons.filter-button :dt="$data" id="RW">RW 13 (Semua RT)</x-buttons.filter-button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
+                        <path d="M1 0V24" stroke="#E3E3E3"/>
+                    </svg>
+                    <x-buttons.filter-button :dt="$data" id="RT 1">RT 001</x-buttons.filter-button>
+                    <x-buttons.filter-button :dt="$data" id="RT 2">RT 002</x-buttons.filter-button>
+                    <x-buttons.filter-button :dt="$data" id="RT 3">RT 003</x-buttons.filter-button>
+                    <x-buttons.filter-button :dt="$data" id="RT 4">RT 004</x-buttons.filter-button>
+                    <x-buttons.filter-button :dt="$data" id="RT 5">RT 005</x-buttons.filter-button>
+                </div>
+            @endif
+            <div class="flex gap-3 items-center">
+                <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
+                <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
             </div>
-        @endif
-        <div class="flex gap-3 items-center">
-            <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
-            <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
         </div>
-    </div>
-    <x-table.data-table :dt="$warga"
-                        :headers="['No', 'Nama', 'NIK', 'KK', 'RT', 'Alamat', 'Aksi']">
-        @php
-            $no = ($warga->currentPage() - 1) * $warga->perPage() + 1;
-        @endphp
-        @foreach($warga as $dt)
-            <x-table.table-row>
-                <td class="firstBodyTable">{{$no}}</td>
-                <td class="bodyTable">{{$dt->nama}}</td>
-                <td class="bodyTable">{{$dt->nik}}</td>
-                <td class="bodyTable">{{$dt->noKK}}</td>
-                <td class="bodyTable">{{$dt->alamat->rt}}</td>
-                <td class="bodyTable">{{$dt->alamat->alamat}}</td>
-                <td class="bodyTable">
-                    <a href="{{ route('warga.show', $dt->id_warga) }}"
-                       class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium 2xl:text-base xl:text-sm lg:text-xs 2xl:py-3 xl:py-2 2xl:px-4 xl:px-3 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
-                </td>
-            </x-table.table-row>
+        <x-table.data-table :dt="$warga"
+                            :headers="['No', 'Nama', 'NIK', 'KK', 'RT', 'Alamat', 'Aksi']">
             @php
-                $no++;
+                $no = ($warga->currentPage() - 1) * $warga->perPage() + 1;
             @endphp
-        @endforeach
-    </x-table.data-table>
+            @foreach($warga as $dt)
+                <x-table.table-row>
+                    <td class="firstBodyTable">{{$no}}</td>
+                    <td class="bodyTable">{{$dt->nama}}</td>
+                    <td class="bodyTable">{{$dt->nik}}</td>
+                    <td class="bodyTable">{{$dt->noKK}}</td>
+                    <td class="bodyTable">{{$dt->alamat->rt}}</td>
+                    <td class="bodyTable">{{$dt->alamat->alamat}}</td>
+                    <td class="bodyTable">
+                        <a href="{{ route('warga.show', $dt->id_warga) }}"
+                           class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium 2xl:text-base xl:text-sm lg:text-xs 2xl:py-3 xl:py-2 2xl:px-4 xl:px-3 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
+                    </td>
+                </x-table.table-row>
+                @php
+                    $no++;
+                @endphp
+            @endforeach
+        </x-table.data-table>
+    </div>
 @endsection
 @push('js')
     <script>

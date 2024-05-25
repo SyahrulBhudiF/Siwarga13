@@ -92,6 +92,11 @@ class CivilliantController extends Controller
                 'id_status' => Status::insertGetId($requestStatus->all())
             ]);
 
+            // check if noKK dont have kepala keluarga
+            if (!$this->civilliantService->checkKepalaKeluarga($requestStatus, $requestCivil)) {
+                return back()->with('error', 'Tidak ada Kepala Keluarga dengan nomor KK yang sama.');
+            }
+
             $wargaId = Warga::insertGetId($requestCivil->all());
 
             if ($requestStatus->input('status_hidup') != 'Meninggal') {
