@@ -1,4 +1,4 @@
-@props(['id', 'accept', 'multiple', 'value'])
+@props(['id', 'accept', 'multiple', 'value', 'name'])
 
 <label class="flex flex-col gap-2 w-full" for="{{$id}}">
     <span class="text-Neutral/100 xl:text-base lg:text-xs font-medium">{{$slot}}</span>
@@ -8,7 +8,11 @@
            onchange="document.getElementById('{{$id}}_filename').textContent = this.files[0].name; document.getElementById('{{$id}}_filename').classList.remove('text-Neutral/60'); document.getElementById('{{$id}}_filename').classList.add('text-Neutral/100');">
     <span class="flex justify-between items-center xl:text-base lg:text-xs border border-Neutral/30 rounded-[1.25rem] px-4 py-2
     focus:border-Primary/10 focus:text-Primary/10">
-        <span id="{{$id}}_filename" class="text-Neutral/60">Upload file anda kesini</span>
+        @if($value)
+            <span id="{{$id}}_filename" class="text-Neutral/100">{{$name}}</span>
+        @else
+            <span id="{{$id}}_filename" class="text-Neutral/60">Upload file anda kesini</span>
+        @endif
         <span class="flex cursor-pointer buttonAnimation items-center gap-2 py-2 px-4 rounded-[6.25rem] bg-[#F5F7F9]">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                  fill="none">

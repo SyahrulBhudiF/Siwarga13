@@ -11,14 +11,15 @@ class fileInput extends Component
     /**
      * Create a new component instance.
      */
-    public $id, $accept, $multiple, $value;
+    public $id, $accept, $multiple, $value, $name;
 
-    public function __construct($id, $accept, $multiple, $value)
+    public function __construct($id, $accept, $multiple, $value, $name)
     {
         $this->id = $id;
         $this->accept = $accept;
         $this->multiple = $multiple;
         $this->value = $value;
+        $this->name = $name;
     }
 
     /**

@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('kepada', 50)->nullable();
             $table->string('penerbit', 10)->nullable();
             $table->string('path_thumbnail')->nullable();
+            $table->string('publicId')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });
