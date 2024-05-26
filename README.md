@@ -18,6 +18,7 @@
 - **[Frontend TailwindCSS](https://tailwindcss.com/docs/installation)**
 - **[Frontend daisyUI](https://daisyui.com/docs/install/)**
 - **[Database Mysql _8.0._](https://dev.mysql.com/doc/refman/8.0/en/)**
+- **[Cloudinary](https://cloudinary.com/)**
 
 ### **Software Requirement:**
 
