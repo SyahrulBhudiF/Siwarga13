@@ -71,13 +71,13 @@
             <div class="flex gap-2 items-center w-full">
                 <x-input.radio-input name="jenis_kelamin" id="laki"
                                      value="Laki-laki"
-                                     checked="{{ old('jenis_kelamin') == 'Laki-laki',(is_object($warga) && ($warga['jenis_kelamin'] == 'Laki-laki'))}}"
+                                     checked="{{ old('jenis_kelamin') == 'Laki-laki'||(is_object($warga) && ($warga['jenis_kelamin'] == 'Laki-laki'))}}"
                                      fn="">
                     Laki-laki
                 </x-input.radio-input>
                 <x-input.radio-input name="jenis_kelamin" id="perempuan"
                                      value="Perempuan"
-                                     checked="{{old('jenis_kelamin') == 'Perempuan',(is_object($warga) && ($warga['jenis_kelamin'] == 'Perempuan'))}}"
+                                     checked="{{old('jenis_kelamin') == 'Perempuan'||(is_object($warga) && ($warga['jenis_kelamin'] == 'Perempuan'))}}"
                                      fn="">
                     Perempuan
                 </x-input.radio-input>
@@ -143,19 +143,19 @@
             <div class="flex gap-2 items-center w-full">
                 <x-input.radio-input name="status_hidup" id="Hidup"
                                      value="Hidup"
-                                     checked="{{old('status_hidup') == 'Hidup',(is_object($warga) && ($warga->status->status_hidup == 'Hidup'))}}"
+                                     checked="{{old('status_hidup') == 'Hidup'||(is_object($warga) && ($warga->status->status_hidup == 'Hidup'))}}"
                                      fn="">
                     Hidup
                 </x-input.radio-input>
                 <x-input.radio-input name="status_hidup" id="Meninggal"
                                      value="Meninggal"
-                                     checked="{{old('status_hidup') == 'Meninggal',(is_object($warga) && ($warga->status->status_hidup == 'Meninggal'))}}"
+                                     checked="{{old('status_hidup') == 'Meninggal'||(is_object($warga) && ($warga->status->status_hidup == 'Meninggal'))}}"
                                      fn="">
                     Meninggal
                 </x-input.radio-input>
                 <x-input.radio-input name="status_hidup" id="Pindah"
                                      value="Pindah"
-                                     checked="{{old('status_hidup') == 'Pindah',(is_object($warga) && ($warga->status->status_hidup == 'Pindah'))}}"
+                                     checked="{{old('status_hidup') == 'Pindah'||(is_object($warga) && ($warga->status->status_hidup == 'Pindah'))}}"
                                      fn="">
                     Pindah
                 </x-input.radio-input>

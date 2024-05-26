@@ -73,6 +73,8 @@
         </div>
     </form>
 </div>
+<!-- Modal Loading -->
+<x-etc.loading></x-etc.loading>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const inputs = document.querySelectorAll('input, select, textarea');
@@ -104,5 +106,9 @@
 
         // Check inputs initially
         checkInputs();
+    });
+
+    document.querySelector('button[type="submit"]').addEventListener('click', function () {
+        document.getElementById('loadingModal').style.display = 'block';
     });
 </script>

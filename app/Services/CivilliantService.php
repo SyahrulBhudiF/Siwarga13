@@ -43,25 +43,32 @@ class CivilliantService
      */
     public function updateOrCreateKeluarga(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, $wargaId)
     {
-        if ($requestStatus->input('status_peran') == 'Kepala keluarga') {
-            Keluarga::insert([
-                'noKK' => $requestCivil->input('noKK'),
-                'id_warga' => $wargaId,
-                'total_pendapatan' => $requestCivil->input('pendapatan'),
-                'tanggungan' => 1,
-                'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? 0 : 1,
-            ]);
-
-        } else {
-            $kk = Keluarga::where('noKK', $requestCivil->input('noKK'))->first();
-
-            if ($kk) {
-                $kk->update([
-                    'total_pendapatan' => $kk->total_pendapatan + $requestCivil->input('pendapatan'),
-                    'tanggungan' => $kk->tanggungan + 1,
-                    'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? $kk->jumlah_pekerja : $kk->jumlah_pekerja + 1,
+        try {
+            DB::beginTransaction();
+            if ($requestStatus->input('status_peran') == 'Kepala keluarga') {
+                Keluarga::insert([
+                    'noKK' => $requestCivil->input('noKK'),
+                    'id_warga' => $wargaId,
+                    'total_pendapatan' => $requestCivil->input('pendapatan'),
+                    'tanggungan' => 1,
+                    'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? 0 : 1,
                 ]);
+
+            } else {
+                $kk = Keluarga::where('noKK', $requestCivil->input('noKK'))->first();
+
+                if ($kk) {
+                    $kk->update([
+                        'total_pendapatan' => $kk->total_pendapatan + $requestCivil->input('pendapatan'),
+                        'tanggungan' => $kk->tanggungan + 1,
+                        'jumlah_pekerja' => $requestCivil->input('pendapatan') == 0 ? $kk->jumlah_pekerja : $kk->jumlah_pekerja + 1,
+                    ]);
+                }
             }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
         }
     }
 

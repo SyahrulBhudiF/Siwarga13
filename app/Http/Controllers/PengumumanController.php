@@ -10,7 +10,6 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use Spatie\PdfToImage\Pdf;
 
 class PengumumanController extends Controller
 {
@@ -81,6 +80,7 @@ class PengumumanController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
+//        }
         }
     }
 }
