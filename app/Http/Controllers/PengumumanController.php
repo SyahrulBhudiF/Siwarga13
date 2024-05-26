@@ -49,36 +49,24 @@ class PengumumanController extends Controller
             $name = $uploadedFile->getClientOriginalName();
 
             // push to cloudinary
-            $cloudinary = $uploadedFile->storeOnCloudinary('pdf');
-            $cloudinaryFile = $cloudinary->getSecurePath();
-            $publicId = $cloudinary->getPublicId();
+            $cloudinaryData = $this->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-            $directory = public_path('thumbnail');
+            $thumbnailUrl = $this->createThumbnail($uploadedFile);
 
-            // manipulate image to get page 1 of pdf
-            $imagick = new \Imagick();
-            $imagick->readImage($uploadedFile->getRealPath() . '[0]');
-            $imagick->setImageFormat('jpeg');
-            $imagick->writeImage($directory . '/thumbnail.jpeg');
-
-            $url = public_path('thumbnail/thumbnail.jpeg');
-
-            // push to cloudinary
-            $thumbnailCloudinary = Cloudinary::uploadFile($url, ['folder' => 'thumbnail']);
-            $thumbnailCloudinaryFile = $thumbnailCloudinary->getSecurePath();
-            $thumbnailId = $thumbnailCloudinary->getPublicId();
+            // push thumbnail to cloudinary
+            $thumbnailCloudinaryData = $this->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
             $requestPengumuman->merge([
-                'path_thumbnail' => $thumbnailCloudinaryFile,
-                'publicId' => $publicId,
+                'path_thumbnail' => $thumbnailCloudinaryData['path'],
+                'publicId' => $thumbnailCloudinaryData['publicId'],
             ]);
 
             $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
             File::insert([
                 'id_pengumuman' => $idPengumuman,
                 'type' => 'pengumuman',
-                'path' => $cloudinaryFile,
-                'publicId' => $thumbnailId,
+                'path' => $cloudinaryData['path'],
+                'publicId' => $cloudinaryData['publicId'],
                 'name' => $name,
             ]);
 
@@ -89,7 +77,6 @@ class PengumumanController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
-//        }
         }
     }
 
@@ -102,7 +89,8 @@ class PengumumanController extends Controller
         ];
 
         $pengumuman = Pengumuman::with('file')
-            ->where('id_pengumuman', $id and 'penerbit', auth()->user()->name)
+            ->where('id_pengumuman', $id)
+            ->where('penerbit', auth()->user()->name)
             ->first();
 
         return view('pages.pengumuman.edit', compact('data', 'pengumuman'));
@@ -123,35 +111,24 @@ class PengumumanController extends Controller
                 Cloudinary::destroy($pengumuman->publicId);
 
                 // Upload file baru ke Cloudinary
-                $cloudinary = $fileRequest->file('file')->storeOnCloudinary('pdf');
-                $cloudinaryFile = $cloudinary->getSecurePath();
-                $publicId = $cloudinary->getPublicId();
+                $cloudinaryData = $this->uploadFileToCloudinary($fileRequest->file('file'), 'pdf');
 
-                $directory = public_path('thumbnail');
-
-                // Manipulasi gambar untuk mendapatkan halaman 1 dari pdf
-                $imagick = new \Imagick();
-                $imagick->readImage($fileRequest->file('file')->getRealPath() . '[0]');
-                $imagick->setImageFormat('jpeg');
-                $imagick->writeImage($directory . '/thumbnail.jpeg');
-
-                $url = public_path('thumbnail/thumbnail.jpeg');
+                $thumbnailUrl = $this->createThumbnail($fileRequest->file('file'));
 
                 // Upload thumbnail ke Cloudinary
-                $thumbnailCloudinary = Cloudinary::uploadFile($url, ['folder' => 'thumbnail']);
-                $thumbnailCloudinaryFile = $thumbnailCloudinary->getSecurePath();
-                $thumbnailId = $thumbnailCloudinary->getPublicId();
+                $thumbnailCloudinaryData = $this->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
                 // Update data pengumuman
                 $pengumuman->update([
-                    'path_thumbnail' => $thumbnailCloudinaryFile,
-                    'publicId' => $publicId,
+                    'path_thumbnail' => $thumbnailCloudinaryData['path'],
+                    'publicId' => $thumbnailCloudinaryData['publicId'],
                 ]);
+                $pengumuman->update($pengumumanRequest->except('file'));
 
                 // Update data file
                 $file->update([
-                    'path' => $cloudinaryFile,
-                    'publicId' => $thumbnailId,
+                    'path' => $cloudinaryData['path'],
+                    'publicId' => $cloudinaryData['publicId'],
                     'name' => $fileRequest->file('file')->getClientOriginalName(),
                 ]);
 
@@ -175,5 +152,70 @@ class PengumumanController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal mengubah pengumuman');
         }
+    }
+
+    public function destroy(string $id)
+    {
+        try {
+            if ($this->deleteFileAndPengumuman($id)) {
+                return redirect()->route('pengumuman.index')->with('success', 'Berhasil menghapus pengumuman');
+
+            } else {
+                return redirect()->back()->with('error', 'Pengumuman tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus pengumuman');
+        }
+    }
+
+    private function deleteFileAndPengumuman($id)
+    {
+        $pengumuman = Pengumuman::find($id);
+        $file = File::where('id_pengumuman', $id)->first();
+
+        if ($pengumuman && $file) {
+            // Hapus file dari Cloudinary
+            Cloudinary::destroy($file->publicId);
+            Cloudinary::destroy($pengumuman->publicId);
+
+            // Hapus file dan pengumuman dari database
+            $file->delete();
+            $pengumuman->delete();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function uploadFileToCloudinary($file, $folder)
+    {
+        if ($file instanceof \Illuminate\Http\UploadedFile) {
+            $cloudinary = $file->storeOnCloudinary($folder);
+
+        } else {
+            $cloudinary = Cloudinary::uploadFile($file, ['folder' => $folder]);
+        }
+        $cloudinaryFile = $cloudinary->getSecurePath();
+        $publicId = $cloudinary->getPublicId();
+
+        return [
+            'path' => $cloudinaryFile,
+            'publicId' => $publicId,
+        ];
+    }
+
+    private function createThumbnail($file)
+    {
+        $directory = public_path('thumbnail');
+
+        $imagick = new \Imagick();
+        $imagick->readImage($file->getRealPath() . '[0]');
+        $imagick->setImageFormat('jpeg');
+        $imagick->writeImage($directory . '/thumbnail.jpeg');
+
+        $url = public_path('thumbnail/thumbnail.jpeg');
+
+        return $url;
     }
 }
