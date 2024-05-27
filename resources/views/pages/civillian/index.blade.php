@@ -176,13 +176,13 @@
         }
 
         // Fungsi untuk menambahkan baris baru ke tabel
-        function addRowToTable(item) {
+        function addRowToTable(item, no) {
             const table = document.getElementById('dataTable');
             const row = table.insertRow(-1);
 
             row.innerHTML = `
 <x-table.table-row>
-        <td class="firstBodyTable">${item.id_warga}</td>
+        <td class="firstBodyTable">${no}</td>
         <td class="bodyTable">${item.nama}</td>
         <td class="bodyTable">${item.nik}</td>
         <td class="bodyTable">${item.noKK}</td>
@@ -216,8 +216,8 @@
 
                 clearTable();
 
-                responseData[0].data.forEach(item => {
-                    addRowToTable(item);
+                responseData[0].data.forEach((item, index) => {
+                    addRowToTable(item, index + 1);
                 });
 
             } catch (error) {
