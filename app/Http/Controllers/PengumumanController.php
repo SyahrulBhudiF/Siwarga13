@@ -8,6 +8,7 @@ use App\Http\Requests\pengumuman\StorePengumumanRequest;
 use App\Http\Requests\pengumuman\UpdatePengumumanRequest;
 use App\Models\File;
 use App\Models\Pengumuman;
+use App\Services\CloudinaryService;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,13 @@ use Illuminate\View\View;
 
 class PengumumanController extends Controller
 {
+    public CloudinaryService $cloudinaryService;
+
+    public function __construct(CloudinaryService $cloudinaryService)
+    {
+        $this->cloudinaryService = $cloudinaryService;
+    }
+
     public function index(): View
     {
         $data = [
@@ -49,12 +57,12 @@ class PengumumanController extends Controller
             $name = $uploadedFile->getClientOriginalName();
 
             // push to cloudinary
-            $cloudinaryData = $this->uploadFileToCloudinary($uploadedFile, 'pdf');
+            $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-            $thumbnailUrl = $this->createThumbnail($uploadedFile);
+            $thumbnailUrl = $this->cloudinaryService->createThumbnail($uploadedFile);
 
             // push thumbnail to cloudinary
-            $thumbnailCloudinaryData = $this->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
+            $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
             $requestPengumuman->merge([
                 'path_thumbnail' => $thumbnailCloudinaryData['path'],
@@ -111,12 +119,12 @@ class PengumumanController extends Controller
                 Cloudinary::destroy($pengumuman->publicId);
 
                 // Upload file baru ke Cloudinary
-                $cloudinaryData = $this->uploadFileToCloudinary($fileRequest->file('file'), 'pdf');
+                $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($fileRequest->file('file'), 'pdf');
 
-                $thumbnailUrl = $this->createThumbnail($fileRequest->file('file'));
+                $thumbnailUrl = $this->cloudinaryService->createThumbnail($fileRequest->file('file'));
 
                 // Upload thumbnail ke Cloudinary
-                $thumbnailCloudinaryData = $this->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
+                $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
                 // Update data pengumuman
                 $pengumuman->update([
@@ -135,7 +143,7 @@ class PengumumanController extends Controller
                 $isUdated = true;
 
             } elseif (!empty($pengumumanRequest->all())) {
-                // Jika tidak ada file baru, hanya update data pengumuman
+                // if new file is not uploaded, update pengumuman only
                 $pengumuman->update($pengumumanRequest->except('file'));
 
                 $isUdated = true;
@@ -156,66 +164,26 @@ class PengumumanController extends Controller
 
     public function destroy(string $id)
     {
-        try {
-            if ($this->deleteFileAndPengumuman($id)) {
-                return redirect()->route('pengumuman.index')->with('success', 'Berhasil menghapus pengumuman');
-
-            } else {
-                return redirect()->back()->with('error', 'Pengumuman tidak ditemukan');
-            }
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus pengumuman');
-        }
-    }
-
-    private function deleteFileAndPengumuman($id)
-    {
         $pengumuman = Pengumuman::find($id);
         $file = File::where('id_pengumuman', $id)->first();
 
         if ($pengumuman && $file) {
-            // Hapus file dari Cloudinary
-            Cloudinary::destroy($file->publicId);
-            Cloudinary::destroy($pengumuman->publicId);
+            try {
+                // Delete from Cloudinary
+                Cloudinary::destroy($file->publicId);
+                Cloudinary::destroy($pengumuman->publicId);
 
-            // Hapus file dan pengumuman dari database
-            $file->delete();
-            $pengumuman->delete();
+                // Delete from database
+                $file->delete();
+                $pengumuman->delete();
 
-            return true;
+                return redirect()->route('pengumuman.index')->with('success', 'Berhasil menghapus pengumuman');
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Gagal menghapus pengumuman');
+            }
         } else {
-            return false;
+            return redirect()->back()->with('error', 'Pengumuman tidak ditemukan');
         }
     }
 
-    private function uploadFileToCloudinary($file, $folder)
-    {
-        if ($file instanceof \Illuminate\Http\UploadedFile) {
-            $cloudinary = $file->storeOnCloudinary($folder);
-
-        } else {
-            $cloudinary = Cloudinary::uploadFile($file, ['folder' => $folder]);
-        }
-        $cloudinaryFile = $cloudinary->getSecurePath();
-        $publicId = $cloudinary->getPublicId();
-
-        return [
-            'path' => $cloudinaryFile,
-            'publicId' => $publicId,
-        ];
-    }
-
-    private function createThumbnail($file)
-    {
-        $directory = public_path('thumbnail');
-
-        $imagick = new \Imagick();
-        $imagick->readImage($file->getRealPath() . '[0]');
-        $imagick->setImageFormat('jpeg');
-        $imagick->writeImage($directory . '/thumbnail.jpeg');
-
-        $url = public_path('thumbnail/thumbnail.jpeg');
-
-        return $url;
-    }
 }

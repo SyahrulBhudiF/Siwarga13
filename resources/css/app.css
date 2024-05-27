@@ -145,3 +145,7 @@
 .TMInlineFormatted {
     font-size: 0.875rem;
 }
+
+.modal {
+    z-index: 50;
+}

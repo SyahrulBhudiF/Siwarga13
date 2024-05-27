@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="modal-action justify-center items-center w-full">
-            <form method="dialog" class="w-full">
+            <form method="dialog" class="w-full" id="dialogForm">
                 <!-- if there is a button in form, it will close the modal -->
                 <button
                     class="border border-[#D0D5DD] text-[#344054] w-full shadow-xs rounded-lg py-3 px-5 outline-none buttonAnimation font-semibold">
@@ -31,8 +31,9 @@
             <form method="POST" action="{{$action}}" id="deleteForm" class="w-full">
                 @csrf
                 @method('DELETE')
-                <div onclick="document.getElementById('deleteForm').submit();"
-                     class="border border-[#D92D20] text-center bg-[#D92D20] w-full text-white shadow-xs rounded-lg py-3 px-5 outline-none buttonAnimation cursor-pointer font-semibold">
+                <div
+                    onclick="document.getElementById('deleteForm').submit();document.getElementById('loadingModal').style.display = 'block';document.getElementById('dialogForm').submit();"
+                    class="border border-[#D92D20] text-center bg-[#D92D20] w-full text-white shadow-xs rounded-lg py-3 px-5 outline-none buttonAnimation cursor-pointer font-semibold">
                     Ya, Hapus
                 </div>
             </form>
