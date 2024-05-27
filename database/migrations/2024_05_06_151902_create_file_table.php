@@ -11,8 +11,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('file', function (Blueprint $table) {
-            $table->id('id_file', true);
+            $table->id('id_file');
+            $table->string('name')->nullable();
             $table->string('path')->nullable();
+            $table->string('publicId')->nullable();
             $table->enum('type', ['umkm', 'dokumentasi', 'pengumuman']);
             $table->unsignedBigInteger('id_umkm')->nullable()->index();
             $table->unsignedBigInteger('id_dokumentasi')->nullable()->index();

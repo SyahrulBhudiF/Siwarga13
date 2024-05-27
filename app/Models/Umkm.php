@@ -29,6 +29,6 @@ class Umkm extends Model
      */
     public function file(): hasMany
     {
-        return $this->hasMany(file::class, 'id_file', 'id_file');
+        return $this->hasMany(file::class, 'id_umkm', 'id_umkm');
     }
 }

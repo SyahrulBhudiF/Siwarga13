@@ -31,7 +31,7 @@ class File extends Model
      */
     public function umkm(): belongsTo
     {
-        return $this->belongsTo(Umkm::class, 'id_file', 'id_file');
+        return $this->belongsTo(Umkm::class, 'id_umkm', 'id_umkm');
     }
 
     /**
@@ -41,7 +41,7 @@ class File extends Model
      */
     public function dokumentasi(): belongsTo
     {
-        return $this->belongsTo(Dokumentasi::class, 'id_file', 'id_file');
+        return $this->belongsTo(Dokumentasi::class, 'id_dokumentasi', 'id_dokumentasi');
     }
 
     /**
@@ -51,6 +51,6 @@ class File extends Model
      */
     public function pengumuman(): belongsTo
     {
-        return $this->belongsTo(Pengumuman::class, 'id_file', 'id_file');
+        return $this->belongsTo(Pengumuman::class, 'id_pengumuman', 'id_pengumuman');
     }
 }

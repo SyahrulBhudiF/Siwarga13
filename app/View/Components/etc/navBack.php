@@ -6,16 +6,17 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class subMenu extends Component
+class navBack extends Component
 {
     /**
      * Create a new component instance.
      */
-    public string $head;
+    public $head, $href;
 
-    public function __construct($head)
+    public function __construct($head, $href)
     {
         $this->head = $head;
+        $this->href = $href;
     }
 
     /**
@@ -23,6 +24,6 @@ class subMenu extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.etc.sub-menu');
+        return view('components.etc.nav-back');
     }
 }

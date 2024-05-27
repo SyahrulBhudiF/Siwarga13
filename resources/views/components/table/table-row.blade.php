@@ -1,1 +1,1 @@
-<tr class="border-b">{{$slot}}</tr>
+<tr class="border-b w-full">{{$slot}}</tr>

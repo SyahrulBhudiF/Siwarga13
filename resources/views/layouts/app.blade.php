@@ -8,6 +8,12 @@
     <meta name="description" content="Web untuk Administrasi dan dokumentasi kegiatan warga RW13">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Siwarga13</title>
+    <script src="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.js"></script>
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.css"
+    />
     @vite('resources/css/app.css')
 </head>
 <body class="w-screen h-screen overflow-x-hidden flex">

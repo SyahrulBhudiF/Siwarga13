@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             RankMabacTableSeeder::class,
             RankEdasTableSeeder::class,
+            PengumumanTableSeeder::class,
+            FileTableSeeder::class,
         ]);
     }
 }

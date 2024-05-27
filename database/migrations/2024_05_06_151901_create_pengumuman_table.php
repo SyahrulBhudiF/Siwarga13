@@ -12,9 +12,15 @@ return new class extends Migration {
     {
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->id('id_pengumuman');
-            $table->string('judul', 50)->nullable();
+            $table->string('judul', 100)->nullable();
+            $table->string('tanggal', 20)->nullable();
+            $table->string('nomor', 50)->nullable();
+            $table->string('perihal', 50)->nullable();
+            $table->string('kepada', 50)->nullable();
+            $table->string('penerbit', 10)->nullable();
+            $table->string('path_thumbnail')->nullable();
+            $table->string('publicId')->nullable();
             $table->text('content')->nullable();
-            $table->enum('urgensi', ['Biasa', 'Segera', 'Penting'])->nullable();
             $table->timestamps();
         });
     }

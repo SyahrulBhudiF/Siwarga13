@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pengumuman extends Model
 {
@@ -27,8 +27,8 @@ class Pengumuman extends Model
     /**
      * Get the file that owns the Pengumuman
      */
-    public function file(): hasMany
+    public function file(): hasOne
     {
-        return $this->hasMany(File::class, 'id_file', 'id_file');
+        return $this->hasOne(File::class, 'id_pengumuman', 'id_pengumuman');
     }
 }
