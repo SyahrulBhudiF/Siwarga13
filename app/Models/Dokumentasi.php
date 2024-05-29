@@ -31,6 +31,6 @@ class Dokumentasi extends Model
      */
     public function file(): hasMany
     {
-        return $this->hasMany(file::class, 'id_dokumentasi', 'id_dokumentasi');
+        return $this->hasMany(File::class, 'id_dokumentasi', 'id_dokumentasi');
     }
 }
