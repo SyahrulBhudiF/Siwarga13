@@ -9,6 +9,7 @@
                    class="hidden"
                    id="file1" name="file1" accept="image/*" value="{{($value[0]->path ?? '')}}"
                    onchange="handleImage(this)">
+            <input type="hidden" name="file1Old" value="{{($value[0]->path ?? '')}}">
             <div class="relative group {{($value[0]->path ?? '')? : 'hidden'}}">
                 <img src="{{($value[0]->path ?? '')}}" alt="img"
                      class="z-10 transition ease-in-out duration-300 group-hover:brightness-75 rounded-[1.5rem] object-cover p-4">
@@ -44,6 +45,7 @@
                    class="hidden"
                    id="file2" name="file2" accept="image/*" value="{{($value[1]->path ?? '')}}"
                    onchange="handleImage(this)">
+            <input type="hidden" name="file2Old" value="{{($value[1]->path ?? '')}}">
             <div class="relative group {{($value[1]->path ?? '')? : 'hidden'}}">
                 <img src="{{($value[1]->path ?? '')}}" alt="img"
                      class="z-10 transition ease-in-out duration-300 group-hover:brightness-75 rounded-[1.5rem] object-cover p-4">
@@ -79,6 +81,7 @@
                    class="hidden"
                    id="file3" name="file3" accept="image/*" value="{{($value[2]->path ?? '')}}"
                    onchange="handleImage(this)">
+            <input type="hidden" name="file3Old" value="{{($value[2]->path ?? '')}}">
             <div class="relative group {{($value[2]->path ?? '')? : 'hidden'}}">
                 <img src="{{($value[2]->path ?? '')}}" alt="img"
                      class="z-10 transition ease-in-out duration-300 group-hover:brightness-75 rounded-[1.5rem] object-cover p-4">
@@ -114,6 +117,7 @@
                    class="hidden"
                    id="file4" name="file4" accept="image/*" value="{{($value[3]->path ?? '')}}"
                    onchange="handleImage(this)">
+            <input type="hidden" name="file4Old" value="{{($value[3]->path ?? '')}}">
             <div class="relative group {{($value[3]->path ?? '') ? : 'hidden'}}">
                 <img src="{{($value[3]->path ?? '')}}" alt="img"
                      class="z-10 transition ease-in-out duration-300 group-hover:brightness-75 rounded-[1.5rem] object-cover p-4">
@@ -149,6 +153,7 @@
                    class="hidden"
                    id="file5" name="file5" accept="image/*" value="{{($value[4]->path ?? '')}}"
                    onchange="handleImage(this)">
+            <input type="hidden" name="file5Old" value="{{($value[4]->path ?? '')}}">
             <div class="relative group {{($value[4]->path ?? '' ) ? : 'hidden'}}">
                 <img src="{{($value[4]->path ?? '')}}" alt="img"
                      class="z-10 transition ease-in-out duration-300 group-hover:brightness-75 rounded-[1.5rem] object-cover p-4">
@@ -184,6 +189,7 @@
                    class="hidden"
                    id="file6" name="file6" accept="image/*" value="{{($value[5]->path ?? '')}}"
                    onchange="handleImage(this)">
+            <input type="hidden" name="file6Old" value="{{($value[5]->path ?? '')}}">
             <div class="relative group {{($value[5]->path ?? '' ) ? : 'hidden'}}">
                 <img src="{{($value[5]->path ?? '')}}" alt="img"
                      class="z-10 transition ease-in-out duration-300 group-hover:brightness-75 rounded-[1.5rem] object-cover p-4">
@@ -243,8 +249,11 @@
         const parentDiv = input.parentElement;
         const imgDiv = parentDiv.querySelector('.relative');
         const label = parentDiv.querySelector('label');
+        const hiddenInput = parentDiv.querySelector(`input[name="${inputId}Old"]`);
+        console.log(hiddenInput, inputId);
 
         input.value = '';
+        hiddenInput.value = '';
 
         imgDiv.classList.add('hidden');
 

@@ -16,9 +16,16 @@ class StoreImageRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this->request->replace([
-            'file[]'
-        ]);
+        $files = [
+            'file1' => $this->file('file1'),
+            'file2' => $this->file('file2'),
+            'file3' => $this->file('file3'),
+            'file4' => $this->file('file4'),
+            'file5' => $this->file('file5'),
+            'file6' => $this->file('file6'),
+        ];
+
+        $this->replace($files);
     }
 
     /**
@@ -29,17 +36,30 @@ class StoreImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => [
+            'file1' => [
                 'bail',
-                'array',
-                'max:6',
+                'max:5120',
             ],
-            'file.*' => [
+            'file2' => [
                 'bail',
-                'image',
-                'mimes:jpg,jpeg,png',
-                'max:5120'
-            ]
+                'max:5120',
+            ],
+            'file3' => [
+                'bail',
+                'max:5120',
+            ],
+            'file4' => [
+                'bail',
+                'max:5120',
+            ],
+            'file5' => [
+                'bail',
+                'max:5120',
+            ],
+            'file6' => [
+                'bail',
+                'max:5120',
+            ],
         ];
     }
 }

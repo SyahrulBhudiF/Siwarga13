@@ -39,7 +39,7 @@ class File extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function dokumentasi(): belongsTo
+    public function dokumentasi(): BelongsTo
     {
         return $this->belongsTo(Dokumentasi::class, 'id_dokumentasi', 'id_dokumentasi');
     }

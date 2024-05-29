@@ -33,11 +33,22 @@
                 value="{{ old('file', is_object($dokumentasi) && isset($dokumentasi->file) ? $dokumentasi->file : '') }}">
                 Upload foto kegiatan
             </x-input.image-input>
-            @error('file')
+            @error('file1')
             <span class="text-red-500 text-xs font-medium" id="warningText">{{ $message }}</span>
             @enderror
-
-            @error('file.*')
+            @error('file2')
+            <span class="text-red-500 text-xs font-medium" id="warningText">{{ $message }}</span>
+            @enderror
+            @error('file3')
+            <span class="text-red-500 text-xs font-medium" id="warningText">{{ $message }}</span>
+            @enderror
+            @error('file4')
+            <span class="text-red-500 text-xs font-medium" id="warningText">{{ $message }}</span>
+            @enderror
+            @error('file5')
+            <span class="text-red-500 text-xs font-medium" id="warningText">{{ $message }}</span>
+            @enderror
+            @error('file6')
             <span class="text-red-500 text-xs font-medium" id="warningText">{{ $message }}</span>
             @enderror
         </div>

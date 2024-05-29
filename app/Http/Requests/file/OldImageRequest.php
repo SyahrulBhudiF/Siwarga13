@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\dokumentasi;
+namespace App\Http\Requests\file;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDokumentasiRequest extends FormRequest
+class OldImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,9 +17,12 @@ class StoreDokumentasiRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->request->replace($this->only([
-            'judul',
-            'tanggal',
-            'content',
+            'file1Old',
+            'file2Old',
+            'file3Old',
+            'file4Old',
+            'file5Old',
+            'file6Old',
         ]));
     }
 
@@ -31,23 +34,7 @@ class StoreDokumentasiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'judul' => [
-                'bail',
-                'required',
-                'string',
-                'max:50'
-            ],
-            'tanggal' => [
-                'bail',
-                'required',
-                'string',
-                'max:50'
-            ],
-            'content' => [
-                'bail',
-                'required',
-                'string',
-            ],
+            //
         ];
     }
 }
