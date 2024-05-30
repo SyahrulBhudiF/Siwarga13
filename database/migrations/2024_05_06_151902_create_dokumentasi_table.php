@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('dokumentasi', function (Blueprint $table) {
             $table->id('id_dokumentasi');
             $table->string('judul', 50)->nullable();
+            $table->string('tanggal', 50)->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });

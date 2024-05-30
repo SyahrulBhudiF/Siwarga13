@@ -15,17 +15,6 @@ class PengumumanTableSeeder extends Seeder
     {
         $data = [
             [
-                'judul' => 'Kerja Bakti Lingkungan RW 13',
-                'tanggal' => '20 Mei 2024',
-                'nomor' => '001/RW13/2024',
-                'perihal' => 'Kerja Bakti',
-                'kepada' => 'Seluruh Warga RW 13',
-                'path_thumbnail' => 'https://res.cloudinary.com/du3kemir5/image/upload/v1716740918/thumbnail/sbnpgfyxmi1jkzar7gei.jpg',
-                'publicId' => 'thumbnail/sbnpgfyxmi1jkzar7gei',
-                'penerbit' => 'Ketua RW',
-                'content' => 'Dengan ini diberitahukan kepada seluruh warga RW 13 bahwa pada hari Minggu, tanggal 1 Juni 2024, akan diadakan kerja bakti untuk membersihkan lingkungan sekitar. Diharapkan partisipasi aktif dari seluruh warga untuk hadir pada pukul 07.00 WIB di balai RW. Peralatan kebersihan harap dibawa masing-masing.'
-            ],
-            [
                 'judul' => 'Kegiatan Posyandu RW 13',
                 'tanggal' => '21 Mei 2024',
                 'nomor' => '002/RW13/2024',

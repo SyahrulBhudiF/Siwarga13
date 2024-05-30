@@ -13,7 +13,8 @@
         @else
             <span id="{{$id}}_filename" class="text-Neutral/60">Upload file anda kesini</span>
         @endif
-        <span class="flex cursor-pointer buttonAnimation items-center gap-2 py-2 px-4 rounded-[6.25rem] bg-[#F5F7F9]">
+        <span
+            class="flex cursor-pointer buttonAnimation items-center gap-2 py-2 px-4 text-xs text-Primary/10 rounded-[6.25rem] bg-[#F5F7F9]">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                  fill="none">
               <path

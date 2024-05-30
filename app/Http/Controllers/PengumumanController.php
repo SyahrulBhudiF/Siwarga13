@@ -23,6 +23,11 @@ class PengumumanController extends Controller
         $this->cloudinaryService = $cloudinaryService;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         $data = [
@@ -37,6 +42,11 @@ class PengumumanController extends Controller
         return view('pages.pengumuman.index', compact('data', 'pengumuman'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create(): View
     {
         $data = [
@@ -48,6 +58,13 @@ class PengumumanController extends Controller
         return view('pages.pengumuman.create', compact('data'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StorePengumumanRequest $requestPengumuman
+     * @param StoreFileRequest $requestFile
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StorePengumumanRequest $requestPengumuman, StoreFileRequest $requestFile): RedirectResponse
     {
         try {
@@ -88,6 +105,12 @@ class PengumumanController extends Controller
         }
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
     public function edit(string $id): View
     {
         $data = [
@@ -104,7 +127,15 @@ class PengumumanController extends Controller
         return view('pages.pengumuman.edit', compact('data', 'pengumuman'));
     }
 
-    public function update(UpdatePengumumanRequest $pengumumanRequest, UpdateFileRequest $fileRequest, string $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdatePengumumanRequest $pengumumanRequest
+     * @param UpdateFileRequest $fileRequest
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdatePengumumanRequest $pengumumanRequest, UpdateFileRequest $fileRequest, string $id): RedirectResponse
     {
         try {
             DB::beginTransaction();
@@ -162,7 +193,13 @@ class PengumumanController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(string $id): RedirectResponse
     {
         $pengumuman = Pengumuman::find($id);
         $file = File::where('id_pengumuman', $id)->first();

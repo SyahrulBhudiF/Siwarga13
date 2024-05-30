@@ -12,6 +12,7 @@ use App\Services\EdasService;
 use App\Services\MabacService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 require_once(app_path() . '/Helpers/convertTTL.php');
 require_once(app_path() . '/Helpers/decisionMatrix.php');
@@ -29,8 +30,9 @@ class BansosController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $data = [
             'title' => 'Bansos',
@@ -47,8 +49,10 @@ class BansosController extends Controller
 
     /**
      * Show the same noKK civilliant.
+     * @param string $id
+     * @return \Illuminate\View\View
      */
-    public function show(string $id)
+    public function show(string $id): View
     {
         $data = [
             'title' => 'Bansos',
@@ -67,8 +71,10 @@ class BansosController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param string $id
+     * @return \Illuminate\View\View
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
         $data = [
             'title' => 'Bansos',
@@ -86,6 +92,7 @@ class BansosController extends Controller
 
     /**
      * Implement Edas Method.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edas(): RedirectResponse
     {
@@ -131,6 +138,7 @@ class BansosController extends Controller
 
     /**
      * Implement Mabac Method.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function mabac(): RedirectResponse
     {
@@ -174,8 +182,9 @@ class BansosController extends Controller
 
     /**
      * Check step EDAS Method.
+     * @return \Illuminate\View\View
      */
-    public function checkEdas()
+    public function checkEdas(): View
     {
         $data = [
             'title' => 'Bansos',
@@ -202,8 +211,9 @@ class BansosController extends Controller
 
     /**
      * Check step MABAC Method.
+     * @return \Illuminate\View\View
      */
-    public function checkMabac()
+    public function checkMabac(): View
     {
         $data = [
             'title' => 'Bansos',

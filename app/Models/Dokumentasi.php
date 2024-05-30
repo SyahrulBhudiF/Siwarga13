@@ -29,8 +29,8 @@ class Dokumentasi extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function file(): hasMany
+    public function file(): HasMany
     {
-        return $this->hasMany(file::class, 'id_dokumentasi', 'id_dokumentasi');
+        return $this->hasMany(File::class, 'id_dokumentasi', 'id_dokumentasi');
     }
 }

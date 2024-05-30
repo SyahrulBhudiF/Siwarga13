@@ -113,6 +113,13 @@ class CivilliantService
                     ]);
                 }
 
+                if ($statusRequest->input('status_peran') == 'Kepala keluarga') {
+                    Keluarga::with('warga')->where('noKK', $warga->noKK)->update([
+                        'id_warga' => $warga->id_warga,
+                        'noKK' => $warga->noKK,
+                    ]);
+                }
+
                 $updated = true;
             }
 
@@ -120,6 +127,7 @@ class CivilliantService
             return $updated;
         } catch (\Exception $e) {
             DB::rollback();
+            return false;
         }
     }
 
@@ -157,6 +165,17 @@ class CivilliantService
                 $kk->update([
                     'total_pendapatan' => $kk->total_pendapatan + $selisihPendapatan,
                 ]);
+
+                if ($pendapatanAwal == 0 && $pendapatanBaru > 0) {
+                    $kk->update([
+                        'jumlah_pekerja' => $kk->jumlah_pekerja + 1,
+                    ]);
+
+                } else if ($pendapatanAwal > 0 && $pendapatanBaru == 0) {
+                    $kk->update([
+                        'jumlah_pekerja' => $kk->jumlah_pekerja - 1,
+                    ]);
+                }
             }
 
             DB::commit();
