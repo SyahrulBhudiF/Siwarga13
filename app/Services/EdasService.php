@@ -10,8 +10,10 @@ class EdasService
         'C3' => 0.35,
     ];
 
-    /*
+    /**
      * Calculate the average of the data
+     * @param array $data
+     * @return array
      */
     public function average($data)
     {
@@ -22,8 +24,13 @@ class EdasService
         return $result;
     }
 
-    /*
+    /**
      * Calculate PDA or NDA
+     *
+     * @param array $data
+     * @param array $avg
+     * @param bool $isPDA
+     * @return array
      */
     public function calc($data, $avg, bool $isPDA)
     {
@@ -38,8 +45,11 @@ class EdasService
         return $result;
     }
 
-    /*
+    /**
      * Calculate the SP or SN
+     *
+     * @param array $data
+     * @return array
      */
     public function SPSN($data)
     {
@@ -54,8 +64,12 @@ class EdasService
         return $result;
     }
 
-    /*
+    /**
      * Calculate the NSP or NSN
+     *
+     * @param array $data
+     * @param bool $isNSP
+     * @return array
      */
     public function NSPNSN($data, bool $isNSP)
     {
@@ -68,6 +82,13 @@ class EdasService
         return $result;
     }
 
+    /**
+     * Calculate the AS
+     *
+     * @param array $nsp
+     * @param array $nsn
+     * @return array
+     */
     public function AS($nsp, $nsn)
     {
         $result = [];

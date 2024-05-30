@@ -10,8 +10,12 @@ class MabacService
         0.35,
     ];
 
-    /*
+    /**
      * Get MinMax Array
+     *
+     * @param array $data
+     * @param callable $operation
+     * @return array
      */
     public function minMax($data, $operation)
     {
@@ -20,8 +24,13 @@ class MabacService
         }, array_map(null, ...$data));
     }
 
-    /*
+    /**
      * Normalize the data
+     *
+     * @param array $data
+     * @param array $min
+     * @param array $max
+     * @return array
      */
     public function normalized($data, $min, $max)
     {
@@ -41,8 +50,11 @@ class MabacService
         return $result;
     }
 
-    /*
+    /**
      * Weight the data
+     *
+     * @param array $data
+     * @return array
      */
     public function weightV($data)
     {
@@ -57,8 +69,11 @@ class MabacService
         return $result;
     }
 
-    /*
+    /**
      * Get the limits
+     *
+     * @param array $data
+     * @return array
      */
     public function limitsG($data)
     {
@@ -73,8 +88,12 @@ class MabacService
         return $result;
     }
 
-    /*
+    /**
      * Get the distance
+     *
+     * @param array $v
+     * @param array $g
+     * @return array
      */
     public function distanceQ($v, $g)
     {
@@ -89,8 +108,11 @@ class MabacService
         return $result;
     }
 
-    /*
+    /**
      * Get the score of the data
+     *
+     * @param array $data
+     * @return array
      */
     public function rankS($data)
     {

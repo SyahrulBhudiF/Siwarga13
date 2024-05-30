@@ -17,6 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 require_once(app_path() . '/Helpers/convertTTL.php');
 
@@ -30,10 +31,11 @@ class CivilliantController extends Controller
     }
 
     /**
+     *  Display a listing of the resource.
      * @param Request $request
-     * Display a listing of the resource.
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $userRole = Auth::user()->role;
 
@@ -62,8 +64,9 @@ class CivilliantController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
         $data = [
             'title' => 'Kelola Data Warga',
@@ -75,11 +78,13 @@ class CivilliantController extends Controller
     }
 
     /**
+     * Store a new data.
+     *
      * @param StoreCivilliantRequest $requestCivil
      * @param StoreStatusRequest $requestStatus
      * @param StoreAlamatRequest $requestAlamat
      * @return RedirectResponse
-     * Store a new data.
+     *
      */
     public function store(StoreCivilliantRequest $requestCivil, StoreStatusRequest $requestStatus, StoreAlamatRequest $requestAlamat): RedirectResponse
     {
@@ -112,8 +117,8 @@ class CivilliantController extends Controller
     }
 
     /**
+     *  Display the specified data.
      * @param string $id
-     * Display the specified data.
      */
     public function show(string $id)
     {
@@ -130,8 +135,8 @@ class CivilliantController extends Controller
     }
 
     /**
+     *  Show the form for editing the specified data.
      * @param string $id
-     * Show the form for editing the specified data.
      */
     public
     function edit(string $id)
@@ -149,12 +154,13 @@ class CivilliantController extends Controller
     }
 
     /**
+     * Update the specified data in storage.
+     *
      * @param UpdateCivilliantRequest $civilliantRequest
      * @param UpdateAlamatRequest $alamatRequest
      * @param UpdateStatusRequest $statusRequest
      * @param string $id
      * @return RedirectResponse
-     * Update the specified data in storage.
      */
     public function update(UpdateCivilliantRequest $civilliantRequest, UpdateAlamatRequest $alamatRequest, UpdateStatusRequest $statusRequest, string $id): RedirectResponse
     {

@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\dokumentasi\StoreDokumentasiRequest;
 use App\Http\Requests\dokumentasi\UpdateDokumentasiRequest;
 use App\Http\Requests\file\OldImageRequest;
-use App\Http\Requests\file\StoreFileRequest;
 use App\Http\Requests\file\StoreImageRequest;
 use App\Http\Requests\file\UpdateImageRequest;
 use App\Models\Dokumentasi;
 use App\Models\File;
 use App\Services\CloudinaryService;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class DokumentasiController extends Controller
 {
@@ -24,7 +23,12 @@ class DokumentasiController extends Controller
         $this->cloudinaryService = $cloudinaryService;
     }
 
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(): View
     {
         $data = [
             'title' => 'Kegiatan Warga',
@@ -36,7 +40,12 @@ class DokumentasiController extends Controller
         return view('pages.dokumentasi.index', compact('data', 'dokumentasi'));
     }
 
-    public function create()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(): View
     {
         $data = [
             'title' => 'Kegiatan Warga',
@@ -47,7 +56,14 @@ class DokumentasiController extends Controller
         return view('pages.dokumentasi.create', compact('data'));
     }
 
-    public function store(StoreDokumentasiRequest $dokumentasiRequest, StoreImageRequest $fileRequest)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreDokumentasiRequest $dokumentasiRequest
+     * @param StoreImageRequest $fileRequest
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreDokumentasiRequest $dokumentasiRequest, StoreImageRequest $fileRequest): RedirectResponse
     {
         try {
             DB::beginTransaction();
@@ -77,7 +93,13 @@ class DokumentasiController extends Controller
         }
     }
 
-    public function edit(string $id)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
+    public function edit(string $id): View
     {
         $data = [
             'title' => 'Kegiatan Warga',
@@ -90,7 +112,16 @@ class DokumentasiController extends Controller
         return view('pages.dokumentasi.edit', compact('data', 'dokumentasi'));
     }
 
-    public function update(UpdateDokumentasiRequest $dokumentasiRequest, UpdateImageRequest $imageRequest, OldImageRequest $oldRequest, string $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateDokumentasiRequest $dokumentasiRequest
+     * @param UpdateImageRequest $imageRequest
+     * @param OldImageRequest $oldRequest
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateDokumentasiRequest $dokumentasiRequest, UpdateImageRequest $imageRequest, OldImageRequest $oldRequest, string $id): RedirectResponse
     {
         try {
             DB::beginTransaction();
@@ -99,70 +130,11 @@ class DokumentasiController extends Controller
                 Dokumentasi::where('id_dokumentasi', $id)->update($dokumentasiRequest->validated());
             }
 
-            // Ambil semua file dengan id_dokumentasi yang sama dengan id yang diberikan
             $existingFiles = File::where('id_dokumentasi', $id)->get();
-
-// Dapatkan data dari oldRequest dan imageRequest
             $oldRequestData = array_values($oldRequest->all());
             $imageRequestData = array_values($imageRequest->all());
 
-// Loop melalui setiap elemen dalam oldRequest
-            foreach ($oldRequestData as $index => $oldRequestItem) {
-                // Jika oldRequest pada indeks ini null dan file yang ada pada indeks yang sama tidak null
-//            dd($oldRequestItem, $existingFiles[$index]->toArray());
-                if ($oldRequestItem === null && isset($existingFiles[$index])) {
-                    // Hancurkan file di Cloudinary
-                    Cloudinary::destroy($existingFiles[$index]->publicId);
-
-                    // Hapus file yang ada
-                    $existingFiles[$index]->delete();
-                } // Jika oldRequest pada indeks ini tidak null dan file yang ada pada indeks yang sama null
-                else if ($oldRequestItem !== null && !isset($existingFiles[$index])) {
-                    // Jika ada file baru dalam imageRequest pada indeks yang sama
-                    if (isset($imageRequestData[$index])) {
-                        dd('ok2');
-                        // Dapatkan file baru
-                        $newFile = $imageRequestData[$index];
-
-                        // Upload file baru ke Cloudinary dan dapatkan data yang dikembalikan
-                        $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($newFile, 'dokumentasi');
-
-                        // Buat file baru dalam database dengan data yang dikembalikan dari Cloudinary
-                        File::create([
-                            'id_dokumentasi' => $id,
-                            'type' => 'dokumentasi',
-                            'path' => $cloudinaryData['path'],
-                            'publicId' => $cloudinaryData['publicId'],
-                            'name' => $newFile->getClientOriginalName(),
-                        ]);
-                    }
-                }
-            }
-
-// Jika oldRequest memiliki lebih banyak elemen daripada existingFiles
-            if (count($oldRequestData) > count($existingFiles)) {
-                // Loop melalui setiap elemen tambahan dalam oldRequest
-                for ($i = count($existingFiles); $i < count($oldRequestData); $i++) {
-                    // Jika ada file baru dalam imageRequest pada indeks yang sama
-                    if (isset($imageRequestData[$i])) {
-//                    dd('ok');
-                        // Dapatkan file baru
-                        $newFile = $imageRequestData[$i];
-
-                        // Upload file baru ke Cloudinary dan dapatkan data yang dikembalikan
-                        $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($newFile, 'dokumentasi');
-
-                        // Buat file baru dalam database dengan data yang dikembalikan dari Cloudinary
-                        File::create([
-                            'id_dokumentasi' => $id,
-                            'type' => 'dokumentasi',
-                            'path' => $cloudinaryData['path'],
-                            'publicId' => $cloudinaryData['publicId'],
-                            'name' => $newFile->getClientOriginalName(),
-                        ]);
-                    }
-                }
-            }
+            $this->cloudinaryService->processFiles($existingFiles, $oldRequestData, $imageRequestData, $id, 'dokumentasi');
 
             DB::commit();
 
@@ -170,6 +142,33 @@ class DokumentasiController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal mengubah data. Silahkan coba lagi.');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(string $id): RedirectResponse
+    {
+        try {
+            DB::beginTransaction();
+
+            $dokumentasi = Dokumentasi::find($id);
+            $files = File::where('id_dokumentasi', $id)->get();
+
+            $this->cloudinaryService->deleteFiles($files);
+
+            $dokumentasi->delete();
+
+            DB::commit();
+
+            return redirect()->route('dokumentasi.index')->with('success', 'Berhasil menghapus data.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menghapus data. Silahkan coba lagi.');
         }
     }
 }
