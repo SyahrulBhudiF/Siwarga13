@@ -14,6 +14,16 @@
     width: 0 !important;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 .activeSidebar {
     @apply flex items-center p-3 gap-2 rounded-xl bg-Neutral/10;
 }

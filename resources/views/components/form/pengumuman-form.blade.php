@@ -79,7 +79,7 @@
             </span>
             @endif
             <button type="submit"
-                    class="bg-Neutral/30 pointer-events-none w-fit text-white font-semibold rounded-[1.25rem] px-7 py-3 hover:brightness-90 buttonAnimation">
+                    class="bg-Primary/10 w-fit text-white font-semibold rounded-[1.25rem] px-7 py-3 hover:brightness-90 buttonAnimation">
                 Simpan
             </button>
         </div>
@@ -92,30 +92,6 @@
 <!-- Modal Loading -->
 <x-etc.loading></x-etc.loading>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const inputs = document.querySelectorAll('input, select, textarea');
-        const submitButton = document.querySelector('button[type="submit"]');
-
-        function checkInputs() {
-            let allFilled = true;
-
-            if (allFilled) {
-                submitButton.classList.remove('bg-Neutral/30', 'pointer-events-none');
-                submitButton.classList.add('bg-Primary/10');
-            } else {
-                submitButton.classList.add('bg-Neutral/30', 'pointer-events-none');
-                submitButton.classList.remove('bg-Primary/10');
-            }
-        }
-
-        inputs.forEach(input => {
-            input.addEventListener('input', checkInputs);
-        });
-
-        // Check inputs initially
-        checkInputs();
-    });
-
     document.querySelector('button[type="submit"]').addEventListener('click', function () {
         document.getElementById('loadingModal').style.display = 'block';
     });

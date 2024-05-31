@@ -113,7 +113,7 @@
                 </svg>
                 <p class="{{$data['active']== 'pengumuman'? 'activeFontSidebar' : 'defaultFontSidebar'}}">Pengumuman</p>
             </a>
-            <a class="{{$data['active']== 'umkm'? 'activeSidebar' : 'defaultSidebar'}}" href="">
+            <a class="{{$data['active']== 'umkm'? 'activeSidebar' : 'defaultSidebar'}}" href="/umkm">
                 <img src="{{asset("svg/side.svg")}}"
                      class="absolute left-0 {{$data['active']== 'umkm'? 'block' : 'hidden'}}" alt="side">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

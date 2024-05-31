@@ -12,16 +12,13 @@ return new class extends Migration {
     {
         Schema::create('umkm', function (Blueprint $table) {
             $table->id('id_umkm');
-            $table->unsignedBigInteger('id_warga')->nullable()->index('id_warga');
-            $table->string('nama_umkm', 50)->nullable();
+            $table->string('judul', 50)->nullable();
+            $table->string('alamat', 50)->nullable();
+            $table->enum('kategori', ['Kuliner', 'Fashion', 'Kecantikan', 'Agribisnis', 'Otomotif'])->nullable();
+            $table->string('harga', 100)->nullable();
+            $table->string('no_telp', 50)->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
-
-            $table->foreign('id_warga')
-                ->references('id_warga')
-                ->on('warga')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
         });
     }
 

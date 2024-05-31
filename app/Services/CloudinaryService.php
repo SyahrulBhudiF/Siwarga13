@@ -120,7 +120,7 @@ class CloudinaryService
         $cloudinaryData = $this->uploadFileToCloudinary($newFile, $folder);
 
         File::create([
-            'id_dokumentasi' => $id,
+            'id_' . $folder => $id,
             'type' => $folder,
             'path' => $cloudinaryData['path'],
             'publicId' => $cloudinaryData['publicId'],

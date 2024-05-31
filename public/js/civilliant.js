@@ -22,7 +22,7 @@ function toggleDropdown(id) {
     const dropdownContent = document.getElementById(id);
     const drop = document.getElementById('drop');
     drop.classList.toggle('rotate-180');
-    if (dropdownContent && toggleCount[id] % 2 === 1) {
+    if (dropdownContent && toggleCount[id] !== 0) {
         dropdownContent.classList.toggle('hidden');
     }
     toggleCount[id]++;
