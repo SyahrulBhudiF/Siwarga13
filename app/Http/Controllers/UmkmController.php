@@ -130,7 +130,7 @@ class UmkmController extends Controller
             DB::beginTransaction();
 
             if ($umkmRequest != []) {
-                Umkm::where('id_umkm', $id)->update($umkmRequest->validated());
+                Umkm::where('id_umkm', $id)->update($umkmRequest->except('file1', 'file2', 'file3', 'file4', 'file5', 'file6'));
             }
 
             $existingFiles = File::where('id_umkm', $id)->get();

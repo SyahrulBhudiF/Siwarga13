@@ -75,4 +75,13 @@ class UpdateUmkmRequest extends FormRequest
             ],
         ];
     }
+
+    protected function passedValidation()
+    {
+        $this->merge([
+            'harga' => 'Rp ' . $this->harga_awal . ' - ' . 'Rp ' . $this->harga_akhir,
+        ]);
+        $this->request->remove('harga_awal');
+        $this->request->remove('harga_akhir');
+    }
 }
