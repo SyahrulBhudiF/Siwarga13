@@ -111,7 +111,7 @@
 
             row.innerHTML = `
         <x-table.table-row>
-            <td class="firstBodyTable">${no}</td>
+            <td class="firstBodyTable">${item.keluarga.id_keluarga}</td>
             <td class="bodyTable">${item.keluarga.warga.noKK}</td>
             <td class="bodyTable">${item.keluarga.warga.nama}</td>
             <td class="bodyTable">${item.keluarga.jumlah_pekerja}</td>
@@ -119,13 +119,23 @@
             <td class="bodyTable">${item.keluarga.tanggungan}</td>
             <td class="bodyTable">${item.score.toFixed(2)}</td>
             <td class="bodyTable">
-                <a href="/warga/${item.keluarga.id_keluarga}" class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium xl:text-base lg:text-xs py-3 px-4 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
+                <a href="/bansos/${item.keluarga.id_keluarga}" class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium xl:text-base lg:text-xs py-3 px-4 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
             </td>
         </x-table.table-row>
     `;
         }
 
-        async function searchFunction() {
+        function debounce(func, delay) {
+            let debounceTimer;
+            return function () {
+                const context = this;
+                const args = arguments;
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => func.apply(context, args), delay);
+            }
+        }
+
+        let searchFunction = debounce(async function () {
             let input;
             input = document.getElementById('searchInput');
             search = input.value;
@@ -159,7 +169,7 @@
                     <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60">Data tidak ditemukan</td>
                     `;
             }
-        }
+        }, 300);
     </script>
 @endpush
 

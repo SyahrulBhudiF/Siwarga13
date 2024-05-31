@@ -196,8 +196,18 @@
 
         }
 
+        function debounce(func, delay) {
+            let debounceTimer;
+            return function () {
+                const context = this;
+                const args = arguments;
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => func.apply(context, args), delay);
+            }
+        }
+
         /// Fungsi untuk melakukan pencarian
-        async function searchFunction() {
+        let searchFunction = debounce(async function () {
             let input;
             input = document.getElementById('searchInput');
             search = input.value;
@@ -230,6 +240,6 @@
                     <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60">Data tidak ditemukan</td>
                     `;
             }
-        }
+        }, 300);
     </script>
 @endpush

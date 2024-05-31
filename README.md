@@ -37,10 +37,10 @@
 
 ---
 
-- Dyinastie Marchelina Puspitawening
-- Emir Abiyyu Delanggra
-- Muhammad Rifky Harto Biantoro
-- Syahrul Bhudi Ferdiansyah
+- Dyinastie Marchelina Puspitawening (System Analyst)
+- Emir Abiyyu Delanggra (UI/UX Designer)
+- Muhammad Rifky Harto Biantoro (Project Manager)
+- Syahrul Bhudi Ferdiansyah (Fullstack Developer)
 
 ### **🕙 Installation:**
 
