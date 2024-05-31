@@ -3,6 +3,7 @@
 namespace App\Http\Requests\umkm;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUmkmRequest extends FormRequest
 {
@@ -39,7 +40,48 @@ class UpdateUmkmRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'judul' => [
+                'bail',
+                'string',
+                'max:50'
+            ],
+            'alamat' => [
+                'bail',
+                'string',
+                'max:50'
+            ],
+            'kategori' => [
+                'bail',
+                Rule::in(['Kuliner', 'Fashion', 'Kecantikan', 'Agribisnis', 'Otomotif']),
+            ],
+            'harga_awal' => [
+                'bail',
+                'numeric',
+                'min:500',
+            ],
+            'harga_akhir' => [
+                'bail',
+                'numeric',
+                'max:10000000',
+            ],
+            'no_telp' => [
+                'bail',
+                'numeric',
+                'regex:/^08[0-9]{9,10}$/',
+            ],
+            'content' => [
+                'bail',
+                'string',
+            ],
         ];
+    }
+
+    protected function passedValidation()
+    {
+        $this->merge([
+            'harga' => 'Rp ' . $this->harga_awal . ' - ' . 'Rp ' . $this->harga_akhir,
+        ]);
+        $this->request->remove('harga_awal');
+        $this->request->remove('harga_akhir');
     }
 }

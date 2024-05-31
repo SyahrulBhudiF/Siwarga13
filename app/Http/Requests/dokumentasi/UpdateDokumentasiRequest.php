@@ -35,7 +35,20 @@ class UpdateDokumentasiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'judul' => [
+                'bail',
+                'string',
+                'max:50'
+            ],
+            'tanggal' => [
+                'bail',
+                'string',
+                'max:50'
+            ],
+            'content' => [
+                'bail',
+                'string',
+            ],
         ];
     }
 }
