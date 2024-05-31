@@ -33,7 +33,7 @@
         <div class="flex flex-col gap-3">
             <p class="text-xs font-normal text-Neutral/80">Pendataan Warga</p>
             @if (Auth::user()->role == 'RW')
-                <a class="{{$data['active']== 'beranda'? 'activeSidebar' : 'defaultSidebar'}}" href="">
+                <a class="{{$data['active']== 'beranda'? 'activeSidebar' : 'defaultSidebar'}}" href="/beranda">
                     <img src="{{asset("svg/side.svg")}}"
                          class="absolute left-0 {{$data['active']== 'beranda'? 'block' : 'hidden'}}" alt="side">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
