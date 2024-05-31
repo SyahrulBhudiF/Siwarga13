@@ -10,8 +10,6 @@ class BerandaController extends Controller
 {
     public function index()
     {
-
-
         $data = [
             'title' => 'Beranda',
             'active' => 'beranda',
