@@ -104,7 +104,7 @@ class DokumentasiController extends Controller
         $data = [
             'title' => 'Kegiatan Warga',
             'active' => 'kegiatan',
-            'head' => 'Tambah Dokumentasi Baru',
+            'head' => 'Edit Dokumentasi',
         ];
 
         $dokumentasi = Dokumentasi::with('file')->find($id);
