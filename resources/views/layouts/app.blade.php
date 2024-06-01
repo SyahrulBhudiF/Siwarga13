@@ -18,12 +18,14 @@
 </head>
 <body class="w-screen h-screen overflow-x-hidden flex">
 {{--SideBar--}}
-<aside class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block hidden-sidebar xl:block hidden h-full">
-    <nav
-        class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed border-r border-r-Neutral/30">
+<aside id="sidebar"
+       class="2xl:w-[18%] xl:w-[20%] lg:w-[24%] lg:block xl:block max-lg:z-10 h-full">
+    <nav id="navSide"
+         class="flex flex-col h-full top-0 left-0 2xl:w-[18%] xl:w-[20%] lg:w-[24%] bg-Primary/20 gap-3 p-4 fixed transform max-lg:-translate-x-full transition-transform duration-700 ease-in-out border-r border-r-Neutral/30">
         @include('layouts.sidebar')
     </nav>
 </aside>
+<div id="overlay" onclick="closeSidebar()" class="hidden fixed inset-0 bg-black opacity-50 z-[5]"></div>
 <section
     class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative fade-in">
     {{--Header--}}
@@ -36,7 +38,7 @@
     </main>
 </section>
 @stack('js')
-@vite('resources/js/app.js');
+@vite('resources/js/app.js')
 <script>
     // Function to toggle the visibility of the dropdown
     function toggleDropdown1() {
@@ -53,6 +55,22 @@
             dropdown.classList.add("hidden");
         }
     });
+
+    function openSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        document.getElementById('navSide').classList.remove('max-lg:-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        document.getElementById('navSide').classList.add('max-lg:-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
 </script>
 </body>
 </html>

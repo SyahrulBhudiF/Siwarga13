@@ -1,3 +1,13 @@
+<div class="lg:hidden cursor-pointer buttonAnimation" onclick="closeSidebar()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path
+            d="M12 22.75C17.93 22.75 22.75 17.93 22.75 12C22.75 6.07 17.93 1.25 12 1.25C6.07 1.25 1.25 6.07 1.25 12C1.25 17.93 6.07 22.75 12 22.75ZM12 2.75C17.1 2.75 21.25 6.9 21.25 12C21.25 17.1 17.1 21.25 12 21.25C6.9 21.25 2.75 17.1 2.75 12C2.75 6.9 6.9 2.75 12 2.75Z"
+            fill="#292D32"/>
+        <path
+            d="M13.26 16.2802C13.45 16.2802 13.64 16.2102 13.79 16.0602C14.08 15.7702 14.08 15.2902 13.79 15.0002L10.79 12.0002L13.79 9.00016C14.08 8.71016 14.08 8.23016 13.79 7.94016C13.5 7.65016 13.02 7.65016 12.73 7.94016L9.20001 11.4702C8.91001 11.7602 8.91001 12.2402 9.20001 12.5302L12.73 16.0602C12.88 16.2102 13.07 16.2802 13.26 16.2802Z"
+            fill="#292D32"/>
+    </svg>
+</div>
 <div class="flex justify-between items-center p-3 bg-white rounded-xl">
     <div class="flex flex-col py-1 px-3">
         <p class="text-xs text-Primary/10 font-medium">Siwarga13</p>

@@ -18,7 +18,7 @@
                 <canvas id="chartRt"></canvas>
             </div>
             <div class="bg-white border border-Neutral/30 rounded-lg p-5">
-                <canvas id="chartRw"></canvas>
+                <canvas id="chartGender"></canvas>
             </div>
         </div>
         <p class="text-Neutral/100 font-medium xl:text-xl lg:text-sm">Fitur tersedia</p>
@@ -72,7 +72,7 @@
     <script type="module">
         document.addEventListener('DOMContentLoaded', function () {
             const ctx = document.getElementById('chartRt');
-            const ct = document.getElementById('chartRw');
+            const ct = document.getElementById('chartGender');
 
             new Chart(ctx, {
                 type: 'bar',
@@ -188,7 +188,7 @@
                         }
                     }
                 }
-            });
+            })
         })
     </script>
 @endpush
