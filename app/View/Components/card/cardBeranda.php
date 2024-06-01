@@ -11,12 +11,13 @@ class cardBeranda extends Component
     /**
      * Create a new component instance.
      */
-    public $asset, $title;
+    public $asset, $title, $id;
 
-    public function __construct($asset, $title)
+    public function __construct($id, $asset, $title)
     {
         $this->asset = $asset;
         $this->title = $title;
+        $this->id = $id;
     }
 
     /**

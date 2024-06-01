@@ -3,15 +3,23 @@
     <div class="flex flex-col gap-4 justify-center w-full pb-8">
         <p class="text-Neutral/100 font-medium xl:text-xl lg:text-sm">Rangkuman Data Warga RW 13</p>
         <div class="grid lg:grid-cols-3 bg-[#F5F7F9] rounded-xl gap-1 p-1">
-            <x-card.card-beranda asset="{{asset('svg/profile.svg')}}"
+            <x-card.card-beranda id="count1" asset="{{asset('svg/profile.svg')}}"
                                  title="Total jumlah warga">{{$data['jumlah_warga']}} Orang
             </x-card.card-beranda>
-            <x-card.card-beranda asset="{{asset('svg/card.svg')}}"
+            <x-card.card-beranda id="count2" asset="{{asset('svg/card.svg')}}"
                                  title="Total jumlah KK">{{$data['jumlah_kk']}} KK
             </x-card.card-beranda>
-            <x-card.card-beranda asset="{{asset('svg/like-shapes.svg')}}"
+            <x-card.card-beranda id="count3" asset="{{asset('svg/like-shapes.svg')}}"
                                  title="Total peserta bansos">{{$data['jumlah_kk']}} KK
             </x-card.card-beranda>
+        </div>
+        <div class="grid lg:grid-cols-2 bg-[#F5F7F9] rounded-xl gap-1 p-1">
+            <div class="bg-white border border-Neutral/30 rounded-lg p-5">
+                <canvas id="chartRt"></canvas>
+            </div>
+            <div class="bg-white border border-Neutral/30 rounded-lg p-5">
+                <canvas id="chartRw"></canvas>
+            </div>
         </div>
         <p class="text-Neutral/100 font-medium xl:text-xl lg:text-sm">Fitur tersedia</p>
         <div class="grid lg:grid-cols-3 gap-3">
@@ -33,3 +41,154 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        function animateValue(id, start, end, duration, text) {
+            if (start > end) {
+                let temp = start;
+                start = end;
+                end = temp;
+            }
+
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let obj = document.getElementById(id);
+
+            let timer = setInterval(function () {
+                current += increment;
+                obj.innerHTML = current + " " + text;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        animateValue('count1', 0, @json($data['jumlah_warga']), 1000, "Orang");
+        animateValue('count2', 0, @json($data['jumlah_kk']), 1000, "KK");
+        animateValue('count3', 0, @json($data['jumlah_kk']), 1000, "KK");
+    </script>
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('chartRt');
+            const ct = document.getElementById('chartRw');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['RT 001', 'RT 002', 'RT 003', 'RT 004', 'RT 005'],
+                    datasets: [{
+                        label: 'Grafik Jumlah Warga per-RT',
+                        data: [@json($data['countRt']['rt1'] ?? 0), @json($data['countRt']['rt2'] ?? 0), @json($data['countRt']['rt3'] ?? 0), @json($data['countRt']['rt4'] ?? 0), @json($data['countRt']['rt5'] ?? 0)],
+                        backgroundColor: 'rgba(2, 88, 100, 1)',
+                        borderRadius: 5,
+                        barPercentage: 0.5,
+                        barThickness: 30,
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            position: 'right',
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Grafik Jumlah Warga per-RT',
+                            font: {
+                                size: 16,
+                            },
+                            color: 'black',
+                            align: 'start'
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            new Chart(ct, {
+                type: 'bar',
+                data: {
+                    labels: [''],
+                    datasets: [{
+                        label: 'Laki-laki',
+                        data: [@json($data['gender']['l'])], // Data untuk laki-laki
+                        backgroundColor: 'rgba(0, 212, 126, 1)',
+                        borderRadius: 15,
+                        barPercentage: 0.5,
+                        barThickness: 60,
+                    }, {
+                        label: 'Perempuan',
+                        data: [@json($data['gender']['p'])], // Data untuk perempuan
+                        backgroundColor: 'rgba(2, 100, 59, 1)',
+                        borderRadius: 10,
+                        barPercentage: 0.5,
+                        barThickness: 60,
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            stacked: true, // Batang dari setiap dataset akan ditumpuk
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            display: false,
+                            position: 'right',
+                            stacked: true
+                        }
+                    },
+                    indexAxis: 'y',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Perbandingan Jenis Kelamin Warga RW 13',
+                            font: {
+                                size: 16,
+                            },
+                            color: 'black',
+                            align: 'start'
+                        },
+                        legend: {
+                            align: 'start',
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                },
+                                generateLabels: function (chart) {
+                                    const data = chart.data;
+                                    return data.datasets.map((dataset, i) => {
+                                        return {
+                                            text: dataset.label + ": " + dataset.data.reduce((a, b) => a + b, 0),
+                                            fillStyle: dataset.backgroundColor,
+                                            hidden: isNaN(dataset.hidden) ? false : dataset.hidden,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        })
+    </script>
+@endpush

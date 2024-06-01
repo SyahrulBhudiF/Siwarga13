@@ -7,5 +7,5 @@
         <p class="font-normal text-Neutral/90 text-base">{{$slot}}</p>
     </div>
     <a href="{{$href}}"
-       class="py-3 px-7 w-fit mt-auto font-medium text-Primary/10 text-base rounded-[6.25rem] border border-Neutral/30">Kunjungi</a>
+       class="py-3 px-7 w-fit mt-auto font-medium text-Primary/10 text-base rounded-[6.25rem] border border-Neutral/30 buttonAnimation bg-white active:brightness-95">Kunjungi</a>
 </div>
