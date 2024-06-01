@@ -5,5 +5,5 @@
         </div>
         <p class="font-semibold text-Neutral/100 font-base">{{$title}}</p>
     </div>
-    <p class="text-Neutral/100 font-semibold text-2xl">{{$slot}}</p>
+    <p id="{{$id}}" class="text-Neutral/100 font-semibold text-2xl">{{$slot}}</p>
 </div>

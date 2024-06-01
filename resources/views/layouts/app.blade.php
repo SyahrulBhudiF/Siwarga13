@@ -36,6 +36,7 @@
     </main>
 </section>
 @stack('js')
+@vite('resources/js/app.js');
 <script>
     // Function to toggle the visibility of the dropdown
     function toggleDropdown1() {

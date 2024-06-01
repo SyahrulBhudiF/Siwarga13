@@ -9,6 +9,10 @@
     letter-spacing: -0.3px;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 0 !important;
