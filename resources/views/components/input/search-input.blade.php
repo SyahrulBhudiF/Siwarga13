@@ -1,8 +1,8 @@
 <label for="searchInput"
-       class="flex items-center cursor-pointer max-lg:w-full max-lg:gap-0 gap-2 max-lg:px-4 max-lg:py-2 xl:px-[1vw] xl:text-base lg:text-[0.55rem] lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] max-lg:text-xs w-fit rounded-[1.25rem] border border-Neutral/30 font-normal  focus-within:border-Primary/10 focus-within:text-Primary/10">
+       class="flex items-center cursor-pointer max-lg:gap-0 gap-2 max-lg:px-4 max-lg:py-2 xl:px-[1vw] xl:text-base lg:text-[0.55rem] lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem] max-lg:text-xs w-fit rounded-[1.25rem] border border-Neutral/30 font-normal  focus-within:border-Primary/10 focus-within:text-Primary/10">
     <input type="search" onkeyup="searchFunction()" onsubmit="this.preventDefault()" name="{{$name}}" id="searchInput"
            placeholder="{{$placeholder}}"
-           class="outline-none bg-white max-lg:-mr-5">
+           class="outline-none bg-white max-lg:text-xs max-lg:w-[90%]">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
          class="cursor-pointer">
         <path

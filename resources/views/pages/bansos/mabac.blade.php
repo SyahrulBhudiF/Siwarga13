@@ -90,11 +90,11 @@
             </p>
             <p class="text-Neutral/90 font-normal text-sm -mt-3">Untuk kriteria ke-j yang merupakan kriteria bertipe
                 “Benefit” maka berlaku :</p>
-            <img src="{{asset('img/G7.png')}}" alt="" class="w-1/5">
+            <img src="{{asset('img/G7.png')}}" alt="" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/90 font-normal text-sm -mt-3">Sedangkan untuk kriteria ke-j yang merupakan kriteria
                 bertipe “Cost” maka berlaku :
             </p>
-            <img src="{{asset('img/G8.png')}}" alt="" class="w-1/5">
+            <img src="{{asset('img/G8.png')}}" alt="" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/90 font-normal text-sm -mt-3">𝑥𝑖+ = mewakili nilai maksimum dari alternatif.
             </p>
             <p class="text-Neutral/90 font-normal text-sm -mt-3">𝑥𝑖- = mewakili nilai minimum dari alternatif.
@@ -120,7 +120,7 @@
             <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Elemen matriks tertimbang (V) dihitung
                 berdasarkan rumus berikut.
             </p>
-            <img src="{{asset('img/G9.png')}}" alt="" class="w-1/5">
+            <img src="{{asset('img/G9.png')}}" alt="" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/100 font-bold text-sm">V</p>
             <x-table.data-table :dt="$weightV"
                                 :headers="['Alternatif' ,'Kriteria 1', 'Kriteria 2', 'Kriteria 3']">
@@ -142,7 +142,7 @@
             <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Perhitungan ini merupakan perbedaan elemen
                 matriks tertimbang (V) dan nilai daerah perkiraan perbatasan (G).
             </p>
-            <img src="{{asset('img/G10.png')}}" alt="" class="w-1/5">
+            <img src="{{asset('img/G10.png')}}" alt="" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/100 font-bold text-sm">G</p>
             <x-table.data-table :dt="$limitsG"
                                 :headers="['Kriteria' ,'Martix batas (G)']">
@@ -163,7 +163,7 @@
             <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Perhitungan nilai - nilai fungsi kriteria dengan
                 alternatif diperoleh dengan menjumlahkan elemen matriks Q.
             </p>
-            <img src="{{asset('img/G11.png')}}" alt="" class="w-1/6">
+            <img src="{{asset('img/G11.png')}}" alt="" class="w-1/6 max-lg:w-1/3">
             <p class="text-Neutral/100 font-bold text-sm">Q</p>
             <x-table.data-table :dt="$distanceQ"
                                 :headers="['Kriteria' ,'Q']">
@@ -186,7 +186,7 @@
                 tertinggi hingga yang terendah. Alternatif dengan nilai yang tertinggi menunjukkan alternatif yang
                 terbaik.
             </p>
-            <img src="{{asset('img/G12.png')}}" alt="" class="w-1/6">
+            <img src="{{asset('img/G12.png')}}" alt="" class="w-1/6 max-lg:w-1/3">
             <p class="text-Neutral/100 font-bold text-sm">Rank</p>
             <x-table.data-table :dt="$rankMabac"
                                 :headers="['Rank.', 'KK', 'Kepala Keluarga', 'Score']">
