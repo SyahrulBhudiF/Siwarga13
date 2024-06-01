@@ -1,6 +1,6 @@
 <div class="dropdown {{Auth::user()->role == 'RW'? 'dropdown-end' : ''}}">
     <button onclick="activeFilter(this)" id="filterInput"
-            class="buttonAnimation bg-white hover:bg-white hover:border-Primary/10 group ease-in-out duration-200 flex gap-2 font-normal items-center rounded-[1.25rem] text-Neutral/100 border border-Neutral/30 xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem]">
+            class="buttonAnimation bg-white hover:bg-white hover:border-Primary/10 group ease-in-out duration-200 flex gap-2 font-normal items-center rounded-[1.25rem] text-Neutral/100 border border-Neutral/30 max-lg:px-2 max-lg:py-2 xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] text-xs xl:py-[0.625rem]">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
              class="transition-all ease-in-out duration-200">
             <path
@@ -24,7 +24,7 @@
         </svg>
         {{$slot}}
         <span id="count"
-              class="hidden rounded-full bg-Primary/10 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
+              class="hidden rounded-full bg-Primary/10 h-[1.2rem] w-[1.2rem] max-lg:h-[1rem] max-lg:w-[1rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
     </button>
     <form tabindex="0" action="{{ route('warga.index') }}" method="GET"
           class="dropdown-content z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[38vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
@@ -36,7 +36,7 @@
         </div>
         <div class="flex flex-col gap-2">
             <p class="text-Neutral/100 text-sm font-medium">Peran Keluarga</p>
-            <div class="groupInput">
+            <div class="groupInput max-lg:flex-col">
                 <x-input.radio-input name="peran" id="kepala"
                                      value="Kepala keluarga"
                                      checked="{{ request()->get('peran') == 'Kepala keluarga' }}" fn="a">
@@ -64,7 +64,7 @@
         </div>
         <div class="flex flex-col gap-2">
             <p class="text-Neutral/100 text-sm font-medium">Status Warga</p>
-            <div class="groupInput">
+            <div class="groupInput max-lg:flex-col">
                 @php
                     $status = request()->input('status', []);
                 @endphp

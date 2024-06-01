@@ -5,7 +5,7 @@
     @endif
     <x-etc.sub-menu head="{{$data['head']}}"></x-etc.sub-menu>
     <div class="w-full h-full mt-4 flex flex-col items-center justify-center">
-        <div class="flex justify-center gap-10 w-[70%] h-full">
+        <div class="flex justify-center gap-10 w-[70%] h-full max-lg:flex-col">
             <div class="flex flex-col gap-5 h-full w-full">
                 <x-input.text-input placeholder="" id="nik"
                                     value="{{ is_object($warga) && isset($warga['nik']) ? $warga['nik'] : '' }}">

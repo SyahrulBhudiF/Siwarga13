@@ -6,11 +6,11 @@
 
             @foreach ($headers as $index => $header)
                 @if ($index == 0)
-                    <th class="py-3 pl-6 pr-3 rounded-tl-2xl text-start">{{ $header }}</th>
+                    <th class="py-3 pl-6 pr-3 rounded-tl-2xl text-start max-xl:text-xs">{{ $header }}</th>
                 @elseif($index == count($headers) - 1)
-                    <th class="px-6 py-3 rounded-tr-2xl text-start">{{ $header }}</th>
+                    <th class="px-6 py-3 rounded-tr-2xl text-start max-xl:text-xs">{{ $header }}</th>
                 @else
-                    <th class="px-6 py-3 text-start">{{ $header }}</th>
+                    <th class="px-6 py-3 text-start max-xl:text-xs">{{ $header }}</th>
                 @endif
             @endforeach
 
@@ -36,7 +36,7 @@
         @endif
     </table>
     @if ($dt instanceof \Illuminate\Pagination\LengthAwarePaginator)
-        <div class="flex justify-between mt-4 items-center" id="pagin">
+        <div class="flex justify-between gap-4 mt-4 max-lg:mb-4 items-center" id="pagin">
             <div class="flex items-center list-none gap-2">
                 {{ $dt->links() }}
             </div>
