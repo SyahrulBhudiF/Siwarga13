@@ -13,9 +13,26 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
 
-/* width */
+/* Mengatur scrollbar untuk semua elemen */
 ::-webkit-scrollbar {
-    width: 0 !important;
+    width: 0;
+}
+
+/* Mengatur track atau jalur scrollbar */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Mengatur handle atau pegangan scrollbar */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+/* Mengatur handle scrollbar saat dihover */
+::-webkit-scrollbar-thumb:hover {
+    height: 5px;
+    background: #555;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -85,11 +102,11 @@ input[type="number"] {
 }
 
 .firstBodyTable {
-    @apply px-8 border-b 2xl:py-6 lg:py-5 bg-white;
+    @apply px-8 border-b 2xl:py-6 lg:py-5 bg-white overflow-ellipsis whitespace-nowrap max-lg:text-xs;
 }
 
 .bodyTable {
-    @apply xl:px-4 lg:px-2 2xl:py-6 xl:py-2 lg:py-2 border-b bg-white 2xl:text-sm text-xs;
+    @apply xl:px-4 px-2 2xl:py-6 xl:py-2 py-2 max-lg:py-6 border-b bg-white 2xl:text-sm text-xs overflow-ellipsis whitespace-nowrap;
 }
 
 .buttonAnimation {
@@ -154,6 +171,15 @@ input[type="number"] {
     padding: 4px;
     border-radius: 0.5rem;
     background-color: white;
+    @apply max-lg:p-1 max-[500px]:w-[40%] max-sm:w-[80%];
+}
+
+#toolbar {
+    @apply max-lg:flex max-lg:justify-center
+}
+
+.TMCommandButton {
+    @apply max-lg:px-2 max-lg:py-1 max-lg:w-fit;
 }
 
 .TMInlineFormatted {

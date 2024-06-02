@@ -70,7 +70,7 @@
             <p class="text-Neutral/100 font-normal text-base">Nilai Solusi Rata-rata (AV)</p>
             <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Menentukan solusi rata-rata (AV) sesuai dengan
                 kriteria yang ditentukan dengan menggunakan persamaan berikut:</p>
-            <img src="{{asset('img/G1.png')}}" alt="rumus" class="w-1/5">
+            <img src="{{asset('img/G1.png')}}" alt="rumus" class="w-1/5 max-lg:w-1/2 max-lg:w-1/2">
             <p class="text-Neutral/100 font-bold text-sm">AV</p>
             <x-table.data-table :dt="$average"
                                 :headers="['Kriteria', 'Rata Rata']">
@@ -94,10 +94,10 @@
             <p class="text-Neutral/90 font-normal text-sm -mt-3">
                 Untuk kriteria ke-j yang merupakan kriteria bertipe “Benefit” maka berlaku :
             </p>
-            <img src="{{asset('img/G2.png')}}" alt="rumus" class="w-1/5">
+            <img src="{{asset('img/G2.png')}}" alt="rumus" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/90 font-normal text-sm -mt-3">
                 Untuk kriteria ke-j yang merupakan kriteria bertipe “Cost” maka berlaku :</p>
-            <img src="{{asset('img/G3.png')}}" alt="rumus" class="w-1/5">
+            <img src="{{asset('img/G3.png')}}" alt="rumus" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/100 font-bold text-sm">PDA</p>
             <x-table.data-table :dt="$pda"
                                 :headers="['Alternatif' ,'Kriteria 1', 'Kriteria 2', 'Kriteria 3']">
@@ -134,7 +134,7 @@
         <div class="flex flex-col gap-4">
             <p class="text-Neutral/100 font-normal text-base">Menentukan jumlah terbobot (SP dan SN)
             </p>
-            <img src="{{asset('img/G4.png')}}" class="w-1/5">
+            <img src="{{asset('img/G4.png')}}" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/100 font-bold text-sm">SP</p>
             <x-table.data-table :dt="$sp"
                                 :headers="['Alternatif' ,'SP']">
@@ -168,7 +168,7 @@
             <p class="text-Neutral/100 font-normal text-base">Desc : Menghitung nilai normalisasi dari SP dan SN untuk
                 semua alternatif.
             </p>
-            <img src="{{asset('img/G5.png')}}" class="w-1/5">
+            <img src="{{asset('img/G5.png')}}" class="w-1/5 max-lg:w-1/2">
             <p class="text-Neutral/100 font-bold text-sm">NSP</p>
             <x-table.data-table :dt="$nsp"
                                 :headers="['Alternatif' ,'SP']">
@@ -204,7 +204,7 @@
             <p class="text-Neutral/90 font-normal text-sm -mt-3">Desc : Setelah nilai normalisasi NSP dan NSN
                 diperoleh, maka dihitung nilai penilaian atau Appraisal Score (AS) sebagai berikut:
             </p>
-            <img src="{{asset('img/G6.png')}}" class="w-1/4">
+            <img src="{{asset('img/G6.png')}}" class="w-1/4 max-lg:w-full">
             <p class="text-Neutral/100 font-bold text-sm">AS</p>
             <x-table.data-table :dt="$rankEdas"
                                 :headers="['Rank.', 'KK', 'Kepala Keluarga', 'Score']">

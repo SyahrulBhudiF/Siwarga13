@@ -2,7 +2,7 @@
 
 <div class="flex justify-center w-full mt-4">
     <form method="post" action="{{$action}}" enctype="multipart/form-data"
-          class="flex flex-col gap-5 items-center xl:w-[50%] lg:w-[60%] mb-[10vh]">
+          class="flex flex-col gap-5 items-center xl:w-[50%] max-lg:w-[90%] lg:w-[65%] mb-[10vh]">
         @csrf
         @if(is_object($umkm))
             @method('PUT')
@@ -40,7 +40,7 @@
             @enderror
         </div>
 
-        <div class="flex gap-2 w-full items-center">
+        <div class="flex max-lg:flex-col gap-2 w-full items-center">
             <div class="w-full">
                 <x-input.number-input placeholder="Rp| Minimal (cth: 5,000)" id="harga_awal"
                                       value="{{old('harga_awal', is_object($umkm) && isset($umkm['harga_awal']) ? $umkm['harga_awal'] : '')}}">

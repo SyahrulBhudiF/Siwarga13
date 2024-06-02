@@ -3,13 +3,13 @@
     @if(session('success') || session('error'))
         <x-flash-message></x-flash-message>
     @endif
-    <div class="flex flex-col gap-4 justify-center w-full pb-4">
+    <div class="flex flex-col gap-4 justify-center w-full pb-4 max-lg:mb-20">
         <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
             <x-buttons.primary-button href="{{route('warga.create')}}">Tambah Data</x-buttons.primary-button>
         </x-etc.header-content>
-        <div class="flex justify-between">
+        <div class="flex justify-between max-lg:flex-col-reverse max-lg:gap-2">
             @if (Auth::user()->role == 'RW')
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 max-lg:hidden">
                     <x-buttons.filter-button :dt="$data" id="RW">RW 13 (Semua RT)</x-buttons.filter-button>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2" height="24" viewBox="0 0 2 24" fill="none">
                         <path d="M1 0V24" stroke="#E3E3E3"/>
@@ -20,8 +20,14 @@
                     <x-buttons.filter-button :dt="$data" id="RT 4">RT 004</x-buttons.filter-button>
                     <x-buttons.filter-button :dt="$data" id="RT 5">RT 005</x-buttons.filter-button>
                 </div>
+                <div class="lg:hidden max-lg:w-[50%]">
+                    <x-input.select-input id="rtResponsive" :options="['RW','RT 1', 'RT 2', 'RT 3', 'RT 4', 'RT 5']"
+                                          placeholder="Pilih RT"
+                                          value="RW">
+                    </x-input.select-input>
+                </div>
             @endif
-            <div class="flex gap-3 items-center">
+            <div class="flex gap-3 max-lg:gap-1 items-center max-lg:justify-between">
                 <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
                 <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
             </div>
@@ -41,7 +47,7 @@
                     <td class="bodyTable">{{$dt->alamat->alamat}}</td>
                     <td class="bodyTable">
                         <a href="{{ route('warga.show', $dt->id_warga) }}"
-                           class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium 2xl:text-base xl:text-sm lg:text-xs 2xl:py-3 xl:py-2 2xl:px-4 xl:px-3 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
+                           class="text-Primary/10 active:brightness-95 transition ease-in-out duration-300 font-medium 2xl:text-base xl:text-sm text-xs 2xl:py-3 py-2 2xl:px-4 px-3 rounded-[6.25rem] bg-[#F5F7F9] w-fit">Detail</a>
                     </td>
                 </x-table.table-row>
                 @php
@@ -53,6 +59,48 @@
 @endsection
 @push('js')
     <script>
+        let toggleCount = {};
+        let filterResponsive;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get filter value from session storage
+            filterResponsive = document.getElementById('rtResponsive');
+            const filterValue = sessionStorage.getItem('filterResponsive');
+            if (filterValue) {
+                filterResponsive.value = filterValue;
+            }
+        });
+
+        // When an option is selected, the value of the input is set to the selected option and the dropdown is hidden
+        function selectOption(e, id) {
+            filterResponsive = document.getElementById(id);
+            filterResponsive.value = e.textContent.trim();
+            filterByRT(filterResponsive.value)
+            sessionStorage.setItem('filterResponsive', filterResponsive.value)
+            const dropdownContent = e.closest('#content-' + id);
+            const drop = document.getElementById('drop');
+            drop.classList.toggle('rotate-180');
+            if (dropdownContent) {
+                dropdownContent.classList.toggle('hidden');
+            }
+            // Set toggleCount to 0 when an option is selected
+            toggleCount[id] = 0;
+        }
+
+        // When dropdown click is triggered hidden class is toggled
+        function toggleDropdown(id) {
+            if (!toggleCount[id]) {
+                toggleCount[id] = 0;
+            }
+            const dropdownContent = document.getElementById(id);
+            const drop = document.getElementById('drop');
+            drop.classList.toggle('rotate-180');
+            if (dropdownContent && toggleCount[id] !== 0) {
+                dropdownContent.classList.toggle('hidden');
+            }
+            toggleCount[id]++;
+        }
+
         // JavaScript function for filter with RT
         function filterByRT(rt) {
             let url = `/warga?rt=${rt}`;
