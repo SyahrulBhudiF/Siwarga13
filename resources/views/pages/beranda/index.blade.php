@@ -9,8 +9,8 @@
             <x-card.card-beranda id="count2" asset="{{asset('svg/card.svg')}}"
                                  title="Total jumlah KK">{{$data['jumlah_kk']}} KK
             </x-card.card-beranda>
-            <x-card.card-beranda id="count3" asset="{{asset('svg/like-shapes.svg')}}"
-                                 title="Total peserta bansos">{{$data['jumlah_kk']}} KK
+            <x-card.card-beranda id="count3" asset="{{asset('svg/tas.svg')}}"
+                                 title="Total warga pekerja">{{$data['totalPekerja']}} Orang
             </x-card.card-beranda>
         </div>
         <div class="grid lg:grid-cols-2 bg-[#F5F7F9] rounded-xl gap-1 p-1">
@@ -67,7 +67,7 @@
 
         animateValue('count1', 0, @json($data['jumlah_warga']), 1000, "Orang");
         animateValue('count2', 0, @json($data['jumlah_kk']), 1000, "KK");
-        animateValue('count3', 0, @json($data['jumlah_kk']), 1000, "KK");
+        animateValue('count3', 0, @json($data['totalPekerja']), 1000, "Orang");
     </script>
     <script type="module">
         document.addEventListener('DOMContentLoaded', function () {
@@ -127,14 +127,14 @@
                         backgroundColor: 'rgba(0, 212, 126, 1)',
                         borderRadius: 15,
                         barPercentage: 0.5,
-                        barThickness: 60,
+                        barThickness: 50,
                     }, {
                         label: 'Perempuan',
                         data: [@json($data['gender']['p'])], // Data untuk perempuan
                         backgroundColor: 'rgba(2, 100, 59, 1)',
                         borderRadius: 10,
                         barPercentage: 0.5,
-                        barThickness: 60,
+                        barThickness: 50,
                     }]
                 },
                 options: {

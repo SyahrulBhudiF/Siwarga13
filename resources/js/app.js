@@ -1,4 +1,6 @@
 import './bootstrap';
-import {Chart as ChartJs} from "chart.js/auto";
+import {Chart, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, BarController} from 'chart.js';
 
-window.Chart = ChartJs;
+Chart.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, BarController);
+
+window.Chart = Chart;

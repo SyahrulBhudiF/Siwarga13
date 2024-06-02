@@ -22,6 +22,7 @@ class BerandaController extends Controller
                 'rt4' => Alamat::where('rt', 'RT 4')->count(),
                 'rt5' => Alamat::where('rt', 'RT 5')->count(),
             ],
+            'totalPekerja' => Keluarga::sum('jumlah_pekerja'),
             'gender' => [
                 'l' => Warga::where('jenis_kelamin', 'Laki-laki')->count(),
                 'p' => Warga::where('jenis_kelamin', 'Perempuan')->count(),

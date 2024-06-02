@@ -21,7 +21,8 @@
         <p class="text-Primary/10 font-medium  text-xl">Siwarga13</p>
         <p class="text-Neutral/100 text-4xl max-sm:text-3xl font-medium">{{session('success') == 'Login Berhasil!'? 'Selamat Datang di Website Sistem Informasi Siwarga 13 👋' : 'Selamat Datang!'}}</p>
         @if(session('success') == 'Login Berhasil!')
-            <x-buttons.primary-button href="/warga">Lanjutkan</x-buttons.primary-button>
+            <x-buttons.primary-button href="{{auth()->user()->role != 'RW' ? '/warga' : '/beranda'}}">Lanjutkan
+            </x-buttons.primary-button>
         @endif
     </header>
     @if(!session('success') == 'Login Berhasil!' || session('success') == 'Logout Berhasil!')
