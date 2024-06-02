@@ -15,7 +15,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* Mengatur scrollbar untuk semua elemen */
 ::-webkit-scrollbar {
-    width: 0 !important;
+    width: 0;
 }
 
 /* Mengatur track atau jalur scrollbar */
@@ -171,6 +171,15 @@ input[type="number"] {
     padding: 4px;
     border-radius: 0.5rem;
     background-color: white;
+    @apply max-lg:p-1 max-[500px]:w-[40%] max-sm:w-[80%];
+}
+
+#toolbar {
+    @apply max-lg:flex max-lg:justify-center
+}
+
+.TMCommandButton {
+    @apply max-lg:px-2 max-lg:py-1 max-lg:w-fit;
 }
 
 .TMInlineFormatted {

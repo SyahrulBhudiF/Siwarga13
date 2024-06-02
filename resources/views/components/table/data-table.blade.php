@@ -6,11 +6,11 @@
 
             @foreach ($headers as $index => $header)
                 @if ($index == 0)
-                    <th class="py-3 pl-6 pr-3 rounded-tl-2xl text-start max-xl:text-xs">{{ $header }}</th>
+                    <th class="py-3 pl-6 pr-3 rounded-tl-2xl text-start max-xl:text-xs text-nowrap">{{ $header }}</th>
                 @elseif($index == count($headers) - 1)
-                    <th class="px-6 py-3 rounded-tr-2xl text-start max-xl:text-xs">{{ $header }}</th>
+                    <th class="px-6 py-3 rounded-tr-2xl text-start max-xl:text-xs text-nowrap">{{ $header }}</th>
                 @else
-                    <th class="px-6 py-3 text-start max-xl:text-xs">{{ $header }}</th>
+                    <th class="px-6 py-3 text-start max-xl:text-xs text-nowrap">{{ $header }}</th>
                 @endif
             @endforeach
 

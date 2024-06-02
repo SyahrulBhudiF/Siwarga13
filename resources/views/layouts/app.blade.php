@@ -27,7 +27,7 @@
 </aside>
 <div id="overlay" onclick="closeSidebar()" class="hidden fixed inset-0 bg-black opacity-50 z-[5]"></div>
 <section
-    class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative fade-in">
+    class="2xl:w-[82%] xl:w-[80%] lg:w-[76%] justify-center bg-Neutral/10 w-full h-full relative overflow-x-hidden fade-in">
     {{--Header--}}
     @include('layouts.header')
     {{--Content--}}

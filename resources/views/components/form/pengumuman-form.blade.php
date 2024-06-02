@@ -1,6 +1,6 @@
 <div class="flex justify-center w-full mt-4">
     <form method="post" action="{{$action}}" enctype="multipart/form-data"
-          class="flex flex-col gap-5 items-center xl:w-[50%] lg:w-[60%] mb-[10vh]">
+          class="flex flex-col gap-5 items-center xl:w-[50%] max-lg:w-[90%] lg:w-[65%] mb-[10vh]">
         @csrf
         @if(is_object($pengumuman))
             @method('PUT')

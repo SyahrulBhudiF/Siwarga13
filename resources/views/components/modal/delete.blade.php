@@ -1,6 +1,6 @@
 @props(['action'])
 
-<dialog id="modalDelete" class="modal w-screen modal-bottom sm:modal-middle">
+<dialog id="modalDelete" class="modal w-screen modal-middle">
     <div class="modal-box p-6 flex flex-col gap-8">
         <div class="flex flex-col gap-4">
             <div class="p-3 rounded-full bg-[#FEF3F2] w-fit">
