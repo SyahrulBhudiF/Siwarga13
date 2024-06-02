@@ -16,12 +16,13 @@
 <script src="{{ asset('js/particles.js') }}"></script>
 <script src="{{ asset('js/configParticles.js') }}"></script>
 <main
-    class="2xl:w-[28%] lg:w-[37%] z-10 bg-white p-10 flex flex-col items-center justify-center gap-8 border border-Neutral/30 rounded-[1.25rem] shadow">
+    class="2xl:w-[28%] lg:w-[37%] max-sm:w-[95%] max-lg:w-[70%] z-10 bg-white p-10 flex flex-col items-center justify-center gap-8 border border-Neutral/30 rounded-[1.25rem] shadow">
     <header class="flex flex-col gap-8 w-full">
-        <p class="text-Primary/10 font-medium text-xl">Siwarga13</p>
-        <p class="text-Neutral/100 text-4xl font-medium">{{session('success') == 'Login Berhasil!'? 'Selamat Datang di Website Sistem Informasi Siwarga 13 👋' : 'Selamat Datang!'}}</p>
+        <p class="text-Primary/10 font-medium  text-xl">Siwarga13</p>
+        <p class="text-Neutral/100 text-4xl max-sm:text-3xl font-medium">{{session('success') == 'Login Berhasil!'? 'Selamat Datang di Website Sistem Informasi Siwarga 13 👋' : 'Selamat Datang!'}}</p>
         @if(session('success') == 'Login Berhasil!')
-            <x-buttons.primary-button href="/warga">Lanjutkan</x-buttons.primary-button>
+            <x-buttons.primary-button href="{{auth()->user()->role != 'RW' ? '/warga' : '/beranda'}}">Lanjutkan
+            </x-buttons.primary-button>
         @endif
     </header>
     @if(!session('success') == 'Login Berhasil!' || session('success') == 'Logout Berhasil!')
