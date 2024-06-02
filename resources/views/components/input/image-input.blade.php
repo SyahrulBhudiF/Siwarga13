@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-2 w-full">
     <span class="text-Neutral/100 xl:text-base lg:text-xs font-medium">{{$slot}}</span>
-    <div class="grid grid-cols-3 grid-rows-2 gap-2">
+    <div class="grid grid-cols-3 max-lg:grid-cols-2 gap-2">
         {{--Input 1--}}
         @php($value = json_decode(html_entity_decode($value)))
         <div

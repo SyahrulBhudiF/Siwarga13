@@ -40,7 +40,7 @@
             @enderror
         </div>
 
-        <div class="flex gap-2 w-full items-center">
+        <div class="flex max-lg:flex-col gap-2 w-full items-center">
             <div class="w-full">
                 <x-input.number-input placeholder="Rp| Minimal (cth: 5,000)" id="harga_awal"
                                       value="{{old('harga_awal', is_object($umkm) && isset($umkm['harga_awal']) ? $umkm['harga_awal'] : '')}}">
