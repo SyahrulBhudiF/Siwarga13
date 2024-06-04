@@ -1,4 +1,4 @@
 <script>
-    window.location = '/login'
+    window.location = '/dashboard'
 </script>
 

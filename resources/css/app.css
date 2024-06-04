@@ -189,3 +189,28 @@ input[type="number"] {
 .modal {
     z-index: 50;
 }
+
+.landingNav {
+    @apply text-Neutral/80 text-sm font-medium;
+}
+
+.activeLandingNav {
+    @apply text-Neutral/100 font-semibold text-sm;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    border-radius: 50%;
+    display: block;
+}
