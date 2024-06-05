@@ -56,7 +56,7 @@ class BansosController extends Controller
         $data = [
             'title' => 'Bansos',
             'active' => 'bansos',
-            'head' => 'list Bantuan Sosial RW 13',
+            'head' => 'List Bantuan Sosial RW 13',
             'desc' => 'Berikut adalah data warga yang berhak menerima bansos . ',
             'method' => 'mabac',
         ];

@@ -62,6 +62,57 @@
         </div>
     </div>
 </section>
+{{--Chart--}}
+<section class="lg:grid lg:grid-cols-2 gap-[3.75rem] m-[3.75rem]">
+    <div class="flex flex-col gap-5">
+        <div>
+            <p class="text-Neutral/100 font-medium text-[2.5rem]">Visualisasi Data Warga RW 13</p>
+            <p class="text-xl text-Neutral/90">Dapatkan informasi visual mengenai beberapa kategori dalam data warga RW
+                13
+                dibawah ini.</p>
+        </div>
+        <div class="flex flex-col gap-3">
+            <div onclick="changeChart(this, 'containRt')"
+                 class="flex items-center gap-3 p-6 rounded-xl border border-Neutral/40 cursor-pointer buttonAnimation containerChart activeChart">
+                <svg class="svgAr" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                     fill="none">
+                    <path d="M17.25 8.25L21 12M21 12L17.25 15.75M21 12H3" stroke="#025864" stroke-width="1.5"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="text-xl font-medium">Grafik Jumlah Warga per-RT</p>
+            </div>
+            <div onclick="changeChart(this, 'containGender')"
+                 class="flex items-center gap-3 p-6 rounded-xl border border-Neutral/40 cursor-pointer buttonAnimation containerChart">
+                <svg class="hidden svgAr" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                     fill="none">
+                    <path d="M17.25 8.25L21 12M21 12L17.25 15.75M21 12H3" stroke="#025864" stroke-width="1.5"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="text-xl font-medium">Perbandingan Jenis Kelamin</p>
+            </div>
+            <div onclick="changeChart(this, 'containMarriage')"
+                 class="flex items-center gap-3 p-6 rounded-xl border border-Neutral/40 cursor-pointer buttonAnimation containerChart">
+                <svg class="hidden svgAr" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                     fill="none">
+                    <path d="M17.25 8.25L21 12M21 12L17.25 15.75M21 12H3" stroke="#025864" stroke-width="1.5"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="text-xl font-medium">Perbandingan Status Pernikahan</p>
+            </div>
+        </div>
+    </div>
+    <div id="containRt" class="bg-white svgAr border border-Neutral/30 rounded-lg p-5 flex justify-center">
+        <canvas id="chartRt"></canvas>
+    </div>
+    <div id="containGender"
+         class="bg-white svgAr w-full border hidden border-Neutral/30 rounded-lg p-5 flex justify-center">
+        <canvas id="chartGender"></canvas>
+    </div>
+    <div id="containMarriage"
+         class="bg-white svgAr w-full border hidden border-Neutral/30 rounded-lg p-5 flex justify-center">
+        <canvas id="chartNikah"></canvas>
+    </div>
+</section>
 {{--Pengumuman--}}
 <section id="pengumuman" class="flex flex-col gap-8 mt-[8rem] m-3">
     <x-etc.title-content title="Pengumuman"
@@ -117,10 +168,38 @@
 @include('dashboard.layouts.footer')
 @vite('resources/js/app.js')
 </body>
+<script>
+    function changeChart(element, container) {
+        document.querySelectorAll('.containerChart').forEach((div) => {
+            div.classList.remove('activeChart');
+        });
+
+        element.classList.add('activeChart');
+
+        const svgs = document.querySelectorAll('.svgAr');
+
+        svgs.forEach((svg) => {
+            svg.classList.add('hidden');
+        });
+
+        element.querySelector('.svgAr').classList.remove('hidden');
+        document.getElementById(container).classList.remove('hidden');
+    }
+</script>
 <script type="module">
+
     document.addEventListener('DOMContentLoaded', function () {
         animateValue('warga', 0, @json($data['totalWarga']), 1000, "Orang");
         animateValue('kk', 0, @json($data['totalKK']), 1000, "KK");
+
+        const canvasElements = document.querySelectorAll('canvas');
+
+        canvasElements.forEach((canvas) => {
+            const parentDiv = canvas.parentElement;
+            canvas.width = parentDiv.offsetWidth;
+            canvas.height = parentDiv.offsetHeight;
+        });
+
 
         const anchor = document.querySelector('a[href="#pengumuman"]');
         const pengumuman = document.querySelector('#pengumuman');
@@ -129,6 +208,172 @@
             event.preventDefault();
             pengumuman.scrollIntoView({behavior: 'smooth'});
         });
+
+        const ctx = document.getElementById('chartRt');
+        const ct = document.getElementById('chartGender');
+        const chartNikah = document.getElementById('chartNikah');
+
+        new Chart(chartNikah, {
+            type: 'doughnut',
+            data: {
+                labels: ['Menikah', 'Belum Menikah', 'Cerai Hidup', 'Cerai Mati'],
+                datasets: [{
+                    data: [@json($data['statusNikah']['kawin']), @json($data['statusNikah']['belum']), @json($data['statusNikah']['cerai_hidup']), @json($data['statusNikah']['cerai_mati'])],
+                    backgroundColor: ['rgba(0, 212, 126, 1)', 'rgba(2, 100, 59, 1)', 'rgba(34, 139, 34, 1)', 'rgba(60, 179, 113, 1)'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Perbandingan Status Pernikahan Warga RW 13',
+                        font: {
+                            size: 16,
+                        },
+                        color: 'black',
+                        align: 'start'
+                    },
+                    legend: {
+                        align: 'start',
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            },
+                            generateLabels: function (chart) {
+                                const data = chart.data;
+                                return data.datasets[0].data.map((value, i) => {
+                                    return {
+                                        text: data.labels[i] + ": " + value,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: isNaN(data.datasets[0].hidden) ? false : data.datasets[0].hidden,
+                                        index: i
+                                    };
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['RT 001', 'RT 002', 'RT 003', 'RT 004', 'RT 005'],
+                datasets: [{
+                    label: 'Grafik Jumlah Warga per-RT',
+                    data: [@json($data['countRt']['rt1'] ?? 0), @json($data['countRt']['rt2'] ?? 0), @json($data['countRt']['rt3'] ?? 0), @json($data['countRt']['rt4'] ?? 0), @json($data['countRt']['rt5'] ?? 0)],
+                    backgroundColor: 'rgba(2, 88, 100, 1)',
+                    borderRadius: 5,
+                    barPercentage: 0.5,
+                    barThickness: 30,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        position: 'right',
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafik Jumlah Warga per-RT',
+                        font: {
+                            size: 16,
+                        },
+                        color: 'black',
+                        align: 'start'
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        new Chart(ct, {
+            type: 'bar',
+            data: {
+                labels: [''],
+                datasets: [{
+                    label: 'Laki-laki',
+                    data: [@json($data['gender']['l'])], // Data untuk laki-laki
+                    backgroundColor: 'rgba(0, 212, 126, 1)',
+                    borderRadius: 15,
+                    barPercentage: 0.5,
+                    barThickness: 60
+                }, {
+                    label: 'Perempuan',
+                    data: [@json($data['gender']['p'])], // Data untuk perempuan
+                    backgroundColor: 'rgba(2, 100, 59, 1)',
+                    borderRadius: 10,
+                    barPercentage: 0.5,
+                    barThickness: 60,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        stacked: true, // Batang dari setiap dataset akan ditumpuk
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        display: false,
+                        position: 'right',
+                        stacked: true
+                    }
+                },
+                indexAxis: 'y',
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Perbandingan Jenis Kelamin Warga RW 13',
+                        font: {
+                            size: 16,
+                        },
+                        color: 'black',
+                        align: 'start'
+                    },
+                    legend: {
+                        align: 'start',
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            },
+                            generateLabels: function (chart) {
+                                const data = chart.data;
+                                return data.datasets.map((dataset, i) => {
+                                    return {
+                                        text: dataset.label + ": " + dataset.data.reduce((a, b) => a + b, 0),
+                                        fillStyle: dataset.backgroundColor,
+                                        hidden: isNaN(dataset.hidden) ? false : dataset.hidden,
+                                        index: i
+                                    };
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        })
     });
 </script>
 </html>

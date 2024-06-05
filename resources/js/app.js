@@ -1,7 +1,18 @@
 import './bootstrap';
-import {Chart, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, BarController} from 'chart.js';
+import {
+    Chart,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    Title,
+    Tooltip,
+    Legend,
+    BarController,
+    DoughnutController,
+    ArcElement
+} from 'chart.js';
 
-Chart.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, BarController);
+Chart.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, BarController, DoughnutController, ArcElement);
 
 window.Chart = Chart;
 window.animateValue = animateValue;
