@@ -5,7 +5,7 @@
     @endif
     <div class="flex flex-col gap-4 justify-center w-full pb-4">
         <x-etc.header-content head="{{$data['head']}}" desc="{{$data['desc']}}">
-            <a id="checkStep" href="/bansos/check/edas"
+            <a id="checkStep" href="/bansos/check/{{$data['method']}}"
                class="link group buttonAnimation flex items-center gap-2 no-underline xl:text-sm lg:text-xs">
                 Check Step
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -27,16 +27,18 @@
         </x-etc.header-content>
         <div class="flex justify-between w-full max-lg:flex-col max-lg:gap-2">
             <div class="flex gap-1 items-center">
-                <button id="buttonEdas" class="filterButton py-2 px-4 activeFilterButton" onclick="changeSPK(this)">
+                <a href="/bansos" id="buttonEdas"
+                   class="filterButton py-2 px-4 {{$data['method'] == 'edas' ? 'activeFilterButton' : ''}}">
                     Edas
-                </button>
-                <button id="buttonMabac" class="filterButton py-2 px-4" onclick="changeSPK(this)">
+                </a>
+                <a href="/bansos/mabac/show" id="buttonMabac"
+                   class="filterButton py-2 px-4 {{$data['method'] == 'mabac' ? 'activeFilterButton' : ''}}">
                     Mabac
-                </button>
+                </a>
             </div>
             <div class="flex items-center gap-3">
                 <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
-                <a id="refresh" href="/bansos/calculate/edas"
+                <a id="refresh" href="/calculate/{{$data['method']}}"
                    class="xl:py-3 py-2 max-lg:px-4 xl:text-sm text-xs buttonAnimation hover:bg-Primary/10 hover:brightness-[.90] xl:px-7 lg:px-5 active:brightness-[.80] transition ease-in-out duration-300 bg-Primary/10 rounded-[6.25rem] text-center text-white font-medium">
                     <div class="flex gap-2 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -52,48 +54,14 @@
             </div>
         </div>
         <div id="spkTable" class="w-full">
-            <x-etc.spk-table :dataSpk="$edas"></x-etc.spk-table>
+            <x-etc.spk-table :dataSpk="$listData"></x-etc.spk-table>
         </div>
     </div>
 @endsection
 @push('js')
     <script>
-        let active = 'edas';
-
-        const changeSPK = (el) => {
-            const node = document.getElementById('spkTable');
-            const edas = document.getElementById('buttonEdas');
-            const mabac = document.getElementById('buttonMabac');
-            const refresh = document.getElementById('refresh');
-            const checkStep = document.getElementById('checkStep');
-
-            if (el.innerText.trim() == 'Mabac') {
-                node.innerHTML = '';
-                node.innerHTML = `
-                <x-etc.spk-table :dataSpk="$mabac"></x-etc.spk-table>
-            `;
-
-                refresh.setAttribute('href', '/bansos/calculate/mabac');
-                checkStep.setAttribute('href', '/bansos/check/mabac')
-                edas.classList.remove('activeFilterButton');
-                mabac.classList.add('activeFilterButton');
-
-                active = 'mabac';
-
-            } else {
-                node.innerHTML = '';
-                node.innerHTML = `
-                <x-etc.spk-table :dataSpk="$edas"></x-etc.spk-table>
-            `;
-                refresh.setAttribute('href', '/bansos/calculate/edas');
-                checkStep.setAttribute('href', '/bansos/check/edas')
-                edas.classList.add('activeFilterButton');
-                mabac.classList.remove('activeFilterButton');
-
-                active = 'edas';
-            }
-
-        }
+        let active = @json($data['method']);
+        console.log(active);
 
         // Fungsi untuk membersihkan tabel
         function clearTable() {

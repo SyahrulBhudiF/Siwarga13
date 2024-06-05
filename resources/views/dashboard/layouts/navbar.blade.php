@@ -29,7 +29,7 @@
         </li>
         <li class="buttonAnimation">
             <a class="py-3 px-6 hover:bg-Neutral/30 duration-300 transition ease-in-out cursor-pointer rounded-3xl border border-Neutral/40 font-semibold text-sm text-Neutral/100"
-               href="">Masuk sebagai admin</a>
+               href="/login">Masuk sebagai admin</a>
         </li>
     </ul>
 </nav>

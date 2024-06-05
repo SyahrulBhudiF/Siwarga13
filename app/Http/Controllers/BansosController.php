@@ -39,12 +39,31 @@ class BansosController extends Controller
             'active' => 'bansos',
             'head' => 'List Bantuan Sosial RW 13',
             'desc' => 'Berikut adalah data warga yang berhak menerima bansos.',
+            'method' => 'edas',
         ];
 
-        $edas = RankEdas::with('keluarga')->orderBy('score', 'desc')->paginate(6);
-        $mabac = RankMabac::with('keluarga')->orderBy('score', 'desc')->paginate(6);
+        $listData = RankEdas::with('keluarga')->orderBy('score', 'desc')->paginate(6);
 
-        return view('pages.bansos.index', compact('data', 'edas', 'mabac'));
+        return view('pages.bansos.index', compact('data', 'listData'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return \Illuminate\View\View
+     */
+    public function getMabac(): View
+    {
+        $data = [
+            'title' => 'Bansos',
+            'active' => 'bansos',
+            'head' => 'list Bantuan Sosial RW 13',
+            'desc' => 'Berikut adalah data warga yang berhak menerima bansos . ',
+            'method' => 'mabac',
+        ];
+
+        $listData = RankMabac::with('keluarga')->orderBy('score', 'desc')->paginate(6);
+
+        return view('pages.bansos.index', compact('data', 'listData'));
     }
 
     /**
@@ -130,9 +149,9 @@ class BansosController extends Controller
                 ]);
             }
 
-            return redirect('/bansos')->with('success', 'Data EDAS berhasil dihitung.');
+            return redirect('/bansos')->with('success', 'Data EDAS berhasil dihitung . ');
         } catch (\Exception $e) {
-            return redirect('/bansos')->with('error', 'Data EDAS gagal dihitung.');
+            return redirect('/bansos')->with('error', 'Data EDAS gagal dihitung . ');
         }
     }
 
@@ -174,9 +193,9 @@ class BansosController extends Controller
                 ]);
             }
 
-            return redirect('/bansos')->with('success', 'Data MABAC berhasil dihitung.');
+            return redirect('/bansos/mabac/show')->with('success', 'Data MABAC berhasil dihitung . ');
         } catch (\Exception $e) {
-            return redirect('/bansos')->with('error', 'Data MABAC gagal dihitung.');
+            return redirect('/bansos/mabac/show')->with('error', 'Data MABAC gagal dihitung . ');
         }
     }
 
@@ -190,7 +209,7 @@ class BansosController extends Controller
             'title' => 'Bansos',
             'active' => 'bansos',
             'head' => 'Checkstep Edas',
-            'desc' => 'Berikut adalah step perhitungan dari metode EDAS.',
+            'desc' => 'Berikut adalah step perhitungan dari metode EDAS . ',
         ];
 
         $keluarga = Keluarga::with('warga')->get();
@@ -219,7 +238,7 @@ class BansosController extends Controller
             'title' => 'Bansos',
             'active' => 'bansos',
             'head' => 'Checkstep Mabac',
-            'desc' => 'Berikut adalah step perhitungan dari metode MABAC.',
+            'desc' => 'Berikut adalah step perhitungan dari metode MABAC . ',
         ];
 
         $keluarga = Keluarga::with('warga')->get();

@@ -78,7 +78,7 @@
                 </svg>
                 <p class="{{$data['active']== 'warga'? 'activeFontSidebar' : 'defaultFontSidebar'}}">Kelola Data
                     Warga</p>
-            </a>
+            </a>    
             @if (Auth::user()->role == 'RW')
                 <a onclick="toggleSubMenu()" class="{{$data['active']== 'bansos'? 'activeSidebar' : 'defaultSidebar'}}"
                    href="/bansos">
