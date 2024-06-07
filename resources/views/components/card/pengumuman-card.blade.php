@@ -1,6 +1,7 @@
 @props(['pengumuman'])
 
-<div data-aos="zoom-in-up" class="bg-white cursor-pointer flex flex-col gap-5 rounded-2xl">
+<div onclick="window.location.href='/dashboard/pengumuman/{{$pengumuman['id_pengumuman']}}'" data-aos="zoom-in-up"
+     class="bg-white cursor-pointer flex flex-col gap-5 rounded-2xl">
     <div class="bg-Neutral/60 p-8 rounded-t-2xl h-[30vh] relative overflow-hidden">
         <p class="bg-white p-3 rounded-[1.25rem] relative w-fit z-10">{{$pengumuman['tanggal']}}</p>
         <img src="{{$pengumuman['path_thumbnail']}}" alt="thumbnail"

@@ -11,7 +11,7 @@ import {
     DoughnutController,
     ArcElement
 } from 'chart.js';
-
+import Typewriter from 'typewriter-effect/dist/core';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -20,6 +20,7 @@ Chart.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, B
 window.Chart = Chart;
 window.animateValue = animateValue;
 window.AOS = AOS;
+window.Typewriter = Typewriter;
 
 AOS.init({
     duration: 1000,

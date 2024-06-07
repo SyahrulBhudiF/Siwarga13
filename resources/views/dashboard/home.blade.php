@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Web warga RW13">
+    <meta name="description" content="Landing Page Web Warga RW13">
+    <link rel="icon" href="{{asset('svg/Logo.svg')}}">
     <title>Siwarga13</title>
     @vite('resources/css/app.css')
 </head>
@@ -20,8 +21,8 @@
                 <p class="p-3 bg-white rounded-3xl w-fit">👋🏻 Halo, Warga RW 13!</p>
                 <p class="font-medium text-Neutral/100 2xl:text-[3.75rem] xl:text-[3rem] lg:text-[2.75rem] 2xl:w-[75%]">
                     Selamat
-                    Datang di Portal
-                    Informasi RW 13</p>
+                    Datang di <span class="text-nowrap"><br>Portal
+                    <span id="typeWritter"></span></span></p>
                 <p class="text-xl text-Neutral/90 2xl:w-[80%] xl:w-[85%]">Dapatkan informasi terbaru dan akurat tentang
                     warga, bantuan
                     sosial,
@@ -188,10 +189,25 @@
     }
 </script>
 <script type="module">
-
     document.addEventListener('DOMContentLoaded', function () {
         animateValue('warga', 0, @json($data['totalWarga']), 1000, "Orang");
         animateValue('kk', 0, @json($data['totalKK']), 1000, "KK");
+
+        let app = document.getElementById('typeWritter');
+
+        let typewriter = new Typewriter(app, {
+            loop: true,
+            delay: 75,
+        });
+
+        typewriter
+            .pauseFor(1000)
+            .typeString('Informasi RW 13')
+            .pauseFor(300)
+            .deleteChars(5)
+            .typeString('<span class="text-Primary/10 underline">RW 13<span>')
+            .pauseFor(1000)
+            .start();
 
         const canvasElements = document.querySelectorAll('canvas');
 

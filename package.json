@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "aos": "^2.3.4",
-        "chart.js": "^4.4.3"
+        "chart.js": "^4.4.3",
+        "typewriter-effect": "^2.21.0"
     }
 }
