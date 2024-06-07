@@ -26,7 +26,7 @@
                     warga, bantuan
                     sosial,
                     dan berbagai layanan komunitas langsung dari satu platform.</p>
-                <a href="#pengumuman"
+                <a href="#chartSect"
                    class="max-lg:self-start py-3 px-6 bg-Primary/10 rounded-[6.25rem] text-white text-sm font-semibold w-fit buttonAnimation">Jelajahi</a>
             </div>
             <div class="grid lg:grid-rows-1 lg:grid-cols-2 gap-4">
@@ -63,8 +63,8 @@
     </div>
 </section>
 {{--Chart--}}
-<section class="lg:grid lg:grid-cols-2 gap-[3.75rem] m-[3.75rem]">
-    <div class="flex flex-col gap-5">
+<section id="chartSect" class="lg:grid lg:grid-cols-2 gap-[3.75rem] m-[3.75rem]">
+    <div class="flex flex-col gap-5" data-aos="fade-right">
         <div>
             <p class="text-Neutral/100 font-medium text-[2.5rem]">Visualisasi Data Warga RW 13</p>
             <p class="text-xl text-Neutral/90">Dapatkan informasi visual mengenai beberapa kategori dalam data warga RW
@@ -101,20 +101,21 @@
             </div>
         </div>
     </div>
-    <div id="containRt" class="bg-white svgAr border border-Neutral/30 rounded-lg p-5 flex justify-center">
+    <div data-aos="fade-left" id="containRt"
+         class="bg-white fade-in svgAr border border-Neutral/30 rounded-lg p-5 flex justify-center">
         <canvas id="chartRt"></canvas>
     </div>
-    <div id="containGender"
-         class="bg-white svgAr w-full border hidden border-Neutral/30 rounded-lg p-5 flex justify-center">
+    <div data-aos="fade-left" id="containGender"
+         class="bg-white svgAr w-full border fade-in hidden border-Neutral/30 rounded-lg p-5 flex justify-center">
         <canvas id="chartGender"></canvas>
     </div>
-    <div id="containMarriage"
-         class="bg-white svgAr w-full border hidden border-Neutral/30 rounded-lg p-5 flex justify-center">
+    <div data-aos="fade-left" id="containMarriage"
+         class="bg-white svgAr w-full border fade-in hidden border-Neutral/30 rounded-lg p-5 flex justify-center">
         <canvas id="chartNikah"></canvas>
     </div>
 </section>
 {{--Pengumuman--}}
-<section id="pengumuman" class="flex flex-col gap-8 mt-[8rem] m-3">
+<section data-aos="fade-down" class="flex flex-col gap-8 mt-[8rem] m-3">
     <x-etc.title-content title="Pengumuman"
                          desc="Berisi list pengumuman yang berfungsi untuk memberi informasi kepada warga RW 13."></x-etc.title-content>
     <div class="flex flex-col gap-6 bg-[#F5F5F3] rounded-2xl p-12">
@@ -130,7 +131,7 @@
     </div>
 </section>
 {{--Kegiatan--}}
-<section class="flex flex-col gap-8 mt-[8rem] mx-[3.75rem]">
+<section data-aos="fade" class="flex flex-col gap-8 mt-[8rem] mx-[3.75rem]">
     <div class="flex justify-between max-lg:flex-col max-lg:gap-5 max-lg:items-start items-center">
         <div class="flex flex-col gap-3">
             <p class="text-[2.5rem] font-medium text-Neutral/100">Kegiatan Warga</p>
@@ -152,7 +153,7 @@
     </div>
 </section>
 {{--Umkm--}}
-<section class="flex flex-col gap-8 mt-[8rem] mx-[3.75rem]">
+<section data-aos="fade-down" class="flex flex-col gap-8 mt-[8rem] mx-[3.75rem]">
     <x-etc.title-content title="UMKM"
                          desc="Berisi daftar informasi UMKM warga RW 13."></x-etc.title-content>
     <div class="grid lg:grid-cols-3 gap-5">
@@ -201,12 +202,12 @@
         });
 
 
-        const anchor = document.querySelector('a[href="#pengumuman"]');
-        const pengumuman = document.querySelector('#pengumuman');
+        const anchor = document.querySelector('a[href="#chartSect"]');
+        const chart = document.querySelector('#chartSect');
 
         anchor.addEventListener('click', (event) => {
             event.preventDefault();
-            pengumuman.scrollIntoView({behavior: 'smooth'});
+            chart.scrollIntoView({behavior: 'smooth'});
         });
 
         const ctx = document.getElementById('chartRt');

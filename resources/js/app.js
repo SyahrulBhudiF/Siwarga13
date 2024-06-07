@@ -12,10 +12,21 @@ import {
     ArcElement
 } from 'chart.js';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 Chart.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, BarController, DoughnutController, ArcElement);
 
 window.Chart = Chart;
 window.animateValue = animateValue;
+window.AOS = AOS;
+
+AOS.init({
+    duration: 1000,
+    easing: "ease-in-out",
+    once: true,
+    mirror: false
+});
 
 // Function to animate counter
 function animateValue(id, start, end, duration, text) {

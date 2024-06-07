@@ -1,6 +1,6 @@
 @props(['dokumentasi'])
 
-<div class="bg-[#F5F5F3] flex flex-col gap-5 rounded-2xl ">
+<div data-aos="zoom-in" class="bg-[#F5F5F3] flex flex-col gap-5 rounded-2xl ">
     <div class="rounded-t-2xl h-[30vh] relative overflow-hidden p-3">
         <p class="bg-white p-3 rounded-[1.25rem] relative w-fit z-10">{{$dokumentasi['tanggal']}}</p>
         <img src="{{$dokumentasi->file[0]->path}}" alt="thumbnail"
