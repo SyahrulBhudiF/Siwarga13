@@ -27,7 +27,7 @@
                     </x-input.select-input>
                 </div>
             @endif
-            <div class="flex gap-3 max-lg:gap-1 items-center max-lg:justify-between">
+            <div class="flex gap-3 max-lg:gap-1 items-center max-lg:justify-start">
                 <x-input.search-input name="search" placeholder="Cari nama atau nomor KK"></x-input.search-input>
                 <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
             </div>
