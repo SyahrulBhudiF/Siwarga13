@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Siwarga13</title>
     <script src="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.js"></script>
+    <link rel="icon" href="{{asset('svg/Logo.svg')}}">
     <link
         rel="stylesheet"
         type="text/css"

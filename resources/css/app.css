@@ -189,3 +189,103 @@ input[type="number"] {
 .modal {
     z-index: 50;
 }
+
+.landingNav {
+    @apply text-Neutral/80 text-sm font-medium;
+}
+
+.activeLandingNav {
+    @apply text-Neutral/100 font-semibold text-sm;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    background-color: black;
+    border-radius: 50%;
+    display: block;
+}
+
+.activeChart {
+    @apply bg-[#02586414] text-Primary/10;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slidInFromUp {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slideLeft {
+    animation: 1.3s ease-out 0s 1 slideInFromLeft;
+}
+
+.slideRight {
+    animation: 1.3s ease-out 0s 1 slideInFromRight;
+}
+
+.slideUp {
+    animation: 1s ease-out 0s 1 slidInFromUp;
+}
+
+.slideDown {
+    animation: 1s ease-out 0s 1 slideInFromBottom;
+}
+
+.carousel-item {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-item.active {
+    display: block;
+    opacity: 1;
+}

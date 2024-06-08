@@ -42,35 +42,12 @@
     </div>
 @endsection
 @push('js')
-    <script>
-        function animateValue(id, start, end, duration, text) {
-            if (start > end) {
-                let temp = start;
-                start = end;
-                end = temp;
-            }
-
-            let range = end - start;
-            let current = start;
-            let increment = end > start ? 1 : -1;
-            let stepTime = Math.abs(Math.floor(duration / range));
-            let obj = document.getElementById(id);
-
-            let timer = setInterval(function () {
-                current += increment;
-                obj.innerHTML = current + " " + text;
-                if (current == end) {
-                    clearInterval(timer);
-                }
-            }, stepTime);
-        }
-
-        animateValue('count1', 0, @json($data['jumlah_warga']), 1000, "Orang");
-        animateValue('count2', 0, @json($data['jumlah_kk']), 1000, "KK");
-        animateValue('count3', 0, @json($data['totalPekerja']), 1000, "Orang");
-    </script>
     <script type="module">
         document.addEventListener('DOMContentLoaded', function () {
+            animateValue('count1', 0, @json($data['jumlah_warga']), 1000, "Orang");
+            animateValue('count2', 0, @json($data['jumlah_kk']), 1000, "KK");
+            animateValue('count3', 0, @json($data['totalPekerja']), 1000, "Orang");
+
             const ctx = document.getElementById('chartRt');
             const ct = document.getElementById('chartGender');
 

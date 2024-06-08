@@ -166,7 +166,7 @@
             <img src="{{asset('img/G11.png')}}" alt="" class="w-1/6 max-lg:w-1/3">
             <p class="text-Neutral/100 font-bold text-sm">Q</p>
             <x-table.data-table :dt="$distanceQ"
-                                :headers="['Kriteria' ,'Q']">
+                                :headers="['Alternatif' ,'Kriteria 1', 'Kriteria 2', 'Kriteria 3']">
                 @php($no = 1)
                 @foreach ($distanceQ as $row)
                     <x-table.table-row>

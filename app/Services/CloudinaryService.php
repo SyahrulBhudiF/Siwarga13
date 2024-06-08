@@ -81,6 +81,10 @@ class CloudinaryService
             if ($oldRequestItem === null && isset($existingFiles[$index])) {
                 $this->deleteFile($existingFiles[$index]);
 
+                if (isset($imageRequestData[$index])) {
+                    $this->createFile($imageRequestData[$index], $id, $folder);
+                }
+
             } else if ($oldRequestItem !== null && !isset($existingFiles[$index]) && isset($imageRequestData[$index])) {
                 $this->createFile($imageRequestData[$index], $id, $folder);
             }
