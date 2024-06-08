@@ -19,7 +19,7 @@
             </p>
         </div>
     </div>
-    <a href="dashboard/pengumuman/{{$pengumuman->id_pengumuman}}"
+    <a href="/dashboard/pengumuman/{{$pengumuman->id_pengumuman}}"
        class="text-Neutral/100 px-5 pb-5 font-medium mt-auto underline">Baca
         disini</a>
 </div>
