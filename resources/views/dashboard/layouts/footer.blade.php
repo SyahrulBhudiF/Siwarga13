@@ -1,5 +1,5 @@
-<footer class="mt-[8rem] py-12 px-[3.75rem] max-lg:flex-col-reverse flex justify-between w-full">
-    <div class="flex flex-col gap-[8vh] justify-between">
+<footer class="mt-[8rem] py-12 px-[3.75rem] max-lg:p-4 max-lg:flex-col-reverse flex justify-between w-full">
+    <div class="flex flex-col gap-[8vh] justify-between max-lg:mt-[3.75rem]">
         <p class="text-Primary/10 font-semibold text-[1.25rem]">Siwarga 13</p>
         <div class="flex flex-col gap-3">
             <p class="text-Neutral/70">Supported by</p>

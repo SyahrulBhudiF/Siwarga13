@@ -13,7 +13,7 @@
                                  title="Total warga pekerja">{{$data['totalPekerja']}} Orang
             </x-card.card-beranda>
         </div>
-        <div class="grid lg:grid-cols-2 bg-[#F5F7F9] rounded-xl gap-1 p-1">
+        <div class="grid grid-cols-1 lg:grid-cols-2 bg-[#F5F7F9] rounded-xl gap-1 p-1">
             <div class="bg-white border border-Neutral/30 rounded-lg p-5">
                 <canvas id="chartRt"></canvas>
             </div>

@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*, :root {
-    font-family: 'Inter', sans-serif;
+*,
+:root {
+    font-family: "Inter", sans-serif;
     letter-spacing: -0.3px;
 }
 
@@ -74,8 +75,8 @@ input[type="number"] {
 }
 
 .radio:checked {
-    box-shadow: 0 0 0 2px var(--fallback-b1, oklch(var(--b1)/1)) inset,
-    0 0 0 3px var(--fallback-b1, oklch(var(--b1)/1)) inset;
+    box-shadow: 0 0 0 2px var(--fallback-b1, oklch(var(--b1) / 1)) inset,
+        0 0 0 3px var(--fallback-b1, oklch(var(--b1) / 1)) inset;
 }
 
 .groupInput {
@@ -84,16 +85,16 @@ input[type="number"] {
 
 .checkbox:checked {
     background-image: linear-gradient(-45deg, transparent 65%, var(--chkbg) 50%),
-    linear-gradient(45deg, transparent 75%, var(--chkbg) 70%),
-    linear-gradient(-45deg, var(--chkbg) 45%, transparent 10%),
-    linear-gradient(
-        45deg,
-        var(--chkbg) 30%,
-        var(--chkfg) 38%,
-        var(--chkfg) 40%,
-        transparent 20%
-    ),
-    linear-gradient(-45deg, var(--chkfg) 50%, var(--chkbg) 50.99%);
+        linear-gradient(45deg, transparent 75%, var(--chkbg) 70%),
+        linear-gradient(-45deg, var(--chkbg) 45%, transparent 10%),
+        linear-gradient(
+            45deg,
+            var(--chkbg) 30%,
+            var(--chkfg) 38%,
+            var(--chkfg) 40%,
+            transparent 20%
+        ),
+        linear-gradient(-45deg, var(--chkfg) 50%, var(--chkbg) 50.99%);
     --chkbg: #025864;
 }
 
@@ -110,7 +111,7 @@ input[type="number"] {
 }
 
 .buttonAnimation {
-    @apply transition ease-in-out duration-200 active:scale-95
+    @apply transition ease-in-out duration-200 active:scale-95;
 }
 
 .fade-in {
@@ -167,7 +168,12 @@ input[type="number"] {
 }
 
 .TMCommandBar {
-    box-shadow: 0px 9px 27px 0px rgba(0, 0, 0, 0.07), 0px 3.76px 11.28px 0px rgba(0, 0, 0, 0.05), 0px 2.01px 6.031px 0px rgba(0, 0, 0, 0.04), 0px 1.127px 3.381px 0px rgba(0, 0, 0, 0.04), 0px 0.599px 1.796px 0px rgba(0, 0, 0, 0.03), 0px 0.249px 0.747px 0px rgba(0, 0, 0, 0.02);
+    box-shadow: 0px 9px 27px 0px rgba(0, 0, 0, 0.07),
+        0px 3.76px 11.28px 0px rgba(0, 0, 0, 0.05),
+        0px 2.01px 6.031px 0px rgba(0, 0, 0, 0.04),
+        0px 1.127px 3.381px 0px rgba(0, 0, 0, 0.04),
+        0px 0.599px 1.796px 0px rgba(0, 0, 0, 0.03),
+        0px 0.249px 0.747px 0px rgba(0, 0, 0, 0.02);
     padding: 4px;
     border-radius: 0.5rem;
     background-color: white;
@@ -175,7 +181,7 @@ input[type="number"] {
 }
 
 #toolbar {
-    @apply max-lg:flex max-lg:justify-center
+    @apply max-lg:flex max-lg:justify-center;
 }
 
 .TMCommandButton {
@@ -203,7 +209,7 @@ input[type="number"] {
 }
 
 .nav-link::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -0.75rem;
     left: 50%;
@@ -252,13 +258,13 @@ input[type="number"] {
     }
 }
 
-@keyframes slideInFromBottom {
+@keyframes slideFromBottom {
     0% {
-        transform: translateY(100%);
+        transform: translateY(0);
         opacity: 0;
     }
     100% {
-        transform: translateY(0);
+        transform: translateY(-100%);
         opacity: 1;
     }
 }
@@ -272,11 +278,11 @@ input[type="number"] {
 }
 
 .slideUp {
-    animation: 1s ease-out 0s 1 slidInFromUp;
+    animation: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0s 1 slidInFromUp;
 }
 
 .slideDown {
-    animation: 1s ease-out 0s 1 slideInFromBottom;
+    animation: 0.6s ease-in-out 0s 1 slideFromBottom;
 }
 
 .carousel-item {
