@@ -278,3 +278,14 @@ input[type="number"] {
 .slideDown {
     animation: 1s ease-out 0s 1 slideInFromBottom;
 }
+
+.carousel-item {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-item.active {
+    display: block;
+    opacity: 1;
+}

@@ -14,6 +14,9 @@ importers:
       chart.js:
         specifier: ^4.4.3
         version: 4.4.3
+      swiper:
+        specifier: ^11.1.4
+        version: 11.1.4
       typewriter-effect:
         specifier: ^2.21.0
         version: 2.21.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -793,6 +796,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  swiper@11.1.4:
+    resolution: {integrity: sha512-1n7kbYJB2dFEpUHRFszq7gys/ofIBrMNibwTiMvPHwneKND/t9kImnHt6CfGPScMHgI+dWMbGTycCKGMoOO1KA==}
+    engines: {node: '>= 4.7.0'}
+
   tailwindcss@3.4.3:
     resolution: {integrity: sha512-U7sxQk/n397Bmx4JHbJx/iSOOv5G+II3f1kpLpY2QeUv5DcPdcTsYLlusZfq1NthHS1c1cZoyFmmkex1rzke0A==}
     engines: {node: '>=14.0.0'}
@@ -1522,6 +1529,8 @@ snapshots:
       ts-interface-checker: 0.1.13
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  swiper@11.1.4: {}
 
   tailwindcss@3.4.3:
     dependencies:

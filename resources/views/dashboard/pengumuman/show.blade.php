@@ -47,8 +47,8 @@
                         </div>
                     </div>
                     <a href="{{$data['pengumuman']->file->path}}" target="_blank"
-                       class="py-3 px-6 rounded-[1.25rem] bg-Primary/10 text-Neutral/10 font-semibold text-sm mr-[2rem]"
-                       download>Download</a>
+                       class="py-3 px-6 rounded-[1.25rem] bg-Primary/10 buttonAnimation text-Neutral/10 font-semibold text-sm mr-[2rem]"
+                       download>Detail</a>
                 </div>
             </div>
         </div>

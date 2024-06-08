@@ -8,12 +8,13 @@
     <meta name="description" content="Landing Page Web Warga RW13">
     <link rel="icon" href="{{asset('svg/Logo.svg')}}">
     <title>Siwarga13</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body class="w-screen h-screen overflow-x-hidden">
 @include('dashboard.layouts.navbar')
 @yield('content')
 @include('dashboard.layouts.footer')
-@vite('resources/js/app.js')
+
+@stack('js')
 </body>
 </html>

@@ -88,9 +88,13 @@ class DashboardController extends Controller
 
     public function showDokumentasi(string $id)
     {
+        $dokumentasi = Dokumentasi::with('file')->find($id);
+        $formatted = convertDate($dokumentasi->tanggal);
+
         $data = [
             'active' => 'kegiatan',
-            'dokumentasi' => Dokumentasi::with('file')->find($id)
+            'dokumentasi' => $dokumentasi,
+            'formatted' => $formatted,
         ];
 
         return view('dashboard.kegiatan.show', compact('data'));

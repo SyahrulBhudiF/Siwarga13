@@ -14,6 +14,10 @@ import {
 import Typewriter from 'typewriter-effect/dist/core';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+// import function to register Swiper custom elements
+import { register } from 'swiper/element/bundle';
+// register Swiper custom elements
+register();
 
 Chart.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, BarController, DoughnutController, ArcElement);
 
