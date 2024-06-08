@@ -272,9 +272,9 @@ input[type="number"] {
 }
 
 .slideUp {
-    animation: 1.3s ease-out 0s 1 slidInFromUp;
+    animation: 1s ease-out 0s 1 slidInFromUp;
 }
 
 .slideDown {
-    animation: 1.3s ease-out 0s 1 slideInFromBottom;
+    animation: 1s ease-out 0s 1 slideInFromBottom;
 }

@@ -13,7 +13,7 @@
 <body class="w-screen h-screen overflow-x-hidden">
 @include('dashboard.layouts.navbar')
 <section
-    class="mt-3 w-full h-full">
+    class="mt-3 w-full h-full fade-in">
     <div
         class="flex gap-8 rounded-[1.25rem] h-[85vh] bg-[#F5F5F3] px-12 py-6 m-3">
         <div class="flex flex-col justify-center gap-8">

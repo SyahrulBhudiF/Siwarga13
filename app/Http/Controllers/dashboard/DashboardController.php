@@ -45,4 +45,34 @@ class DashboardController extends Controller
 
         return view('dashboard.home', compact('data'));
     }
+
+    public function pengumuman()
+    {
+        $data = [
+            'active' => 'pengumuman',
+            'pengumuman' => Pengumuman::orderBy('created_at', 'desc')->paginate(6)
+        ];
+
+        return view('dashboard.pengumuman.index', compact('data'));
+    }
+
+    public function dokumentasi()
+    {
+        $data = [
+            'active' => 'kegiatan',
+            'dokumentasi' => Dokumentasi::with('file')->paginate(6)
+        ];
+
+        return view('dashboard.kegiatan.index', compact('data'));
+    }
+
+    public function umkm()
+    {
+        $data = [
+            'active' => 'umkm',
+            'umkm' => Umkm::with('file')->paginate(6)
+        ];
+
+        return view('dashboard.umkm.index', compact('data'));
+    }
 }
