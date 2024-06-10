@@ -26,24 +26,10 @@ class DashboardController extends Controller
             'pengumuman' => Pengumuman::orderBy('created_at', 'desc')->take(3)->get(),
             'dokumentasi' => Dokumentasi::with('file')->take(5)->get(),
             'umkm' => Umkm::with('file')->take(3)->get(),
-            'countRt' => [
-                'rt1' => Alamat::where('rt', 'RT 1')->count(),
-                'rt2' => Alamat::where('rt', 'RT 2')->count(),
-                'rt3' => Alamat::where('rt', 'RT 3')->count(),
-                'rt4' => Alamat::where('rt', 'RT 4')->count(),
-                'rt5' => Alamat::where('rt', 'RT 5')->count(),
-            ],
+            'countRt' => Alamat::selectRaw('rt, count(*) as count')->groupBy('rt')->pluck('count', 'rt'),
             'totalPekerja' => Keluarga::sum('jumlah_pekerja'),
-            'gender' => [
-                'l' => Warga::where('jenis_kelamin', 'Laki-laki')->count(),
-                'p' => Warga::where('jenis_kelamin', 'Perempuan')->count(),
-            ],
-            'statusNikah' => [
-                'kawin' => Status::where('status_nikah', 'Kawin')->count(),
-                'belum' => Status::where('status_nikah', 'Belum Kawin')->count(),
-                'cerai_mati' => Status::where('status_nikah', 'Cerai Mati')->count(),
-                'cerai_hidup' => Status::where('status_nikah', 'Cerai Hidup')->count(),
-            ]
+            'gender' => Warga::selectRaw('jenis_kelamin, count(*) as count')->groupBy('jenis_kelamin')->pluck('count', 'jenis_kelamin'),
+            'statusNikah' => Status::selectRaw('status_nikah, count(*) as count')->groupBy('status_nikah')->pluck('count', 'status_nikah')
         ];
 
         return view('dashboard.home', compact('data'));

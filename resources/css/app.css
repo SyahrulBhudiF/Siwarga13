@@ -8,6 +8,7 @@
 :root {
     font-family: "Inter", sans-serif;
     letter-spacing: -0.3px;
+    font-display: swap;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
