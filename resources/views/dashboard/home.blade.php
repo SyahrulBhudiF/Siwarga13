@@ -122,7 +122,7 @@
         <canvas id="chartRt"></canvas>
     </div>
     <div data-aos="fade-left" id="containGender"
-         class="bg-white svgAr w-full border fade-in hidden border-Neutral/30 rounded-lg p-5 flex justify-center h-[60vh]">
+         class="bg-white svgAr w-full border fade-in hidden border-Neutral/30 rounded-lg p-5 flex justify-center max-lg:h-[40vh]">
         <canvas id="chartGender"></canvas>
     </div>
     <div data-aos="fade-left" id="containMarriage"
@@ -310,7 +310,6 @@
                     backgroundColor: 'rgba(2, 88, 100, 1)',
                     borderRadius: 5,
                     barPercentage: 0.5,
-                    barThickness: 30,
                 }]
             },
             options: {
@@ -353,14 +352,14 @@
                     backgroundColor: 'rgba(0, 212, 126, 1)',
                     borderRadius: 15,
                     barPercentage: 0.5,
-                    barThickness: 60
+                    // barThickness: 60
                 }, {
                     label: 'Perempuan',
                     data: [@json($data['gender']['Perempuan'])], // Data untuk perempuan
                     backgroundColor: 'rgba(2, 100, 59, 1)',
                     borderRadius: 10,
                     barPercentage: 0.5,
-                    barThickness: 60,
+                    // barThickness: 60,
                 }]
             },
             options: {
