@@ -8,7 +8,7 @@
         @foreach($dt as $data)
             <swiper-slide>
                 <div class="image">
-                    <img src="{{$data->path}}" alt="image">
+                    <img src="{{$data->path}}" alt="image" loading="lazy">
                 </div>
             </swiper-slide>
         @endforeach

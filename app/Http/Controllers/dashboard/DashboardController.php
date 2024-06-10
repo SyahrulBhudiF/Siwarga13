@@ -12,6 +12,7 @@ use App\Models\Umkm;
 use App\Models\Warga;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 require_once app_path('Helpers/convertDate.php');
 
@@ -24,8 +25,8 @@ class DashboardController extends Controller
             'totalWarga' => Warga::count(),
             'totalKK' => Keluarga::count(),
             'pengumuman' => Pengumuman::orderBy('created_at', 'desc')->take(3)->get(),
-            'dokumentasi' => Dokumentasi::with('file')->take(5)->get(),
-            'umkm' => Umkm::with('file')->take(3)->get(),
+            'dokumentasi' => Dokumentasi::with('file:id_file,id_dokumentasi,path')->take(5)->get(),
+            'umkm' => Umkm::with('file:id_file,id_umkm,path')->take(3)->get(),
             'countRt' => Alamat::selectRaw('rt, count(*) as count')->groupBy('rt')->pluck('count', 'rt'),
             'totalPekerja' => Keluarga::sum('jumlah_pekerja'),
             'gender' => Warga::selectRaw('jenis_kelamin, count(*) as count')->groupBy('jenis_kelamin')->pluck('count', 'jenis_kelamin'),
@@ -47,10 +48,12 @@ class DashboardController extends Controller
 
     public function showPengumuman(string $id)
     {
-        $pengumuman = Pengumuman::with('file')->find($id);
+        $pengumuman = Pengumuman::with('file:id_file,id_pengumuman,publicId,path')->findOrFail($id);
         $formatted = convertDate($pengumuman->tanggal);
 
-        $fileSize = round(Cloudinary::admin()->asset($pengumuman->file->publicId)['bytes'] / 1024 / 1024, 2);
+        $fileSize = Cache::remember("pengumuman_{$id}_file_size", 60, function () use ($pengumuman) {
+            return round(Cloudinary::admin()->asset($pengumuman->file->publicId)['bytes'] / 1024 / 1024, 2);
+        });
 
         $data = [
             'active' => 'pengumuman',
@@ -61,6 +64,7 @@ class DashboardController extends Controller
 
         return view('dashboard.pengumuman.show', compact('data'));
     }
+
 
     public function dokumentasi()
     {
@@ -74,7 +78,7 @@ class DashboardController extends Controller
 
     public function showDokumentasi(string $id)
     {
-        $dokumentasi = Dokumentasi::with('file')->find($id);
+        $dokumentasi = Dokumentasi::with('file:id_file,id_dokumentasi,publicId,path')->findOrFail($id);
         $formatted = convertDate($dokumentasi->tanggal);
 
         $data = [
@@ -85,6 +89,7 @@ class DashboardController extends Controller
 
         return view('dashboard.kegiatan.show', compact('data'));
     }
+
 
     public function umkm()
     {
@@ -98,11 +103,14 @@ class DashboardController extends Controller
 
     public function showUmkm(string $id)
     {
+        $umkm = Umkm::with('file:id_file,id_umkm,publicId,path')->findOrFail($id);
+
         $data = [
             'active' => 'umkm',
-            'umkm' => Umkm::with('file')->find($id)
+            'umkm' => $umkm
         ];
 
         return view('dashboard.umkm.show', compact('data'));
     }
+
 }
