@@ -14,10 +14,11 @@
             </x-card.card-beranda>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 bg-[#F5F7F9] rounded-xl gap-1 p-1">
-            <div class="bg-white border border-Neutral/30 rounded-lg p-5">
+            <div class="bg-white border border-Neutral/30 rounded-lg p-5 h-[20rem]">
                 <canvas id="chartRt"></canvas>
             </div>
-            <div class="bg-white border border-Neutral/30 rounded-lg p-5">
+            <div
+                class="bg-white border border-Neutral/30 rounded-lg p-5 h-[20rem] max-lg:flex max-lg:items-center">
                 <canvas id="chartGender"></canvas>
             </div>
         </div>
@@ -48,6 +49,14 @@
             animateValue('count2', 0, @json($data['jumlah_kk']), 1000, "KK");
             animateValue('count3', 0, @json($data['totalPekerja']), 1000, "Orang");
 
+            const canvasElements = document.querySelectorAll('canvas');
+
+            canvasElements.forEach((canvas) => {
+                const parentDiv = canvas.parentElement;
+                canvas.width = parentDiv.offsetWidth;
+                canvas.height = parentDiv.offsetHeight;
+            });
+
             const ctx = document.getElementById('chartRt');
             const ct = document.getElementById('chartGender');
 
@@ -61,7 +70,6 @@
                         backgroundColor: 'rgba(2, 88, 100, 1)',
                         borderRadius: 5,
                         barPercentage: 0.5,
-                        barThickness: 30,
                     }]
                 },
                 options: {
@@ -104,14 +112,12 @@
                         backgroundColor: 'rgba(0, 212, 126, 1)',
                         borderRadius: 15,
                         barPercentage: 0.5,
-                        barThickness: 50,
                     }, {
                         label: 'Perempuan',
                         data: [@json($data['gender']['p'])], // Data untuk perempuan
                         backgroundColor: 'rgba(2, 100, 59, 1)',
                         borderRadius: 10,
                         barPercentage: 0.5,
-                        barThickness: 50,
                     }]
                 },
                 options: {

@@ -31,6 +31,7 @@
     </div>
 @endsection
 @push('js')
+    <script src="{{ asset('js/debounce.js') }}"></script>
     <script>
         // Fungsi untuk membersihkan tabel
         function clearTable() {
@@ -58,16 +59,6 @@
         </x-table.table-row>
     `;
 
-        }
-
-        function debounce(func, delay) {
-            let debounceTimer;
-            return function () {
-                const context = this;
-                const args = arguments;
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => func.apply(context, args), delay);
-            }
         }
 
         /// Fungsi untuk melakukan pencarian
