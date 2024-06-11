@@ -27,7 +27,7 @@
             </x-buttons.primary-button>
         @endif
     </header>
-    @if(!session('success') == 'Login Berhasil!' || session('success') == 'Logout Berhasil!')
+    @if(!session('success') == 'Login Berhasil!' || session('success') == 'Logout Berhasil!' || session('success') == 'Password berhasil diubah!' || session('success') == 'Silahkan check pada email anda!')
         <form action="{{route('login.auth')}}" method="post" class="w-full flex flex-col gap-3">
             @csrf
             <x-input.text-input label="username" id="username" value="" placeholder="Masukkan username anda">Username
@@ -76,6 +76,7 @@
                     </svg>
                 </div>
             </label>
+            <a href="{{route('send-email')}}" class="self-end text-Neutral/100 text-sm font-medium">Lupa Password?</a>
             <button type="submit"
                     class="bg-Neutral/30 text-white font-medium mt-4 rounded-[1.25rem] buttonAnimation py-2 transition duration-200 w-full hover:brightness-95">
                 Masuk

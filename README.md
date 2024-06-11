@@ -124,6 +124,12 @@
     pnpm run dev or pnpm dev
     ```
 
+    d. Run Queue
+    Run Queue:
+    ```bash
+    php artisan queue:work
+    ```
+
 12. Open browser and Access Localhost `http://localhost:8000` (for Laravel Server)
     or `http://localhost/www/Siwarga13` (for Laragon Server)
 
