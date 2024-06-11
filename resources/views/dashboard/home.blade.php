@@ -22,12 +22,12 @@
 @include('dashboard.layouts.navbar')
 <section class="mt-3 w-full h-full fade-in">
     <div
-            class="flex gap-8 max-lg:flex-col rounded-[1.25rem] h-[85vh] max-lg:h-fit bg-[#F5F5F3] px-12 py-6 max-lg:p-4 m-3">
+        class="flex gap-8 max-lg:flex-col rounded-[1.25rem] h-[85vh] max-lg:h-fit bg-[#F5F5F3] px-12 py-6 max-lg:p-4 m-3">
         <div class="flex flex-col justify-center gap-8">
             <div class="flex flex-col gap-4 items-stretch">
                 <p class="p-3 bg-white rounded-3xl w-fit">👋🏻 Halo, Warga RW 13!</p>
                 <p
-                        class="font-medium text-Neutral/100 2xl:text-[3.75rem] xl:text-[3rem] lg:text-[2.75rem] max-lg:text-[2rem] max-sm:text-[1.75rem] text-nowrap w-full 2xl:w-[75%]">
+                    class="font-medium text-Neutral/100 2xl:text-[3.75rem] xl:text-[3rem] lg:text-[2.75rem] max-lg:text-[2rem] max-sm:text-[1.75rem] text-nowrap w-full 2xl:w-[75%]">
                     Selamat
                     Datang di <span class="text-nowrap"><br>Portal
                             <span id="typeWritter"></span></span></p>

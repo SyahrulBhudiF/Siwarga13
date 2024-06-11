@@ -11,7 +11,7 @@
     </div>
     <div class="lg:grid lg:grid-cols-2 lg:gap-[3.75rem] max-lg:gap-4 w-full px-[3.75rem] max-lg:px-4 pb-[3.75rem]">
         <x-etc.slider :dt="$data['umkm']->file"></x-etc.slider>
-        <div class="flex flex-col gap-5 w-full">
+        <div class="flex flex-col gap-5 w-full max-lg:mt-4">
             <p class="text-Neutral/100 text-2xl font-medium">{{ $data['umkm']->judul }}</p>
             <div class="lg:grid lg:grid-cols-2 max-lg:flex max-lg:flex-col max-lg:items-stretch items-center gap-3 border-b border-b-Neutral/30 pb-[1.25rem] mb-[1.25rem]">
                 <div class="flex items-center gap-2 p-3 bg-white border border-Neutral/30 rounded-[1.25rem]">
