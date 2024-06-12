@@ -79,6 +79,7 @@ class PengumumanController extends Controller
         $publicId = $cloudinaryData['publicId'];
         // Membuat URL thumbnail dari PDF
         $thumbnailUrl = cloudinary()->uploadApi()->explicit($publicId, [
+            'type' => 'upload',
             'transformation' => [
                 'width' => 150,
                 'height' => 150,
