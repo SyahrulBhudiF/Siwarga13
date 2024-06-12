@@ -92,7 +92,7 @@ class PengumumanController extends Controller
         ]);
 
 
-        dd($thumbnailUrl->toArray());
+        dd($thumbnailUrl);
         // push thumbnail to cloudinary
         $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
