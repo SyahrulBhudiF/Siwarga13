@@ -92,8 +92,8 @@ class PengumumanController extends Controller
 
         // Gabungkan URL thumbnail dan public ID ke dalam requestPengumuman
         $requestPengumuman = $requestPengumuman->merge([
-            'path_thumbnail' => $thumbnailUrl->secure_url,
-            'publicId' => $thumbnailUrl->public_id,
+            'path_thumbnail' => $thumbnailUrl->getSecurePath(),
+            'publicId' => $thumbnailUrl->getPublicId(),
         ]);
 
         $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
@@ -175,8 +175,8 @@ class PengumumanController extends Controller
 
                 // Update data pengumuman
                 $pengumuman->update([
-                    'path_thumbnail' => $thumbnailUrl->secure_url,
-                    'publicId' => $thumbnailUrl->public_id,
+                    'path_thumbnail' => $thumbnailUrl->getSecurePath(),
+                    'publicId' => $thumbnailUrl->getPublicId(),
                 ]);
                 $pengumuman->update($pengumumanRequest->except('file'));
 
