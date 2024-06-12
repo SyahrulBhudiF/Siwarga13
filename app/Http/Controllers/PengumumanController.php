@@ -68,40 +68,41 @@ class PengumumanController extends Controller
     public function store(StorePengumumanRequest $requestPengumuman, StoreFileRequest $requestFile): RedirectResponse
     {
         // try {
-            DB::beginTransaction();
+        DB::beginTransaction();
+        dd($requestPengumuman->toArray(), $requestFile->toArray());
 
-            $uploadedFile = $requestFile->file('file');
-            $name = $uploadedFile->getClientOriginalName();
+        $uploadedFile = $requestFile->file('file');
+        $name = $uploadedFile->getClientOriginalName();
 
-            // push to cloudinary
-            $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
+        // push to cloudinary
+        $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-            $thumbnailUrl = $this->cloudinaryService->createThumbnail($uploadedFile);
+        $thumbnailUrl = $this->cloudinaryService->createThumbnail($uploadedFile);
 
-            // push thumbnail to cloudinary
-            $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
+        // push thumbnail to cloudinary
+        $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
-            $requestPengumuman->merge([
-                'path_thumbnail' => $thumbnailCloudinaryData['path'],
-                'publicId' => $thumbnailCloudinaryData['publicId'],
-            ]);
+        $requestPengumuman->merge([
+            'path_thumbnail' => $thumbnailCloudinaryData['path'],
+            'publicId' => $thumbnailCloudinaryData['publicId'],
+        ]);
 
-            $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
-            File::insert([
-                'id_pengumuman' => $idPengumuman,
-                'type' => 'pengumuman',
-                'path' => $cloudinaryData['path'],
-                'publicId' => $cloudinaryData['publicId'],
-                'name' => $name,
-            ]);
+        $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
+        File::insert([
+            'id_pengumuman' => $idPengumuman,
+            'type' => 'pengumuman',
+            'path' => $cloudinaryData['path'],
+            'publicId' => $cloudinaryData['publicId'],
+            'name' => $name,
+        ]);
 
-            DB::commit();
+        DB::commit();
 
-            return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
+        return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
 
         // } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
         // }
     }
 
@@ -172,7 +173,6 @@ class PengumumanController extends Controller
                 ]);
 
                 $isUdated = true;
-
             } elseif (!empty($pengumumanRequest->all())) {
                 // if new file is not uploaded, update pengumuman only
                 $pengumuman->update($pengumumanRequest->except('file'));
@@ -222,5 +222,4 @@ class PengumumanController extends Controller
             return redirect()->back()->with('error', 'Pengumuman tidak ditemukan');
         }
     }
-
 }
