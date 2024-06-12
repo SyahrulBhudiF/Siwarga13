@@ -67,7 +67,7 @@ class PengumumanController extends Controller
      */
     public function store(StorePengumumanRequest $requestPengumuman, StoreFileRequest $requestFile): RedirectResponse
     {
-        try {
+        // try {
             DB::beginTransaction();
 
             $uploadedFile = $requestFile->file('file');
@@ -91,6 +91,7 @@ class PengumumanController extends Controller
                 'resource_type' => 'image'
             ]);
 
+            dd($thumbnailUrl->secure_url, $thumbnailUrl->public_id);
 
             $requestPengumuman->merge([
                 'path_thumbnail' => $thumbnailUrl->secure_url,
@@ -109,10 +110,10 @@ class PengumumanController extends Controller
             DB::commit();
 
             return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
-        } catch (\Exception $e) {
+        // } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
-        }
+        // }
     }
 
     /**
