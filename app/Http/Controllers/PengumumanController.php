@@ -86,9 +86,10 @@ class PengumumanController extends Controller
                 'crop' => 'fill',
                 'page' => 1
             ],
+            'folder' => 'thumbnail',
             'format' => 'jpg', // Mengubah format thumbnail menjadi JPG
             'resource_type' => 'image'
-        ])->getSecureUrl();
+        ])->toUrl();
 
 
         dd($thumbnailUrl);
