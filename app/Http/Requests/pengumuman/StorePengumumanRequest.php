@@ -16,7 +16,6 @@ class StorePengumumanRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        dd($this->toArray());
         $this->request->replace($this->only([
             'judul',
             'tanggal',

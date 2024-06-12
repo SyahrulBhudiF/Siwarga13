@@ -16,6 +16,7 @@ class StoreFileRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        dd($this->toArray());
         $this->request->replace($this->only([
             'file'
         ]));
