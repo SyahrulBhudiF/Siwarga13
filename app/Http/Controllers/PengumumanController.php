@@ -92,13 +92,9 @@ class PengumumanController extends Controller
         ]);
 
 
-        dd($thumbnailUrl);
-        // push thumbnail to cloudinary
-        $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
-
         $requestPengumuman->merge([
-            'path_thumbnail' => $thumbnailCloudinaryData['path'],
-            'publicId' => $thumbnailCloudinaryData['publicId'],
+            'path_thumbnail' => $thumbnailUrl->secure_url,
+            'publicId' => $thumbnailUrl->public_id,
         ]);
 
         $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
