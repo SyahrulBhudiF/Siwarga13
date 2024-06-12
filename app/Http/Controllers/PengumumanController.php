@@ -67,53 +67,52 @@ class PengumumanController extends Controller
      */
     public function store(StorePengumumanRequest $requestPengumuman, StoreFileRequest $requestFile): RedirectResponse
     {
-        // try {
-        DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
-        $uploadedFile = $requestFile->file('file');
-        $name = $uploadedFile->getClientOriginalName();
+            $uploadedFile = $requestFile->file('file');
+            $name = $uploadedFile->getClientOriginalName();
 
-        // push to cloudinary
-        $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
+            // push to cloudinary
+            $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-        $publicId = $cloudinaryData['publicId'];
-        // Membuat URL thumbnail dari PDF
-        $thumbnailUrl = cloudinary()->uploadApi()->explicit($publicId, [
-            'type' => 'upload',
-            'transformation' => [
-                'width' => 150,
-                'height' => 150,
-                'crop' => 'fill',
-                'page' => 1
-            ],
-            'folder' => 'thumbnail',
-            'format' => 'jpg', // Mengubah format thumbnail menjadi JPG
-            'resource_type' => 'image'
-        ]);
+            $publicId = $cloudinaryData['publicId'];
+            // Membuat URL thumbnail dari PDF
+            $thumbnailUrl = cloudinary()->uploadApi()->explicit($publicId, [
+                'type' => 'upload',
+                'transformation' => [
+                    'width' => 150,
+                    'height' => 150,
+                    'crop' => 'fill',
+                    'page' => 1
+                ],
+                'folder' => 'thumbnail',
+                'format' => 'jpg',
+                'resource_type' => 'image'
+            ]);
 
-        dd($thumbnailUrl['secure_url'], $thumbnailUrl['public_id']);
 
-        $requestPengumuman->merge([
-            'path_thumbnail' => $thumbnailUrl['secure_url'],
-            'publicId' => $thumbnailUrl['public_id'],
-        ]);
+            $requestPengumuman->merge([
+                'path_thumbnail' => $thumbnailUrl['secure_url'],
+                'publicId' => $thumbnailUrl['public_id'],
+            ]);
 
-        $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
-        File::insert([
-            'id_pengumuman' => $idPengumuman,
-            'type' => 'pengumuman',
-            'path' => $cloudinaryData['path'],
-            'publicId' => $cloudinaryData['publicId'],
-            'name' => $name,
-        ]);
+            $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
+            File::insert([
+                'id_pengumuman' => $idPengumuman,
+                'type' => 'pengumuman',
+                'path' => $cloudinaryData['path'],
+                'publicId' => $cloudinaryData['publicId'],
+                'name' => $name,
+            ]);
 
-        DB::commit();
+            DB::commit();
 
-        return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
-        // } catch (\Exception $e) {
-        DB::rollBack();
-        return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
-        // }
+            return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
+        }
     }
 
     /**
@@ -163,15 +162,25 @@ class PengumumanController extends Controller
                 // Upload file baru ke Cloudinary
                 $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($fileRequest->file('file'), 'pdf');
 
-                $thumbnailUrl = $this->cloudinaryService->createThumbnail($fileRequest->file('file'));
-
-                // Upload thumbnail ke Cloudinary
-                $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
+                $publicId = $cloudinaryData['publicId'];
+                // Membuat URL thumbnail dari PDF
+                $thumbnailUrl = cloudinary()->uploadApi()->explicit($publicId, [
+                    'type' => 'upload',
+                    'transformation' => [
+                        'width' => 150,
+                        'height' => 150,
+                        'crop' => 'fill',
+                        'page' => 1
+                    ],
+                    'folder' => 'thumbnail',
+                    'format' => 'jpg',
+                    'resource_type' => 'image'
+                ]);
 
                 // Update data pengumuman
                 $pengumuman->update([
-                    'path_thumbnail' => $thumbnailCloudinaryData['path'],
-                    'publicId' => $thumbnailCloudinaryData['publicId'],
+                    'path_thumbnail' => $thumbnailUrl['secure_url'],
+                    'publicId' => $thumbnailUrl['public_id'],
                 ]);
                 $pengumuman->update($pengumumanRequest->except('file'));
 
