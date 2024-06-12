@@ -83,8 +83,8 @@ class PengumumanController extends Controller
             'format' => 'jpg', // Format thumbnail
             'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
             'transformation' => [
-                'width' => 150,
-                'height' => 150,
+                // 'width' => 150,
+                // 'height' => 150,
                 'crop' => 'fit'
             ],
         ]);
@@ -167,8 +167,8 @@ class PengumumanController extends Controller
                     'format' => 'jpg', // Format thumbnail
                     'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
                     'transformation' => [
-                        'width' => 150,
-                        'height' => 150,
+                        // 'width' => 150,
+                        // 'height' => 150,
                         'crop' => 'fit'
                     ],
                 ]);
