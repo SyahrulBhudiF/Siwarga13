@@ -76,16 +76,17 @@ class PengumumanController extends Controller
         // push to cloudinary
         $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-        $publicId = $cloudinaryData['publicId'];
         // Membuat URL thumbnail dari PDF
-        $thumbnailUrl = Cloudinary::getMediaUrl($publicId, [
+        $thumbnailUrl = Cloudinary::uploadFile($uploadedFile->getRealPath(), [
             'folder' => 'thumbnail',
-            'page' => 1,  // Mengambil halaman pertama sebagai thumbnail
-            'format' => 'jpg',
-            'width' => 150,
-            'height' => 150,
-            'crop' => 'fit',
-            'resource_type' => 'image'
+            'resource_type' => 'image',
+            'format' => 'jpg', // Format thumbnail
+            'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
+            'transformation' => [
+                'width' => 150,
+                'height' => 150,
+                'crop' => 'fit'
+            ],
         ]);
 
 
