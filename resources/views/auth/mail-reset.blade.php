@@ -12,7 +12,7 @@
         <p class="text-Neutral/100 text-4xl max-sm:text-3xl font-medium">Silahkan klik link berikut untuk melakukan
             reset password anda</p>
     </header>
-    <a href="{{ route('forgot-password', ['token' => $token]) }}">Klik Disini</a>
+    <a href="{{ url('/forgot-password/' . $token) }}">Klik Disini</a>
 </main>
 </body>
 </html>
