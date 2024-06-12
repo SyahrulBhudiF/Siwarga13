@@ -76,8 +76,7 @@ class PengumumanController extends Controller
         // push to cloudinary
         $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-        $publicId = $cloudinaryData['public_id']; // Pastikan kunci ini sesuai dengan struktur data yang dikembalikan
-
+        $publicId = $cloudinaryData['publicId'];
         // Membuat URL thumbnail dari PDF
         $thumbnailUrl = cloudinary()->uploadApi()->explicit($publicId, [
             'transformation' => [
