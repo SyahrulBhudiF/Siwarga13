@@ -90,12 +90,10 @@ class PengumumanController extends Controller
         ]);
 
 
-        dd($thumbnailUrl, $cloudinaryData);
-
         // Gabungkan URL thumbnail dan public ID ke dalam requestPengumuman
         $requestPengumuman = $requestPengumuman->merge([
-            'path_thumbnail' => $thumbnailUrl,
-            'publicId' => $thumbnailUrl,
+            'path_thumbnail' => $thumbnailUrl['secure_url'],
+            'publicId' => $thumbnailUrl['public_id'],
         ]);
 
         $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
@@ -163,19 +161,16 @@ class PengumumanController extends Controller
                 // Upload file baru ke Cloudinary
                 $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($fileRequest->file('file'), 'pdf');
 
-                $publicId = $cloudinaryData['publicId'];
-                // Membuat URL thumbnail dari PDF
-                $thumbnailUrl = cloudinary()->uploadApi()->explicit($publicId, [
-                    'type' => 'upload',
+                $thumbnailUrl = Cloudinary::uploadFile($fileRequest->file('file')->getRealPath(), [
+                    'folder' => 'thumbnail',
+                    'resource_type' => 'image',
+                    'format' => 'jpg', // Format thumbnail
+                    'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
                     'transformation' => [
                         'width' => 150,
                         'height' => 150,
-                        'crop' => 'fill',
-                        'page' => 1
+                        'crop' => 'fit'
                     ],
-                    'folder' => 'thumbnail',
-                    'format' => 'jpg',
-                    'resource_type' => 'image'
                 ]);
 
                 // Update data pengumuman
