@@ -5,6 +5,6 @@ cmds = [
     "php artisan optimize"
 ]
 
-[start]
+[phases.start]
 cmds = "php artisan queue:work"
 
