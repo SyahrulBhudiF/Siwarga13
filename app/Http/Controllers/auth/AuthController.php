@@ -116,6 +116,7 @@ class AuthController extends Controller
     public function sendForgotPassword(Request $request)
     {
         $request->validate([
+            '_token' => 'required',
             'token' => 'required',
             'password' => 'required|min:8'
         ]);
@@ -148,5 +149,4 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memproses permintaan Anda. Silakan coba lagi.');
         }
     }
-
 }
