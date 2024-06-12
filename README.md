@@ -2,7 +2,6 @@
 
 ---
 
-
 > The web-based Rukun Warga Administration application is an application to learn more about the activities, benefits,
 > and purposes as well as the importance of administation at RW. This application is made using Laravel version 10 and
 > at
@@ -14,33 +13,33 @@
 
 ---
 
-- **[Backend Laravel _10.3.*_](https://laravel.com/docs/10.x/releases#laravel-10)**
-- **[Frontend TailwindCSS](https://tailwindcss.com/docs/installation)**
-- **[Frontend daisyUI](https://daisyui.com/docs/install/)**
-- **[Database Mysql _8.0._](https://dev.mysql.com/doc/refman/8.0/en/)**
-- **[Cloudinary](https://cloudinary.com/)**
+-   **[Backend Laravel _10.3.\*_](https://laravel.com/docs/10.x/releases#laravel-10)**
+-   **[Frontend TailwindCSS](https://tailwindcss.com/docs/installation)**
+-   **[Frontend daisyUI](https://daisyui.com/docs/install/)**
+-   **[Database Mysql _8.0._](https://dev.mysql.com/doc/refman/8.0/en/)**
+-   **[Cloudinary](https://cloudinary.com/)**
 
 ### **Software Requirement:**
 
 ---
 
-- **[Git](https://git-scm.com/downloads)**
-- **[Github](https://github.com)**
-- **[Composer _2.6.6_](https://getcomposer.org/download/)**
-- **[NodeJS _20_](https://nodejs.org/en/download/current)**
-- **[PNPM _9_](https://pnpm.io/installation)**
-- **[PHP _8.1_](https://www.php.net/downloads.php)
-  or [Laragon with bundling php 8.1](https://laragon.org/download/index.html)**
-- **[Postman](https://www.postman.com/downloads/) or [Thunderclient(VScode Extension)](https://www.thunderclient.com/)**
+-   **[Git](https://git-scm.com/downloads)**
+-   **[Github](https://github.com)**
+-   **[Composer _2.6.6_](https://getcomposer.org/download/)**
+-   **[NodeJS _<=20_](https://nodejs.org/en/download/current)**
+-   **[PNPM _>=8_](https://pnpm.io/installation)**
+-   **[PHP _8.1_](https://www.php.net/downloads.php)
+    or [Laragon with bundling php 8.1](https://laragon.org/download/index.html)**
+-   **[Postman](https://www.postman.com/downloads/) or [Thunderclient(VScode Extension)](https://www.thunderclient.com/)**
 
 ### **🙇 Team:**
 
 ---
 
-- Dyinastie Marchelina Puspitawening (System Analyst)
-- Emir Abiyyu Delanggra (UI/UX Designer)
-- Muhammad Rifky Harto Biantoro (Project Manager)
-- Syahrul Bhudi Ferdiansyah (Fullstack Developer)
+-   Dyinastie Marchelina Puspitawening (System Analyst)
+-   Emir Abiyyu Delanggra (UI/UX Designer)
+-   Muhammad Rifky Harto Biantoro (Project Manager)
+-   Syahrul Bhudi Ferdiansyah (Fullstack Developer)
 
 ### **🕙 Installation:**
 
@@ -48,7 +47,7 @@
 
 1. Open Address repository:
 
-   [Repository](https://github.com/SyahrulBhudiF/Siwarga13)
+    [Repository](https://github.com/SyahrulBhudiF/Siwarga13)
 
 2. Fork repository:
 
@@ -62,7 +61,7 @@
     git clone https://github.com/Your_Github_Address/Siwarga13
     ```
 
-   note: change "Your_Github_Address" with your actual address, like: SyahrulBhudiF or Rifki4w
+    note: change "Your_Github_Address" with your actual address, like: SyahrulBhudiF or Rifki4w
 
 4. Enter path folder repository:
 
@@ -106,26 +105,30 @@
 
 10. Seeding database:
 
-     ```bash
-     php artisan db:seed
-     ```
+    ```bash
+    php artisan db:seed
+    ```
 
 11. run server:
 
     a. Laravel Server:
-     ```bash
-     php artisan serve
-     ```
+
+    ```bash
+    php artisan serve
+    ```
+
     b. Laragon Server:
     Click Start in Laragon UI
 
     c. Run Tailwind
+
     ```bash
     pnpm run dev or pnpm dev
     ```
 
     d. Run Queue
     Run Queue:
+
     ```bash
     php artisan queue:work
     ```
@@ -133,7 +136,7 @@
 12. Open browser and Access Localhost `http://localhost:8000` (for Laravel Server)
     or `http://localhost/www/Siwarga13` (for Laragon Server)
 
-#### note: for steps 2-11 or any of steps that using bash or command syntax, you can do those bash syntax in your terminal or IDE-integrated terminal ####
+#### note: for steps 2-11 or any of steps that using bash or command syntax, you can do those bash syntax in your terminal or IDE-integrated terminal
 
 ### **🕙 Project Collaboration:**
 
@@ -144,172 +147,197 @@
 
 2. check your git status, specifically in branch:
 
-   ```bash
-   git status
-   ``` 
+    ```bash
+    git status
+    ```
 
-   if branch isn't relate to your role, Change Branch to the related Your Role:
-   ```bash
-   git checkout frontend
-   ```
-   or
+    if branch isn't relate to your role, Change Branch to the related Your Role:
+
     ```bash
-   git checkout backend
-   ```
-   or
+    git checkout frontend
+    ```
+
+    or
+
     ```bash
-   git checkout dev
-   ```
-   or
+    git checkout backend
+    ```
+
+    or
+
     ```bash
-   git checkout Your_Role
-   ```
+    git checkout dev
+    ```
+
+    or
+
+    ```bash
+    git checkout Your_Role
+    ```
 
 3. Pull code change, after fork synced in steps 1:
 
-   ```bash
-   git pull
-   ```
+    ```bash
+    git pull
+    ```
 
 4. Crate your code change
 
 5. Add to staging index your change:
 
-   ```bash
-   git add .
-   ```
+    ```bash
+    git add .
+    ```
 
 6. Commit change:
 
-   ```bash
-   git commit -m "commit message"
-   ```
+    ```bash
+    git commit -m "commit message"
+    ```
 
-   Note: for conventional commit message you can follow this rule:
-   #### Conventional Commit Messages
-   See how a [minor change](#examples) to your commit message style can make a difference.
+    Note: for conventional commit message you can follow this rule:
 
-   **ℹ️ [git-conventional-commits](https://github.com/qoomon/git-conventional-commits)**  A CLI util to ensure these
-   conventions and generate changelogs
+    #### Conventional Commit Messages
 
-    <img src="https://img.icons8.com/dusk/1600/commit-git.png" width="200" height="200"  alt=""/>
+    See how a [minor change](#examples) to your commit message style can make a difference.
 
-   ##### Commit Message Formats
+    **ℹ️ [git-conventional-commits](https://github.com/qoomon/git-conventional-commits)** A CLI util to ensure these
+    conventions and generate changelogs
 
-   ###### Default
-    <pre>
-    <b><a href="#types">&lt;type&gt;</a></b>(<b><a href="#scopes">&lt;optional scope&gt;</a></b>): <b><a href="#description">&lt;description&gt;</a></b>
-    <sub>empty separator line</sub>
-    <b><a href="#body">&lt;optional body&gt;</a></b>
-    <sub>empty separator line</sub>
-    <b><a href="#footer">&lt;optional footer&gt;</a></b>
-    </pre>
+     <img src="https://img.icons8.com/dusk/1600/commit-git.png" width="200" height="200"  alt=""/>
 
-   ###### Types
-    * `feat` Commits, that adds or remove a new feature
-    * `fix` Commits, that fixes a bug
-    * `refactor` Commits, that rewrite/restructure your code, however does not change any API behaviour
-        * `perf` Commits are special
-        * `refactor` commits, that improve performance
-    * `style` Commits, that do not affect the meaning (white-space, formatting, missing semi-colons, etc)
-    * `test` Commits, that add missing tests or correcting existing tests
-    * `docs` Commits, that affect documentation only
-    * `build` Commits, that affect build components like build tool, ci pipeline, dependencies, project version, ...
-    * `ops` Commits, that affect operational components like infrastructure, deployment, backup, recovery, ...
-    * `chore` Miscellaneous commits e.g. modifying `.gitignore`
+    ##### Commit Message Formats
 
-   ###### Scopes
-   The `scope` provides additional contextual information.
-    * Is an **optional** part of the format
-    * Allowed Scopes depends on the specific project
-    * Don't use issue identifiers as scopes
+    ###### Default
 
-   ###### Breaking Changes Indicator
-   Breaking changes should be indicated by an `!` before the `:` in the subject line
-   e.g. `feat(api)!: remove status endpoint`
-    * Is an **optional** part of the format
+     <pre>
+     <b><a href="#types">&lt;type&gt;</a></b>(<b><a href="#scopes">&lt;optional scope&gt;</a></b>): <b><a href="#description">&lt;description&gt;</a></b>
+     <sub>empty separator line</sub>
+     <b><a href="#body">&lt;optional body&gt;</a></b>
+     <sub>empty separator line</sub>
+     <b><a href="#footer">&lt;optional footer&gt;</a></b>
+     </pre>
 
-   ###### Description
-   The `description` contains a concise description of the change.
-    * Is a **mandatory** part of the format
-        * Use the imperative, present tense: "change" not "changed" nor "changes"
-        * Think of `This commit will...` or `This commit should...`
-        * Don't capitalize the first letter
-        * No dot (`.`) at the end
+    ###### Types
 
-   ###### Body
-   The `body` should include the motivation for the change and contrast this with previous behavior.
-    * Is an **optional** part of the format
-        * Use the imperative, present tense: "change" not "changed" nor "changes"
-        * This is the place to mention issue identifiers and their relations
+    - `feat` Commits, that adds or remove a new feature
+    - `fix` Commits, that fixes a bug
+    - `refactor` Commits, that rewrite/restructure your code, however does not change any API behaviour
+        - `perf` Commits are special
+        - `refactor` commits, that improve performance
+    - `style` Commits, that do not affect the meaning (white-space, formatting, missing semi-colons, etc)
+    - `test` Commits, that add missing tests or correcting existing tests
+    - `docs` Commits, that affect documentation only
+    - `build` Commits, that affect build components like build tool, ci pipeline, dependencies, project version, ...
+    - `ops` Commits, that affect operational components like infrastructure, deployment, backup, recovery, ...
+    - `chore` Miscellaneous commits e.g. modifying `.gitignore`
 
-   ###### Footer
-   The `footer` should contain any information about **Breaking Changes** and is also the place to **reference Issues**
-   that this commit refers to.
-    * Is an **optional** part of the format
-        * **optionally** reference an issue by its id.
-        * **Breaking Changes** should start with the word `BREAKING CHANGES:` followed by space or two newlines. The
+    ###### Scopes
+
+    The `scope` provides additional contextual information.
+
+    - Is an **optional** part of the format
+    - Allowed Scopes depends on the specific project
+    - Don't use issue identifiers as scopes
+
+    ###### Breaking Changes Indicator
+
+    Breaking changes should be indicated by an `!` before the `:` in the subject line
+    e.g. `feat(api)!: remove status endpoint`
+
+    - Is an **optional** part of the format
+
+    ###### Description
+
+    The `description` contains a concise description of the change.
+
+    - Is a **mandatory** part of the format
+        - Use the imperative, present tense: "change" not "changed" nor "changes"
+        - Think of `This commit will...` or `This commit should...`
+        - Don't capitalize the first letter
+        - No dot (`.`) at the end
+
+    ###### Body
+
+    The `body` should include the motivation for the change and contrast this with previous behavior.
+
+    - Is an **optional** part of the format
+        - Use the imperative, present tense: "change" not "changed" nor "changes"
+        - This is the place to mention issue identifiers and their relations
+
+    ###### Footer
+
+    The `footer` should contain any information about **Breaking Changes** and is also the place to **reference Issues**
+    that this commit refers to.
+
+    - Is an **optional** part of the format
+        - **optionally** reference an issue by its id.
+        - **Breaking Changes** should start with the word `BREAKING CHANGES:` followed by space or two newlines. The
           rest of the commit message is then used for this.
 
-   ###### Examples
-    * ```
+    ###### Examples
+
+    - ```
         feat: add email notifications on new direct messages
-        ```
-    * ```
+      ```
+    - ```
         feat(shopping cart): add the amazing button
-        ```
-    * ```
+      ```
+    - ```
         feat!: remove ticket list endpoint
-    
+
         refers to JIRA-1337
-    
+
         BREAKING CHANGES: ticket enpoints no longer supports list all entites.
-        ```
-    * ```
+      ```
+
+    - ```
         fix(api): handle empty message in request body
-        ```
-    * ```
+      ```
+    - ```
         fix(api): fix wrong calculation of request body checksum
-        ```
-    * ```
+      ```
+    - ```
         fix: add missing parameter to service call
-    
+
         The error occurred because of <reasons>.
-        ```
-    * ```
+      ```
+
+    - ```
         perf: decrease memory footprint for determine uniqe visitors by using HyperLogLog
-        ```
-    * ```
+      ```
+    - ```
         build: update dependencies
-        ```
-    * ```
+      ```
+    - ```
         build(release): `bump version to 1.0.0
-        ```
-    * ```
+      ```
+    - ```
         refactor: implement fibonacci number calculation as recursion
-        ```
-    * ```
+      ```
+    - ```
         style: remove empty line
-        ```
+      ```
 
 7. Push change to fork and don't push to master like 'git push origin master', or you blocked by rule (always check
    branch with steps 2, so push will hit remote branch that role rule targeted):
 
-   ```bash
-   git push
-   ```
+    ```bash
+    git push
+    ```
 
 8. Do Pull Request from your fork to main repository to discuss the change with your team:
+
     - Open your fork in your repository, if in there has notification to compare and pull request hit that button in
       there
     - Create pull request from your fork to main repository branch master
 
 9. (Optional) if when pull had problem with "merge using **ort** strategy", like merge commit with no actual changes
    make your work tree dirty, do this:
-   ```bash
-   git config pull.ff only
-   ``` 
-   Note: if there is error when pull, because git config pull.ff=only, do this:
+    ```bash
+    git config pull.ff only
+    ```
+    Note: if there is error when pull, because git config pull.ff=only, do this:
     ```bash
     git config pull.rebase false
     ```
@@ -318,9 +346,8 @@
 
 ---
 
-- If there are update change in your fork, always synced that, because you cannot push and crate pull request without
-  that
-- When Checkout, Push or Pull, always check your git branch
-- Don't push to master with 'git push origin master' when add code change to GitHub
-- Always create Pull request like steps 8
-
+-   If there are update change in your fork, always synced that, because you cannot push and crate pull request without
+    that
+-   When Checkout, Push or Pull, always check your git branch
+-   Don't push to master with 'git push origin master' when add code change to GitHub
+-   Always create Pull request like steps 8
