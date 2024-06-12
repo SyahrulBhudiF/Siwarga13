@@ -67,52 +67,52 @@ class PengumumanController extends Controller
      */
     public function store(StorePengumumanRequest $requestPengumuman, StoreFileRequest $requestFile): RedirectResponse
     {
-        try {
-            DB::beginTransaction();
+        // try {
+        DB::beginTransaction();
 
-            $uploadedFile = $requestFile->file('file');
-            $name = $uploadedFile->getClientOriginalName();
+        $uploadedFile = $requestFile->file('file');
+        $name = $uploadedFile->getClientOriginalName();
 
-            // push to cloudinary
-            $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
+        // push to cloudinary
+        $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-            $publicId = $cloudinaryData['publicId'];
-            // Membuat URL thumbnail dari PDF
-            $thumbnailUrl = cloudinary()->uploadApi()->explicit($publicId, [
-                'type' => 'upload',
-                'transformation' => [
-                    'width' => 150,
-                    'height' => 150,
-                    'crop' => 'fill',
-                    'page' => 1
-                ],
-                'folder' => 'thumbnail',
-                'format' => 'jpg',
-                'resource_type' => 'image'
-            ]);
+        $publicId = $cloudinaryData['publicId'];
+        // Membuat URL thumbnail dari PDF
+        $thumbnailUrl = Cloudinary::getMediaUrl($publicId, [
+            'folder' => 'thumbnail',
+            'page' => 1,  // Mengambil halaman pertama sebagai thumbnail
+            'format' => 'jpg',
+            'width' => 150,
+            'height' => 150,
+            'crop' => 'fit',
+            'resource_type' => 'image'
+        ]);
 
 
-            $requestPengumuman->merge([
-                'path_thumbnail' => $thumbnailUrl['secure_url'],
-                'publicId' => $thumbnailUrl['public_id'],
-            ]);
+        dd($thumbnailUrl);
 
-            $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
-            File::insert([
-                'id_pengumuman' => $idPengumuman,
-                'type' => 'pengumuman',
-                'path' => $cloudinaryData['path'],
-                'publicId' => $cloudinaryData['publicId'],
-                'name' => $name,
-            ]);
+        // Gabungkan URL thumbnail dan public ID ke dalam requestPengumuman
+        $requestPengumuman = $requestPengumuman->merge([
+            'path_thumbnail' => $thumbnailUrl,
+            'publicId' => $thumbnailUrl,
+        ]);
 
-            DB::commit();
+        $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
+        File::insert([
+            'id_pengumuman' => $idPengumuman,
+            'type' => 'pengumuman',
+            'path' => $cloudinaryData['path'],
+            'publicId' => $cloudinaryData['publicId'],
+            'name' => $name,
+        ]);
 
-            return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
-        }
+        DB::commit();
+
+        return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
+        // } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
+        // }
     }
 
     /**
