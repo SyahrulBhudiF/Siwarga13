@@ -12,7 +12,4 @@ export default defineConfig({
             algorithm: 'gzip',
         }),
     ],
-    server: {
-        https: true,
-    },
 });
