@@ -89,10 +89,10 @@ class PengumumanController extends Controller
             'folder' => 'thumbnail',
             'format' => 'jpg', // Mengubah format thumbnail menjadi JPG
             'resource_type' => 'image'
-        ])->toUrl();
+        ]);
 
 
-        dd($thumbnailUrl);
+        dd($thumbnailUrl->toArray());
         // push thumbnail to cloudinary
         $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
