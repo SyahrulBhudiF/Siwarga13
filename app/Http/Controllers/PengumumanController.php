@@ -90,7 +90,7 @@ class PengumumanController extends Controller
         ]);
 
 
-        dd($thumbnailUrl);
+        dd($thumbnailUrl, $cloudinaryData);
 
         // Gabungkan URL thumbnail dan public ID ke dalam requestPengumuman
         $requestPengumuman = $requestPengumuman->merge([
