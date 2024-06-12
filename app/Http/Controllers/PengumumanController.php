@@ -67,7 +67,7 @@ class PengumumanController extends Controller
      */
     public function store(StorePengumumanRequest $requestPengumuman, StoreFileRequest $requestFile): RedirectResponse
     {
-        try {
+        // try {
             DB::beginTransaction();
 
             $uploadedFile = $requestFile->file('file');
@@ -99,10 +99,10 @@ class PengumumanController extends Controller
 
             return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
 
-        } catch (\Exception $e) {
+        // } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
-        }
+        // }
     }
 
     /**
