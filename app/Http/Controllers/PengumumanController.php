@@ -67,51 +67,49 @@ class PengumumanController extends Controller
      */
     public function store(StorePengumumanRequest $requestPengumuman, StoreFileRequest $requestFile): RedirectResponse
     {
-        // try {
-        DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
-        $uploadedFile = $requestFile->file('file');
-        $name = $uploadedFile->getClientOriginalName();
+            $uploadedFile = $requestFile->file('file');
+            $name = $uploadedFile->getClientOriginalName();
 
-        // push to cloudinary
-        $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
+            // push to cloudinary
+            $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-        // Membuat URL thumbnail dari PDF
-        $thumbnailUrl = Cloudinary::uploadFile($uploadedFile->getRealPath(), [
-            'folder' => 'thumbnail',
-            'resource_type' => 'image',
-            'format' => 'jpg', // Format thumbnail
-            'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
-            'transformation' => [
-                // 'width' => 150,
-                // 'height' => 150,
-                'crop' => 'fit'
-            ],
-        ]);
+            // Membuat URL thumbnail dari PDF
+            $thumbnailUrl = Cloudinary::uploadFile($uploadedFile->getRealPath(), [
+                'folder' => 'thumbnail',
+                'resource_type' => 'image',
+                'format' => 'jpg', // Format thumbnail
+                'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
+                'transformation' => [
+                    'crop' => 'fit'
+                ],
+            ]);
 
 
-        // Gabungkan URL thumbnail dan public ID ke dalam requestPengumuman
-        $requestPengumuman = $requestPengumuman->merge([
-            'path_thumbnail' => $thumbnailUrl->getSecurePath(),
-            'publicId' => $thumbnailUrl->getPublicId(),
-        ]);
+            // Gabungkan URL thumbnail dan public ID ke dalam requestPengumuman
+            $requestPengumuman = $requestPengumuman->merge([
+                'path_thumbnail' => $thumbnailUrl->getSecurePath(),
+                'publicId' => $thumbnailUrl->getPublicId(),
+            ]);
 
-        $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
-        File::insert([
-            'id_pengumuman' => $idPengumuman,
-            'type' => 'pengumuman',
-            'path' => $cloudinaryData['path'],
-            'publicId' => $cloudinaryData['publicId'],
-            'name' => $name,
-        ]);
+            $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
+            File::insert([
+                'id_pengumuman' => $idPengumuman,
+                'type' => 'pengumuman',
+                'path' => $cloudinaryData['path'],
+                'publicId' => $cloudinaryData['publicId'],
+                'name' => $name,
+            ]);
 
-        DB::commit();
+            DB::commit();
 
-        return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
-        // } catch (\Exception $e) {
-        DB::rollBack();
-        return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
-        // }
+            return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
+        }
     }
 
     /**
@@ -167,8 +165,6 @@ class PengumumanController extends Controller
                     'format' => 'jpg', // Format thumbnail
                     'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
                     'transformation' => [
-                        // 'width' => 150,
-                        // 'height' => 150,
                         'crop' => 'fit'
                     ],
                 ]);

@@ -4,8 +4,8 @@
         <div class="flex flex-col gap-3">
             <p class="text-Neutral/70">Supported by</p>
             <div class="flex gap-3 items-center">
-                <img src="{{asset('img/polinema.jpg')}}" alt="polinema">
-                <img src="{{asset('img/jti.jpg')}}" alt="jti">
+                <img src="{{ asset('img/polinema.jpg') }}" alt="polinema">
+                <img src="{{ asset('img/jti.jpg') }}" alt="jti">
             </div>
         </div>
         <p class="text-Neutral/70">Dibuat pada tahun 2024 untuk memenuhi proyek akhir semester 4.</p>
@@ -14,9 +14,9 @@
         <div class="flex flex-col gap-4">
             <p class="text-Neutral/100 font-semibold">Menu</p>
             <a href="/dashboard" class="text-sm text-Neutral/80 font-medium">Beranda</a>
-            <a href="dashboard/pengumuman" class="text-sm text-Neutral/80 font-medium">Pengumuman</a>
-            <a href="dashboard/dokumentasi" class="text-sm text-Neutral/80 font-medium">Kegiatan Warga</a>
-            <a href="dashboard/umkm" class="text-sm text-Neutral/80 font-medium">UMKM</a>
+            <a href="{{ url('/dashboard/pengumuman') }}" class="text-sm text-Neutral/80 font-medium">Pengumuman</a>
+            <a href="{{ url('/dashboard/dokumentasi') }}" class="text-sm text-Neutral/80 font-medium">Kegiatan Warga</a>
+            <a href="{{ url('/dashboard/umkm') }}" class="text-sm text-Neutral/80 font-medium">UMKM</a>
             <a href="/login" class="text-sm text-Neutral/80 font-medium">Admin login</a>
         </div>
         <div class="flex flex-col gap-3">

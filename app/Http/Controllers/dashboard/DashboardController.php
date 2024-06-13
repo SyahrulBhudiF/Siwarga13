@@ -48,7 +48,7 @@ class DashboardController extends Controller
 
     public function showPengumuman(string $id)
     {
-        $pengumuman = Pengumuman::with('file:id_file,id_pengumuman,publicId,path')->findOrFail($id);
+        $pengumuman = Pengumuman::with('file:id_file,id_pengumuman,publicId,path,name')->findOrFail($id);
         $formatted = convertDate($pengumuman->tanggal);
 
         $fileSize = Cache::remember("pengumuman_{$id}_file_size", 60, function () use ($pengumuman) {
@@ -112,5 +112,4 @@ class DashboardController extends Controller
 
         return view('dashboard.umkm.show', compact('data'));
     }
-
 }
