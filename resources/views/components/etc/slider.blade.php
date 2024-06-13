@@ -6,7 +6,7 @@
         @foreach ($dt as $data)
             <swiper-slide>
                 <div class="image flex justify-center">
-                    <img src="{{ $data->path }}" alt="image" loading="lazy">
+                    <img src="{{ $data->path }}" alt="image" class="w-full h-full" loading="lazy">
                 </div>
             </swiper-slide>
         @endforeach
