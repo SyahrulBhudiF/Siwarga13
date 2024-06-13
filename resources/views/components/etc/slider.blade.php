@@ -1,14 +1,12 @@
 @props(['dt'])
 
 <div class="w-full">
-    <swiper-container id="swiper-container-hero" class="mySwiper overflow-hidden rounded-xl"
-                      pagination="true"
-                      init="false" pagination-clickable="true" space-between="30" effect="fade"
-                      navigation="true">
-        @foreach($dt as $data)
+    <swiper-container id="swiper-container-hero" class="mySwiper overflow-hidden rounded-xl" pagination="true"
+        init="false" pagination-clickable="true" space-between="30" effect="fade" navigation="true">
+        @foreach ($dt as $data)
             <swiper-slide>
-                <div class="image">
-                    <img src="{{$data->path}}" alt="image" loading="lazy">
+                <div class="image flex justify-center">
+                    <img src="{{ $data->path }}" alt="image" loading="lazy">
                 </div>
             </swiper-slide>
         @endforeach
