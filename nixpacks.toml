@@ -3,4 +3,4 @@ UPLOAD_MAX_FILESIZE = '1024M'
 POST_MAX_SIZE = '1024M'
 
 [phases.setup]
-cmds = ['UPLOAD_INI_PATH="/nix/store/12rmngwyawp49qk5ha1d8gv6k3pvj3s4-php-with-extensions-8.1.23/lib/php.ini";echo "${UPLOAD_INI_PATH}" ; echo "upload_max_filesize=${UPLOAD_MAX_FILESIZE};" >> "${UPLOAD_INI_PATH}"; echo "post_max_size=${POST_MAX_SIZE};" >> "${UPLOAD_INI_PATH}"']
+cmds = ['UPLOAD_INI_PATH="$(cat /nix/store/12rmngwyawp49qk5ha1d8gv6k3pvj3s4-php-with-extensions-8.1.23/lib/php.ini)";echo "${UPLOAD_INI_PATH}" ; echo "upload_max_filesize=${UPLOAD_MAX_FILESIZE};" >> "${UPLOAD_INI_PATH}"; echo "post_max_size=${POST_MAX_SIZE};" >> "${UPLOAD_INI_PATH}"']
