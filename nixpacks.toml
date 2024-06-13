@@ -1,4 +1,4 @@
-[phases.build]
+[phases.start]
 commands = [
-  "cp nginx.conf /etc/nginx/nginx.conf"
+  "node /assets/scripts/prestart.mjs /nginx.template.conf /nginx.conf && (php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)"
 ]
