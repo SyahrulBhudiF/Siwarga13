@@ -4,9 +4,8 @@ namespace App\Providers;
 
 use App\Models\Warga;
 use App\Services\CivilliantService;
-use App\Services\EdasService;
-use App\Services\MabacService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CivilliantService::class, function () {
             return new CivilliantService();
         });
+
+        if (env('APP_ENV') === 'production') $this->app['request']->server->set('HTTPS', true);
     }
 
     /**
@@ -27,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
+
         Paginator::defaultView('components.pagination.index');
 
         /*

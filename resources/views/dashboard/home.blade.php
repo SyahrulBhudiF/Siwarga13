@@ -203,7 +203,7 @@
         document.getElementById(container).classList.remove('hidden');
     }
 </script>
-<script type="module" async>
+<script type="module">
     document.addEventListener('DOMContentLoaded', function() {
         animateValue('warga', 0, @json($data['totalWarga']), 1000, "Orang");
         animateValue('kk', 0, @json($data['totalKK']), 1000, "KK");
