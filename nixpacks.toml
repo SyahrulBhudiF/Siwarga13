@@ -3,4 +3,4 @@ UPLOAD_MAX_FILESIZE = '1024M'
 POST_MAX_SIZE = '1024M'
 
 [phases.setup]
-cmds = ['UPLOAD_INI_PATH="$(find /nix/store/*-php-*/lib -name php.ini)"; echo "upload_max_filesize=${UPLOAD_MAX_FILESIZE};" >> "${UPLOAD_INI_PATH}"; echo "post_max_size=${POST_MAX_SIZE};" >> "${UPLOAD_INI_PATH}"']
+cmds = ['UPLOAD_INI_PATH="$(find /nix/store/*-php-*/lib -name php.ini)";echo "${UPLOAD_INI_PATH}" ; echo "upload_max_filesize=${UPLOAD_MAX_FILESIZE};" >> "${UPLOAD_INI_PATH}"; echo "post_max_size=${POST_MAX_SIZE};" >> "${UPLOAD_INI_PATH}"']
