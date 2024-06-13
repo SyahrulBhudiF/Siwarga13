@@ -37,7 +37,7 @@
                     <div class="flex items-center gap-5 max-lg:gap-3 w-full h-full">
                         <div
                             class="bg-Neutral/60 p-5 rounded-[1.25rem] overflow-hidden w-[20vh] h-full lg:flex lg:justify-center max-lg:h-[50%]">
-                            <img src="{{ $data['pengumuman']->path_thumbnail }}" alt="thumbnail" class="brightness-100">
+                            <img src="{{ $data['pengumuman']->path_thumbnail }}" alt="thumbnail" class="brightness-100 lg:w-full lg:h-[70%]">
                         </div>
                         <div class="flex flex-col gap-2">
                             <p class="text-xl font-medium text-Neutral/90">{{ $data['pengumuman']->file->name }}</p>
