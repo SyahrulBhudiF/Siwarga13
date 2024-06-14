@@ -221,7 +221,7 @@
 
 
     </div>
-    <span class="text-Neutral/80 text-sm font-medium">Maksimal 6 file dan 5 MB</span>
+    <span class="text-Neutral/80 text-sm font-medium">Maksimal perfile 2 mb dan maks upload dalam 1 sesi 8 mb</span>
     <span class="text-red-500 text-xs font-medium" id="warningText"></span>
 </div>
 
