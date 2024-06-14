@@ -226,8 +226,31 @@
 </div>
 
 <script>
+    let totalSize = 0;
+
     function handleImage(input) {
         if (input.files && input.files[0]) {
+            let fileSize = input.files[0].size / 1000000; // size in MB
+            totalSize += fileSize;
+
+            const warningText = document.getElementById('warningText');
+
+            if (fileSize > 2) {
+                warningText.textContent = "Ukuran file tidak boleh lebih dari 2 MB";
+                input.value = ''; // reset input value
+                totalSize -= fileSize; // subtract file size from total size
+                return;
+            }
+
+            if (totalSize > 8) {
+                warningText.textContent = "Total keseluruhan ukuran file tidak boleh lebih dari 8 MB";
+                input.value = ''; // reset input value
+                totalSize -= fileSize; // subtract file size from total size
+                return;
+            }
+
+            warningText.textContent = ''; // clear warning text
+
             let reader = new FileReader();
 
             reader.onload = function (e) {
