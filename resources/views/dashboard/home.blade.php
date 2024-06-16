@@ -28,10 +28,10 @@
                 <div class="flex flex-col gap-4 items-stretch">
                     <p class="p-3 bg-white rounded-3xl w-fit">👋🏻 Halo, Warga RW 13!</p>
                     <p
-                        class="font-medium text-Neutral/100 2xl:text-[3.75rem] xl:text-[3rem] lg:text-[2.75rem] max-lg:text-[2rem] max-sm:text-[1.75rem] text-nowrap w-full 2xl:w-[75%]">
+                        class="w-[400px] font-medium text-Neutral/100 2xl:text-[3.75rem] xl:text-[3rem] lg:text-[2.75rem] max-lg:text-[2.5rem] max-sm:text-[1.75rem] text-nowrap 2xl:w-[75%]">
                         Selamat
                         Datang di <span class="text-nowrap"><br>Portal
-                            <span id="typeWritter"></span></span></p>
+                            <span id="typeWritter" class=""></span></span></p>
                     <p class="textMain">Dapatkan informasi terbaru dan akurat
                         tentang
                         warga, bantuan
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-end lg:overflow-hidden 2xl:w-[60%] w-full h-full max-lg:h-[65vh] relative">
+            <div class="flex justify-end lg:overflow-hidden 2xl:w-[50%] w-full h-full max-lg:h-[65vh] relative">
                 <img src="{{ asset('img/hero.webp') }}" alt="hero"
                     class="rounded-2xl w-full h-full max-lg:object-cover max-lg:self-stretch">
                 <div class="absolute bottom-1 w-full">
@@ -81,7 +81,7 @@
     <section id="chartSect" class="flex flex-col lg:grid lg:grid-cols-2 gap-[3.75rem] m-[3.75rem]">
         <div class="flex flex-col gap-5" data-aos="fade-right">
             <div>
-                <p class="text-Neutral/100 font-medium text-[2.5rem]">Visualisasi Data Warga RW 13</p>
+                <p class="text-Neutral/100 font-medium text-[2.5rem] max-lg:text-[2rem]">Visualisasi Data Warga RW 13</p>
                 <p class="text-xl text-Neutral/90">Dapatkan informasi visual mengenai beberapa kategori dalam data
                     warga
                     RW
@@ -137,7 +137,7 @@
         <x-etc.title-content title="Pengumuman"
             desc="Berisi list pengumuman yang berfungsi untuk memberi informasi kepada warga RW 13."></x-etc.title-content>
         <div class="flex flex-col gap-6 bg-[#F5F5F3] rounded-2xl p-12">
-            <p class="text-Neutral/100 font-medium text-[2rem]">Pengumuman Terbaru</p>
+            <p class="text-Neutral/100 font-medium text-[2rem] max-lg:text-2xl">Pengumuman Terbaru</p>
             <div class="grid lg:grid-cols-3 gap-5">
                 @foreach ($data['pengumuman'] as $pengumuman)
                     <x-card.pengumuman-card :pengumuman="$pengumuman"></x-card.pengumuman-card>
@@ -152,7 +152,7 @@
     <section data-aos="fade" class="flex flex-col gap-8 mt-[8rem] mx-[3.75rem]">
         <div class="flex justify-between max-lg:flex-col max-lg:gap-5 max-lg:items-start items-center">
             <div class="flex flex-col gap-3">
-                <p class="text-[2.5rem] font-medium text-Neutral/100">Kegiatan Warga</p>
+                <p class="text-[2.5rem] font-medium text-Neutral/100 max-lg:text-[2.25rem]">Kegiatan Warga</p>
                 <p class="text-Neutral/90 text-xl">Berisi daftar informasi kegiatan warga RW 13.</p>
             </div>
             <a href="/dashboard/dokumentasi"
@@ -203,7 +203,7 @@
         document.getElementById(container).classList.remove('hidden');
     }
 </script>
-<script type="module" async>
+<script type="module">
     document.addEventListener('DOMContentLoaded', function() {
         animateValue('warga', 0, @json($data['totalWarga']), 1000, "Orang");
         animateValue('kk', 0, @json($data['totalKK']), 1000, "KK");

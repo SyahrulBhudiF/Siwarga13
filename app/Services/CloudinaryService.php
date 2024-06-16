@@ -32,25 +32,6 @@ class CloudinaryService
     }
 
     /**
-     * Create Thumbnail
-     *
-     * @param $file
-     */
-    public function createThumbnail($file)
-    {
-        $directory = public_path('thumbnail');
-
-        $imagick = new \Imagick();
-        $imagick->readImage($file->getRealPath() . '[0]');
-        $imagick->setImageFormat('jpeg');
-        $imagick->writeImage($directory . '/thumbnail.jpeg');
-
-        $url = public_path('thumbnail/thumbnail.jpeg');
-
-        return $url;
-    }
-
-    /**
      * Delete Multiple Files
      *
      * @param $files

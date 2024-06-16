@@ -6,7 +6,7 @@
         <path d="M4.75 8.75L1 5M1 5L4.75 1.25M1 5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
             stroke-linejoin="round" />
     </svg>
-    <div class="flex justify-between w-full max-lg:gap-4 p-[3.75rem] max-lg:px-4 max-lg:py-8">
+    <div class="flex justify-between w-full max-lg:gap-4 p-[3.75rem] max-lg:px-4 max-lg:py-8 max-lg:flex-col">
         <p class="text-Primary/10 font-medium text-xl">Pengumuman</p>
         <p class="text-Neutral/90 font-medium text-xl text-nowrap">{{ $data['formatted'] }}</p>
     </div>
@@ -35,8 +35,10 @@
                 <div
                     class="flex max-lg:flex-col items-center p-3 rounded-[1.25rem] bg-[#F5F5F3] justify-between w-full h-full">
                     <div class="flex items-center gap-5 max-lg:gap-3 w-full h-full">
-                        <div class="bg-Neutral/60 p-5 rounded-[1.25rem] overflow-hidden w-[20vh] h-full max-lg:h-[50%]">
-                            <img src="{{ $data['pengumuman']->path_thumbnail }}" alt="thumbnail" class="brightness-100">
+                        <div
+                            class="bg-Neutral/60 p-5 rounded-[1.25rem] overflow-hidden w-[20vh] h-full lg:flex lg:justify-center max-lg:h-[50%]">
+                            <img src="{{ $data['pengumuman']->path_thumbnail }}" alt="thumbnail"
+                                class="brightness-100 lg:w-full lg:-mb-[20%]">
                         </div>
                         <div class="flex flex-col gap-2">
                             <p class="text-xl font-medium text-Neutral/90">{{ $data['pengumuman']->file->name }}</p>

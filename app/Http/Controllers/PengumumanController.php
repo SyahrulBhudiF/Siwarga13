@@ -76,14 +76,22 @@ class PengumumanController extends Controller
             // push to cloudinary
             $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($uploadedFile, 'pdf');
 
-            $thumbnailUrl = $this->cloudinaryService->createThumbnail($uploadedFile);
+            // Membuat URL thumbnail dari PDF
+            $thumbnailUrl = Cloudinary::uploadFile($uploadedFile->getRealPath(), [
+                'folder' => 'thumbnail',
+                'resource_type' => 'image',
+                'format' => 'jpg', // Format thumbnail
+                'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
+                'transformation' => [
+                    'crop' => 'fit'
+                ],
+            ]);
 
-            // push thumbnail to cloudinary
-            $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
 
-            $requestPengumuman->merge([
-                'path_thumbnail' => $thumbnailCloudinaryData['path'],
-                'publicId' => $thumbnailCloudinaryData['publicId'],
+            // Gabungkan URL thumbnail dan public ID ke dalam requestPengumuman
+            $requestPengumuman = $requestPengumuman->merge([
+                'path_thumbnail' => $thumbnailUrl->getSecurePath(),
+                'publicId' => $thumbnailUrl->getPublicId(),
             ]);
 
             $idPengumuman = Pengumuman::insertGetId($requestPengumuman->except('file'));
@@ -98,7 +106,6 @@ class PengumumanController extends Controller
             DB::commit();
 
             return redirect()->route('pengumuman.index')->with('success', 'Berhasil menambahkan pengumuman');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal menambahkan pengumuman');
@@ -152,15 +159,20 @@ class PengumumanController extends Controller
                 // Upload file baru ke Cloudinary
                 $cloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($fileRequest->file('file'), 'pdf');
 
-                $thumbnailUrl = $this->cloudinaryService->createThumbnail($fileRequest->file('file'));
-
-                // Upload thumbnail ke Cloudinary
-                $thumbnailCloudinaryData = $this->cloudinaryService->uploadFileToCloudinary($thumbnailUrl, 'thumbnail');
+                $thumbnailUrl = Cloudinary::uploadFile($fileRequest->file('file')->getRealPath(), [
+                    'folder' => 'thumbnail',
+                    'resource_type' => 'image',
+                    'format' => 'jpg', // Format thumbnail
+                    'page' => 1,       // Mengambil halaman pertama sebagai thumbnail
+                    'transformation' => [
+                        'crop' => 'fit'
+                    ],
+                ]);
 
                 // Update data pengumuman
                 $pengumuman->update([
-                    'path_thumbnail' => $thumbnailCloudinaryData['path'],
-                    'publicId' => $thumbnailCloudinaryData['publicId'],
+                    'path_thumbnail' => $thumbnailUrl->getSecurePath(),
+                    'publicId' => $thumbnailUrl->getPublicId(),
                 ]);
                 $pengumuman->update($pengumumanRequest->except('file'));
 
@@ -172,7 +184,6 @@ class PengumumanController extends Controller
                 ]);
 
                 $isUdated = true;
-
             } elseif (!empty($pengumumanRequest->all())) {
                 // if new file is not uploaded, update pengumuman only
                 $pengumuman->update($pengumumanRequest->except('file'));
@@ -222,5 +233,4 @@ class PengumumanController extends Controller
             return redirect()->back()->with('error', 'Pengumuman tidak ditemukan');
         }
     }
-
 }

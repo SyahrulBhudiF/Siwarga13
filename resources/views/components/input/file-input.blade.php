@@ -24,4 +24,5 @@
             Upload
         </span>
     </span>
+    <span class="text-sm font-normal text-Neutral/70">Maksimal ukuran file 2Mb</span>
 </label>

@@ -80,7 +80,12 @@
         </button>
     </form>
 </main>
+<x-etc.loading></x-etc.loading>
 <script>
+    document.querySelector('button[type="submit"]').addEventListener('click', function () {
+        document.getElementById('loadingModal').style.display = 'block';
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
         const inputs = document.querySelectorAll('input');
         const submitButton = document.querySelector('button[type="submit"]');

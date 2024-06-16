@@ -5,7 +5,6 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
     ],
-    purge: ['./resources/views/**/*.blade.php', './resources/js/**/*.vue'],
     theme: {
         extend: {
             colors: {

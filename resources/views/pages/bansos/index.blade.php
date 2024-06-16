@@ -57,10 +57,15 @@
             <x-etc.spk-table :dataSpk="$listData"></x-etc.spk-table>
         </div>
     </div>
+    <x-etc.loading></x-etc.loading>
 @endsection
 @push('js')
     <script src="{{ asset('js/debounce.js') }}"></script>
     <script>
+        document.querySelector('#refresh').addEventListener('click', function () {
+            document.getElementById('loadingModal').style.display = 'block';
+        });
+
         let active = @json($data['method']);
         console.log(active);
 

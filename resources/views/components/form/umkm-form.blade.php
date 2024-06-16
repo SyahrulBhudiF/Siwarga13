@@ -42,7 +42,7 @@
 
         <div class="flex max-lg:flex-col gap-2 w-full items-center">
             <div class="w-full">
-                <x-input.number-input placeholder="Rp| Minimal (cth: 5,000)" id="harga_awal"
+                <x-input.number-input placeholder="Rp| Minimal (cth: 5000)" id="harga_awal"
                                       value="{{old('harga_awal', is_object($umkm) && isset($umkm['harga_awal']) ? $umkm['harga_awal'] : '')}}">
                     Kisaran Harga
                 </x-input.number-input>
@@ -51,7 +51,7 @@
                 @enderror
             </div>
             <div class="w-full">
-                <x-input.number-input placeholder="Rp| Maksimal (cth: 10,000)" id="harga_akhir"
+                <x-input.number-input placeholder="Rp| Maksimal (cth: 10000)" id="harga_akhir"
                                       value="{{old('harga_akhir', is_object($umkm) && isset($umkm['harga_akhir']) ? $umkm['harga_akhir'] : '')}}">
                     <div class="text-white">a</div>
                 </x-input.number-input>
