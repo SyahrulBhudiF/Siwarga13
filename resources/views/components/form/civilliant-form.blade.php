@@ -139,7 +139,8 @@
             <small class="text-[#FF0A0A] text-sm font-medium mt-2">{{$message}}</small>
             @enderror
         </div>
-        <div class="flex flex-col gap-2 w-full">
+        <div
+            class="flex flex-col gap-2 w-full {{(is_object($warga) && ($warga->status->status_hidup == 'Meninggal')) ? 'pointer-events-none': ''}}">
             <span class="text-Neutral/100 text-sm font-medium">Status Warga</span>
             <div class="flex max-lg:flex-col gap-2 items-center w-full">
                 <x-input.radio-input name="status_hidup" id="Hidup"
@@ -165,7 +166,8 @@
             <small class="text-[#FF0A0A] text-sm font-medium">{{$message}}</small>
             @enderror
         </div>
-        <div class="w-full">
+        <div
+            class="w-full {{(is_object($warga) && ($warga->status->status_hidup == 'Meninggal')) ? 'pointer-events-none': ''}}">
             <x-input.number-input id="pendapatan"
                                   value="{{old('pendapatan',is_object($warga) && isset($warga['pendapatan']) ? $warga['pendapatan'] : 0)}}"
                                   placeholder="Rp|..">Pendapatan Perbulan (Opsional)

@@ -5,8 +5,8 @@
         init="false" pagination-clickable="true" space-between="30" effect="fade" navigation="true">
         @foreach ($dt as $data)
             <swiper-slide>
-                <div class="image flex justify-center">
-                    <img src="{{ $data->path }}" alt="image" class="w-full h-full" loading="lazy">
+                <div class="image flex justify-center w-full h-[35rem] max-2xl:h-[30rem] max-sm:h-[20rem]">
+                    <img src="{{ $data->path }}" alt="image" class="w-full h-full object-cover" loading="lazy">
                 </div>
             </swiper-slide>
         @endforeach

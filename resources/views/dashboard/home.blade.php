@@ -81,7 +81,7 @@
     <section id="chartSect" class="flex flex-col lg:grid lg:grid-cols-2 gap-[3.75rem] m-[3.75rem]">
         <div class="flex flex-col gap-5" data-aos="fade-right">
             <div>
-                <p class="text-Neutral/100 font-medium text-[2.5rem]">Visualisasi Data Warga RW 13</p>
+                <p class="text-Neutral/100 font-medium text-[2.5rem] max-lg:text-[2rem]">Visualisasi Data Warga RW 13</p>
                 <p class="text-xl text-Neutral/90">Dapatkan informasi visual mengenai beberapa kategori dalam data
                     warga
                     RW
@@ -137,7 +137,7 @@
         <x-etc.title-content title="Pengumuman"
             desc="Berisi list pengumuman yang berfungsi untuk memberi informasi kepada warga RW 13."></x-etc.title-content>
         <div class="flex flex-col gap-6 bg-[#F5F5F3] rounded-2xl p-12">
-            <p class="text-Neutral/100 font-medium text-[2rem]">Pengumuman Terbaru</p>
+            <p class="text-Neutral/100 font-medium text-[2rem] max-lg:text-2xl">Pengumuman Terbaru</p>
             <div class="grid lg:grid-cols-3 gap-5">
                 @foreach ($data['pengumuman'] as $pengumuman)
                     <x-card.pengumuman-card :pengumuman="$pengumuman"></x-card.pengumuman-card>
@@ -152,7 +152,7 @@
     <section data-aos="fade" class="flex flex-col gap-8 mt-[8rem] mx-[3.75rem]">
         <div class="flex justify-between max-lg:flex-col max-lg:gap-5 max-lg:items-start items-center">
             <div class="flex flex-col gap-3">
-                <p class="text-[2.5rem] font-medium text-Neutral/100">Kegiatan Warga</p>
+                <p class="text-[2.5rem] font-medium text-Neutral/100 max-lg:text-[2.25rem]">Kegiatan Warga</p>
                 <p class="text-Neutral/90 text-xl">Berisi daftar informasi kegiatan warga RW 13.</p>
             </div>
             <a href="/dashboard/dokumentasi"
