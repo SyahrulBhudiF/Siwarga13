@@ -1,2 +1,0 @@
-[phases.build]
-cmds = ['pnpm run build', 'php artisan route:clear', 'php artisan optimize']
