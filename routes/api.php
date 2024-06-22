@@ -16,9 +16,4 @@ require_once app_path('Helpers/RouteHelper.php');
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 loadRoutes(__DIR__ . '/Handler/api');
