@@ -38,6 +38,7 @@ class StoreImageRequest extends FormRequest
         return [
             'file1' => [
                 'bail',
+                'required',
                 'max:2048',
             ],
             'file2' => [
