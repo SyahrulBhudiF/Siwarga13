@@ -24,7 +24,7 @@ class DashboardController extends Controller
             'active' => 'beranda',
             'totalWarga' => Warga::count(),
             'totalKK' => Keluarga::count(),
-            'pengumuman' => Pengumuman::orderBy('created_at', 'desc')->take(3)->get(),
+            'pengumuman' => Pengumuman::orderBy('id_pengumuman', 'desc')->take(3)->get(),
             'dokumentasi' => Dokumentasi::with('file:id_file,id_dokumentasi,path')->take(5)->get(),
             'umkm' => Umkm::with('file:id_file,id_umkm,path')->take(3)->get(),
             'countRt' => Alamat::selectRaw('rt, count(*) as count')->groupBy('rt')->pluck('count', 'rt'),
@@ -40,7 +40,7 @@ class DashboardController extends Controller
     {
         $data = [
             'active' => 'pengumuman',
-            'pengumuman' => Pengumuman::orderBy('created_at', 'desc')->paginate(6)
+            'pengumuman' => Pengumuman::orderBy('id_pengumuman', 'desc')->paginate(6)
         ];
 
         return view('dashboard.pengumuman.index', compact('data'));
