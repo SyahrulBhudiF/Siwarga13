@@ -38,27 +38,28 @@ class StoreImageRequest extends FormRequest
         return [
             'file1' => [
                 'bail',
-                'max:5120',
+                'required',
+                'max:2048',
             ],
             'file2' => [
                 'bail',
-                'max:5120',
+                'max:2048',
             ],
             'file3' => [
                 'bail',
-                'max:5120',
+                'max:2048',
             ],
             'file4' => [
                 'bail',
-                'max:5120',
+                'max:2048',
             ],
             'file5' => [
                 'bail',
-                'max:5120',
+                'max:2048',
             ],
             'file6' => [
                 'bail',
-                'max:5120',
+                'max:2048',
             ],
         ];
     }

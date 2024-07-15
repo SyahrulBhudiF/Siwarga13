@@ -7,7 +7,6 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Web untuk Administrasi dan dokumentasi kegiatan warga RW13">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Siwarga13</title>
     <script src="https://unpkg.com/tiny-markdown-editor/dist/tiny-mde.min.js"></script>

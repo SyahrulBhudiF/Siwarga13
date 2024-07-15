@@ -14,10 +14,14 @@ require_once app_path('Helpers/RouteHelper.php');
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+loadRoutes(__DIR__ . '/Handler/web');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::fallback(function () {
+    return redirect('/dashboard');
+});
 
-loadRoutes(__DIR__ . '/Handler/web');
+

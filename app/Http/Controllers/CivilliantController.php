@@ -128,7 +128,17 @@ class CivilliantController extends Controller
             'head' => 'Detail Warga',
         ];
 
-        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
+        if (Auth::user()->role == 'RW') {
+            $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->findOrFail($id);
+
+        } else {
+            $warga = Warga::with('alamat', 'status')
+                ->whereHas('alamat', function ($query) {
+                    $query->where('rt', Auth::user()->role);
+                })
+                ->orderBy('noKK', 'asc')->findOrFail($id);
+        }
+
         $warga = convertTTL($warga);
 
         return view('pages.civillian.detail', compact('data', 'warga'));
@@ -147,7 +157,17 @@ class CivilliantController extends Controller
             'head' => 'Ubah Data Warga',
         ];
 
-        $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->find($id);
+        if (Auth::user()->role == 'RW') {
+            $warga = Warga::with('alamat', 'status')->orderBy('noKK', 'asc')->findOrFail($id);
+
+        } else {
+            $warga = Warga::with('alamat', 'status')
+                ->whereHas('alamat', function ($query) {
+                    $query->where('rt', Auth::user()->role);
+                })
+                ->orderBy('noKK', 'asc')->findOrFail($id);
+        }
+        
         $warga = convertTTL($warga);
 
         return view('pages.civillian.edit', compact('data', 'warga'));
