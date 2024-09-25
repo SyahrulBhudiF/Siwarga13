@@ -9,6 +9,10 @@
 > are
 > not supported.
 
+![MacBook Air - 223](https://github.com/user-attachments/assets/b39dc14d-1cca-4ddc-ba38-dd88d294e114)
+![MacBook Air - 222](https://github.com/user-attachments/assets/a6080a90-5035-4506-8fae-703b45ff9ea7)
+
+
 ### **Tech Stack:**
 
 ---
